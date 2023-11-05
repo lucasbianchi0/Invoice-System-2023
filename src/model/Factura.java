@@ -6,16 +6,18 @@ import java.util.List;
 
 public class Factura extends Documento {
 
-    private Usuario supervisor;
+    // private Usuario supervisor;
     private ResponsabilidadIVA responsabilidadIVA;
     private List<DetalleFactura> detalleFactura;
     private Documento documento;
     private String razonSocial;
     private OrdenDeCompra ordenDeCompra;
 
-    public Factura(int cuitProveedor, Collection<ProductoOServicio> productoOServicio, int numero, Date fecha, Usuario supervisor, ResponsabilidadIVA responsabilidadIVA, List<DetalleFactura> detalleFactura, Documento documento, String razonSocial, OrdenDeCompra ordenDeCompra) {
+//    saque  Usuario supervisor de lo que recibe facture
+//    Usuario supervisor
+    public Factura(int cuitProveedor, Collection<ProductoOServicio> productoOServicio, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, List<DetalleFactura> detalleFactura, Documento documento, String razonSocial, OrdenDeCompra ordenDeCompra) {
         super(cuitProveedor, productoOServicio, numero, fecha);
-        this.supervisor = supervisor;
+//        this.supervisor = supervisor;
         this.responsabilidadIVA = responsabilidadIVA;
         this.detalleFactura = detalleFactura;
         this.documento = documento;
@@ -23,13 +25,13 @@ public class Factura extends Documento {
         this.ordenDeCompra = ordenDeCompra;
     }
 
-    public Usuario getSupervisor() {
-        return supervisor;
-    }
+//    public Usuario getSupervisor() {
+//        return supervisor;
+//    }
 
-    public void setSupervisor(Usuario supervisor) {
-        this.supervisor = supervisor;
-    }
+//    public void setSupervisor(Usuario supervisor) {
+//        this.supervisor = supervisor;
+//    }
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
         return responsabilidadIVA;
