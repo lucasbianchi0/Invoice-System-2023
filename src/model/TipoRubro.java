@@ -1,6 +1,7 @@
 package model;
 
 public enum TipoRubro {
+
     MEDICINA_PREPAGA,
     VIATICOS_Y_MOVILIDAD,
     MANTENIMIENTO_DE_MUEBLES_E_INSTALACIONES,
