@@ -5,13 +5,14 @@ import java.util.Date;
 
 public abstract class Documento {
     private int cuitProveedor;
-    private Collection<ProductoOServicio> productoOServicio;
+//    private Collection<ProductoOServicio> productoOServicio;
     private int numero;
     private Date fecha;
 
-    public Documento(int cuitProveedor, Collection<ProductoOServicio> productoOServicio, int numero, Date fecha) {
+//    Collection<ProductoOServicio> productoOServicio,
+    public Documento(int cuitProveedor,  int numero, Date fecha) {
         this.cuitProveedor = cuitProveedor;
-        this.productoOServicio = productoOServicio;
+//        this.productoOServicio = productoOServicio;
         this.numero = numero;
         this.fecha = fecha;
     }
@@ -24,13 +25,13 @@ public abstract class Documento {
         this.cuitProveedor = cuitProveedor;
     }
 
-    public Collection<ProductoOServicio> getProductoOServicio() {
-        return productoOServicio;
-    }
-
-    public void setProductoOServicio(Collection<ProductoOServicio> productoOServicio) {
-        this.productoOServicio = productoOServicio;
-    }
+//    public Collection<ProductoOServicio> getProductoOServicio() {
+//        return productoOServicio;
+//    }
+//
+//    public void setProductoOServicio(Collection<ProductoOServicio> productoOServicio) {
+//        this.productoOServicio = productoOServicio;
+//    }
 
     public int getNumero() {
         return numero;
