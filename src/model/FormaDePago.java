@@ -1,6 +1,6 @@
 package model;
 
-public class FormaDePago {
+public abstract class FormaDePago {
     private int importe;
 
     public FormaDePago(int importe) {
@@ -14,4 +14,9 @@ public class FormaDePago {
     public void setImporte(int importe) {
         this.importe = importe;
     }
+
 }
+
+// Método abstracto
+
+

@@ -1,22 +1,34 @@
 package model;
 
+import java.util.ArrayList;
+
 public class OrdenDePago {
-    private int ordenDePagoID;
+    private ArrayList<Documento> documentosAsociados;
+    private double totalACancelar;
     private FormaDePago formaDePago;
-    private int numeroDePago;
+    private double totalRetenciones;
 
-    public OrdenDePago(int ordenDePagoID, FormaDePago formaDePago, int numeroDePago) {
-        this.ordenDePagoID = ordenDePagoID;
+    public OrdenDePago(ArrayList<Documento> documentosAsociados, double totalACancelar, FormaDePago formaDePago, double totalRetenciones) {
+        this.documentosAsociados = documentosAsociados;
+        this.totalACancelar = totalACancelar;
         this.formaDePago = formaDePago;
-        this.numeroDePago = numeroDePago;
+        this.totalRetenciones = totalRetenciones;
     }
 
-    public int getOrdenDePagoID() {
-        return ordenDePagoID;
+    public ArrayList<Documento> getDocumentosAsociados() {
+        return documentosAsociados;
     }
 
-    public void setOrdenDePagoID(int ordenDePagoID) {
-        this.ordenDePagoID = ordenDePagoID;
+    public void setDocumentosAsociados(ArrayList<Documento> documentosAsociados) {
+        this.documentosAsociados = documentosAsociados;
+    }
+
+    public double getTotalACancelar() {
+        return totalACancelar;
+    }
+
+    public void setTotalACancelar(double totalACancelar) {
+        this.totalACancelar = totalACancelar;
     }
 
     public FormaDePago getFormaDePago() {
@@ -27,11 +39,11 @@ public class OrdenDePago {
         this.formaDePago = formaDePago;
     }
 
-    public int getNumeroDePago() {
-        return numeroDePago;
+    public double getTotalRetenciones() {
+        return totalRetenciones;
     }
 
-    public void setNumeroDePago(int numeroDePago) {
-        this.numeroDePago = numeroDePago;
+    public void setTotalRetenciones(double totalRetenciones) {
+        this.totalRetenciones = totalRetenciones;
     }
 }

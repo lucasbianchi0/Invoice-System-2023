@@ -1,17 +1,10 @@
 package model;
 
-public class Efectivo {
-    private FormaDePago formaDePago;
+public class Efectivo extends FormaDePago {
 
-    public Efectivo(FormaDePago formaDePago) {
-        this.formaDePago = formaDePago;
+    public Efectivo(int importe) {
+        super(importe);
     }
 
-    public FormaDePago getFormaDePago() {
-        return formaDePago;
-    }
 
-    public void setFormaDePago(FormaDePago formaDePago) {
-        this.formaDePago = formaDePago;
-    }
 }

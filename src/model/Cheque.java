@@ -2,18 +2,17 @@ package model;
 
 import java.util.Date;
 
-public class Cheque {
-    private Date fechaEmision;
-    private Date fechaVencimiento;
-    private  String firma;
-    private FormaDePago formaDePago;
+public class Cheque extends FormaDePago {
+        private Date fechaEmision;
+        private Date fechaVencimiento;
+        private  String firma;
 
-
-    public Cheque(Date fechaEmision, Date fechaVencimiento, String firma, FormaDePago formaDePago) {
+    public Cheque(int importe, Date fechaEmision, Date fechaVencimiento, String firma) {
+        super(importe);
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.firma = firma;
-        this.formaDePago = formaDePago;
+
     }
 
     public Date getFechaEmision() {
@@ -40,11 +39,4 @@ public class Cheque {
         this.firma = firma;
     }
 
-    public FormaDePago getFormaDePago() {
-        return formaDePago;
-    }
-
-    public void setFormaDePago(FormaDePago formaDePago) {
-        this.formaDePago = formaDePago;
-    }
 }

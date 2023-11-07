@@ -6,21 +6,20 @@ import java.util.List;
 public class OrdenDeCompra {
 
     private int ordenDeCompraID;
-    private Empresa empresa;
+//    private Empresa empresa;
     private List<ProductoOServicio> productoOServicio;
-    private Proveedor proveedor;
+    private String razonSocial;
     private Float precioAcordado;
     private Date fecha;
-    private int cantidad;
+//    private int cantidad;
 
-    public OrdenDeCompra(int ordenDeCompraID, Empresa empresa, List<ProductoOServicio> productoOServicio, Proveedor proveedor, Float precioAcordado, Date fecha, int cantidad) {
+
+    public OrdenDeCompra(int ordenDeCompraID, List<ProductoOServicio> productoOServicio, String razonSocial, Float precioAcordado, Date fecha) {
         this.ordenDeCompraID = ordenDeCompraID;
-        this.empresa = empresa;
         this.productoOServicio = productoOServicio;
-        this.proveedor = proveedor;
+        this.razonSocial = razonSocial;
         this.precioAcordado = precioAcordado;
         this.fecha = fecha;
-        this.cantidad = cantidad;
     }
 
     public int getOrdenDeCompraID() {
@@ -31,14 +30,6 @@ public class OrdenDeCompra {
         this.ordenDeCompraID = ordenDeCompraID;
     }
 
-    public Empresa getEmpresa() {
-        return empresa;
-    }
-
-    public void setEmpresa(Empresa empresa) {
-        this.empresa = empresa;
-    }
-
     public List<ProductoOServicio> getProductoOServicio() {
         return productoOServicio;
     }
@@ -47,12 +38,12 @@ public class OrdenDeCompra {
         this.productoOServicio = productoOServicio;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
     public Float getPrecioAcordado() {
@@ -69,13 +60,5 @@ public class OrdenDeCompra {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
     }
 }

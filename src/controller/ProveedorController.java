@@ -31,7 +31,19 @@ public class ProveedorController {
         Proveedor proveedor5 = new Proveedor(333333333, "Proveedor C", "Empresa E", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
         proveedores.add(proveedor5);
     }
-    public ArrayList<Proveedor> getProveedores() {
-        return proveedores;
+    public void getProveedores() {
+        if(proveedores.size() > 0){
+            for (Proveedor proveedor : proveedores) {
+                System.out.println(proveedor.getNombre());
+                // ... puedes acceder a otros atributos y métodos de Factura aquí
+            }
+        }else{
+            System.out.println("esta vacia ");
+        }
+
+    }
+
+    public void facturaPorFechaYProveedor(){
+
     }
 }
