@@ -10,9 +10,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ProveedorController {
-    private ArrayList<Proveedor> proveedores = new ArrayList<>();
+    private ArrayList<Proveedor> proveedores;
+    private static ProveedorController instancia;
+    private ProveedorController (){
+        proveedores = new ArrayList<>();
 
-    public void crearProveedores(){
         CertificadoDeNoRetencion certificado1 = new CertificadoDeNoRetencion(new Date(), true);
         CertificadoDeNoRetencion certificado2 = new CertificadoDeNoRetencion(new Date(), false);
         CertificadoDeNoRetencion certificado3 = new CertificadoDeNoRetencion(new Date(), true);
@@ -31,6 +33,14 @@ public class ProveedorController {
         Proveedor proveedor5 = new Proveedor(333333333, "Proveedor C", "Empresa E", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
         proveedores.add(proveedor5);
     }
+
+    public static ProveedorController getInstancia() {
+        if (instancia == null) {
+            instancia = new ProveedorController();
+        }
+        return instancia;
+    }
+
     public void getProveedores() {
         if(proveedores.size() > 0){
             for (Proveedor proveedor : proveedores) {
@@ -40,7 +50,6 @@ public class ProveedorController {
         }else{
             System.out.println("esta vacia ");
         }
-
     }
 
     public void facturaPorFechaYProveedor(){

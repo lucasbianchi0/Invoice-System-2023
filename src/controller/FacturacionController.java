@@ -9,12 +9,94 @@ import java.util.Date;
 
 
 public class FacturacionController {
+    private static FacturacionController instancia;
+    private ArrayList<OrdenDeCompra> ordenesDeCompra;
+    private ArrayList<OrdenDePago> ordenesDePago;
+    private ArrayList<Factura> facturas;
+    ArrayList<Factura> totalFacturasPorDiaYProveedor = new ArrayList<>();
+
+    private FacturacionController() {
+        ordenesDeCompra = new ArrayList<>();
+        ordenesDePago = new ArrayList<>();
+        facturas = new ArrayList<>();
+        try {
+//                                                               SE AGREGAN FACTURAS
+            Factura factura1 = new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123");
+            facturas.add(factura1);
+
+            Factura factura2 = new Factura(987654321, 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456");
+            facturas.add(factura2);
+
+            Factura factura3 = new Factura(111111111, 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789");
+            facturas.add(factura3);
+
+            Factura factura4 = new Factura(222222222, 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012");
+            facturas.add(factura4);
+
+            Factura factura5 = new Factura(333333333, 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345");
+            facturas.add(factura5);
+
+//                                                              SE AGREGAN ORDEN DE PAGO
+
+            Cheque cheque1 = new Cheque(1000, new Date(), new Date(), "Firma1");
+            Cheque cheque2 = new Cheque(2000, new Date(), new Date(), "Firma2");
+
+            // Crear lista de documentos asociados a la primera OrdenDePago
+            ArrayList<Documento> documentosOrden1 = new ArrayList<>();
+            documentosOrden1.add(new NotaDeDebito(123456789, 1, new Date())); // Ejemplo de NotaDebito
+            documentosOrden1.add(new NotaDeCredito(987654321, 2, new Date())); // Ejemplo de NotaCredito
+
+            // Crear lista de documentos asociados a la segunda OrdenDePago
+            ArrayList<Documento> documentosOrden2 = new ArrayList<>();
+            documentosOrden2.add(new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123")); // Ejemplo de Factura
+
+            // Crear la primera OrdenDePago con cheques como forma de pago
+            OrdenDePago orden1 = new OrdenDePago(documentosOrden1, 3000.00, cheque1, 200.00);
+
+            // Crear la segunda OrdenDePago con cheques como forma de pago
+            OrdenDePago orden2 = new OrdenDePago(documentosOrden2, 2000.00, cheque2, 150.00);
+
+            // Crear la tercera OrdenDePago con efectivo como forma de pago
+            Efectivo efectivo1 = new Efectivo(5000);
+            OrdenDePago orden3 = new OrdenDePago(documentosOrden2, 5000.00, efectivo1, 300.00);
 
 
-    ArrayList<OrdenDeCompra> ordenesDeCompra = new ArrayList<>();
-    ArrayList totalFacturasPorDiaYProveedor = new ArrayList<>();
-    ArrayList<OrdenDePago> ordenDePagos = new ArrayList<>();
-    private ArrayList<Factura> facturas = new ArrayList<>();
+            ordenesDePago.add(orden1);
+            ordenesDePago.add(orden2);
+            ordenesDePago.add(orden3);
+
+//                                                              SE AGREGAN ORDEN DE COMPRA
+
+            ArrayList<ProductoOServicio> productos = new ArrayList<>();
+//        INSTANCIO PRODUCTOS
+            ProductoOServicio producto1=new ProductoOServicio(1,"remera", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
+            ProductoOServicio producto2=new ProductoOServicio(2,"remeron", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
+
+            productos.add(producto1);
+            productos.add(producto2);
+
+
+            OrdenDeCompra odc1 =new OrdenDeCompra(1,productos ,"accedra",3.14f, new Date());
+            OrdenDeCompra odc2 =new OrdenDeCompra(1,productos ,"JUANITA",3.14f, new Date());
+            ordenesDeCompra.add(odc1);
+            ordenesDeCompra.add(odc2);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public static FacturacionController
+    getInstancia() {
+        if (instancia == null) {
+            instancia = new FacturacionController();
+        }
+        return instancia;
+    }
+
+
+
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 
@@ -69,46 +151,10 @@ public class FacturacionController {
     }
 
     //    LOGICA OBTENER ORDENES DE PAGO
-    public void crearOrdenesDePago() {
-
-
-        try {
-            Cheque cheque1 = new Cheque(1000, new Date(), new Date(), "Firma1");
-            Cheque cheque2 = new Cheque(2000, new Date(), new Date(), "Firma2");
-
-            // Crear lista de documentos asociados a la primera OrdenDePago
-            ArrayList<Documento> documentosOrden1 = new ArrayList<>();
-            documentosOrden1.add(new NotaDeDebito(123456789, 1, new Date())); // Ejemplo de NotaDebito
-            documentosOrden1.add(new NotaDeCredito(987654321, 2, new Date())); // Ejemplo de NotaCredito
-
-            // Crear lista de documentos asociados a la segunda OrdenDePago
-            ArrayList<Documento> documentosOrden2 = new ArrayList<>();
-            documentosOrden2.add(new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123")); // Ejemplo de Factura
-
-            // Crear la primera OrdenDePago con cheques como forma de pago
-            OrdenDePago orden1 = new OrdenDePago(documentosOrden1, 3000.00, cheque1, 200.00);
-
-            // Crear la segunda OrdenDePago con cheques como forma de pago
-            OrdenDePago orden2 = new OrdenDePago(documentosOrden2, 2000.00, cheque2, 150.00);
-
-            // Crear la tercera OrdenDePago con efectivo como forma de pago
-            Efectivo efectivo1 = new Efectivo(5000);
-            OrdenDePago orden3 = new OrdenDePago(documentosOrden2, 5000.00, efectivo1, 300.00);
-
-
-            ordenDePagos.add(orden1);
-            ordenDePagos.add(orden2);
-            ordenDePagos.add(orden3);
-
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void getOrdenesDePago() {
-        if (ordenDePagos.size() > 0) {
-            for (OrdenDePago orden : ordenDePagos) {
+        if (ordenesDePago.size() > 0) {
+            for (OrdenDePago orden : ordenesDePago) {
                 System.out.print("Documentos Asociados: ");
                 for (Documento documento : orden.getDocumentosAsociados()) {
                     System.out.print(documento.getNumero() + " ");
@@ -122,22 +168,7 @@ public class FacturacionController {
             System.out.println("No hay órdenes de pago disponibles.");
         }
     }
-    public void crearOrdenesDeCompra(){
-//       LISTA
-        ArrayList<ProductoOServicio> productos = new ArrayList<>();
-//        INSTANCIO PRODUCTOS
-        ProductoOServicio producto1=new ProductoOServicio(1,"remera", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
-        ProductoOServicio producto2=new ProductoOServicio(2,"remeron", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
 
-        productos.add(producto1);
-        productos.add(producto2);
-
-
-        OrdenDeCompra odc1 =new OrdenDeCompra(1,productos ,"accedra",3.14f, new Date());
-        OrdenDeCompra odc2 =new OrdenDeCompra(1,productos ,"JUANITA",3.14f, new Date());
-        ordenesDeCompra.add(odc1);
-        ordenesDeCompra.add(odc2);
-    }
 
     public void obtenerOrdenesDeCompra(){
         for ( OrdenDeCompra x : ordenesDeCompra){

@@ -12,22 +12,14 @@ import java.util.Date;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        FacturacionController controlador = new FacturacionController();
-        ProveedorController proveedorControlador = new ProveedorController();
+//        FacturacionController controlador = new FacturacionController();
+        FacturacionController controlador = FacturacionController.getInstancia();
+        ProveedorController proveedorControlador = ProveedorController.getInstancia();
 
 
-//        SE CREAN FACTURAS - PROVEEDORES - ORDENES DE PAGO - ORDENES DE COMPRA
-        controlador.crearYAgregarFacturas();
-        proveedorControlador.crearProveedores();
-        controlador.crearOrdenesDePago();
-        controlador.crearOrdenesDeCompra();
-
-//        SE OBTIENE FACTURAS - PROVEEDORES CREADOS
+////        SE OBTIENE FACTURAS - PROVEEDORES CREADOS
         controlador.getFacturas();
         proveedorControlador.getProveedores();
-
-
-
 
 
 //      LOGICA FACTURAS POR FECHA Y PROVEEDOR
