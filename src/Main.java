@@ -17,9 +17,10 @@ public class Main {
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
 
 
-////        SE OBTIENE FACTURAS - PROVEEDORES CREADOS
+////        SE OBTIENE FACTURAS - PROVEEDORES CREADOS - PRODUCTOS
         controlador.getFacturas();
         proveedorControlador.getProveedores();
+        controlador.getProductos();
 
 
 //      LOGICA FACTURAS POR FECHA Y PROVEEDOR
@@ -45,6 +46,6 @@ public class Main {
 
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();
-        controlador.obtenerOrdenDeCompra("JUANITA");
+//        controlador.obtenerOrdenDeCompra("JUANITA");
     }
 }

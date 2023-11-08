@@ -8,16 +8,17 @@ public class ProductoOServicio {
     private ResponsabilidadIVA responsabilidadIVA;
 
     private String cuitProveedor;
+    private TipoRubro tipoRubro;
 //    private Proveedor proveedor;
 
-
-    public ProductoOServicio(int productID, String nombre, String unidades, Float precioUnidad, ResponsabilidadIVA responsabilidadIVA, String cuitProveedor) {
+    public ProductoOServicio(int productID, String nombre, String unidades, Float precioUnidad, ResponsabilidadIVA responsabilidadIVA, String cuitProveedor, TipoRubro tipoRubro) {
         this.productID = productID;
         this.nombre = nombre;
         this.unidades = unidades;
         this.precioUnidad = precioUnidad;
         this.responsabilidadIVA = responsabilidadIVA;
         this.cuitProveedor = cuitProveedor;
+        this.tipoRubro = tipoRubro;
     }
 
     public int getProductID() {
@@ -66,6 +67,14 @@ public class ProductoOServicio {
 
     public void setCuitProveedor(String cuitProveedor) {
         this.cuitProveedor = cuitProveedor;
+    }
+
+    public TipoRubro getTipoRubro() {
+        return tipoRubro;
+    }
+
+    public void setTipoRubro(TipoRubro tipoRubro) {
+        this.tipoRubro = tipoRubro;
     }
 }
 

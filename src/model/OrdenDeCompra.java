@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,14 +8,14 @@ public class OrdenDeCompra {
 
     private int ordenDeCompraID;
 //    private Empresa empresa;
-    private List<ProductoOServicio> productoOServicio;
+    private ArrayList<ProductoOServicio> productoOServicio;
     private String razonSocial;
     private Float precioAcordado;
     private Date fecha;
 //    private int cantidad;
 
 
-    public OrdenDeCompra(int ordenDeCompraID, List<ProductoOServicio> productoOServicio, String razonSocial, Float precioAcordado, Date fecha) {
+    public OrdenDeCompra(int ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicio, String razonSocial, Float precioAcordado, Date fecha) {
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicio = productoOServicio;
         this.razonSocial = razonSocial;
@@ -30,11 +31,11 @@ public class OrdenDeCompra {
         this.ordenDeCompraID = ordenDeCompraID;
     }
 
-    public List<ProductoOServicio> getProductoOServicio() {
+    public ArrayList<ProductoOServicio> getProductoOServicio() {
         return productoOServicio;
     }
 
-    public void setProductoOServicio(List<ProductoOServicio> productoOServicio) {
+    public void setProductoOServicio(ArrayList<ProductoOServicio> productoOServicio) {
         this.productoOServicio = productoOServicio;
     }
 
