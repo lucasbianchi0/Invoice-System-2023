@@ -16,10 +16,11 @@ public class Main {
         ProveedorController proveedorControlador = new ProveedorController();
 
 
-//        SE CREAN FACTURAS - PROVEEDORES - ORDENES DE PAGO
+//        SE CREAN FACTURAS - PROVEEDORES - ORDENES DE PAGO - ORDENES DE COMPRA
         controlador.crearYAgregarFacturas();
         proveedorControlador.crearProveedores();
         controlador.crearOrdenesDePago();
+        controlador.crearOrdenesDeCompra();
 
 //        SE OBTIENE FACTURAS - PROVEEDORES CREADOS
         controlador.getFacturas();
@@ -50,5 +51,8 @@ public class Main {
         //    LOGICA OBTENER ORDENES DE PAGO
         controlador.getOrdenesDePago();
 
+//        TRAER ORDENES DE COMPRA
+        controlador.obtenerOrdenesDeCompra();
+        controlador.obtenerOrdenDeCompra("JUANITA");
     }
 }

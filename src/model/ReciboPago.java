@@ -6,17 +6,17 @@ public class ReciboPago {
     private int numeroRecibo;
     private Date fechaEmision;
     private FormaDePago formaDePago;
-    private Proveedor proveedor;
+    private String cuitProveedor;
     private Factura factura;
-    private OrdenDePago ordenDePago;
+    private String ordenDePagoID;
 
-    public ReciboPago(int numeroRecibo, Date fechaEmision, FormaDePago formaDePago, Proveedor proveedor, Factura factura, OrdenDePago ordenDePago) {
+    public ReciboPago(int numeroRecibo, Date fechaEmision, FormaDePago formaDePago, String cuitProveedor, Factura factura, String ordenDePagoID) {
         this.numeroRecibo = numeroRecibo;
         this.fechaEmision = fechaEmision;
         this.formaDePago = formaDePago;
-        this.proveedor = proveedor;
+        this.cuitProveedor = cuitProveedor;
         this.factura = factura;
-        this.ordenDePago = ordenDePago;
+        this.ordenDePagoID = ordenDePagoID;
     }
 
     public int getNumeroRecibo() {
@@ -43,12 +43,12 @@ public class ReciboPago {
         this.formaDePago = formaDePago;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public String getCuitProveedor() {
+        return cuitProveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setCuitProveedor(String cuitProveedor) {
+        this.cuitProveedor = cuitProveedor;
     }
 
     public Factura getFactura() {
@@ -59,11 +59,11 @@ public class ReciboPago {
         this.factura = factura;
     }
 
-    public OrdenDePago getOrdenDePago() {
-        return ordenDePago;
+    public String getOrdenDePagoID() {
+        return ordenDePagoID;
     }
 
-    public void setOrdenDePago(OrdenDePago ordenDePago) {
-        this.ordenDePago = ordenDePago;
+    public void setOrdenDePagoID(String ordenDePagoID) {
+        this.ordenDePagoID = ordenDePagoID;
     }
 }

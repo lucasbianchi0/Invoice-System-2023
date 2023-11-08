@@ -5,16 +5,19 @@ public class ProductoOServicio {
     private String nombre;
     private String unidades;
     private Float precioUnidad;
-    private Float tipoDelIVA;
-    private Proveedor proveedor;
+    private ResponsabilidadIVA responsabilidadIVA;
 
-    public ProductoOServicio(int productID, String nombre, String unidades, Float precioUnidad, Float tipoDelIVA, Proveedor proveedor) {
+    private String cuitProveedor;
+//    private Proveedor proveedor;
+
+
+    public ProductoOServicio(int productID, String nombre, String unidades, Float precioUnidad, ResponsabilidadIVA responsabilidadIVA, String cuitProveedor) {
         this.productID = productID;
         this.nombre = nombre;
         this.unidades = unidades;
         this.precioUnidad = precioUnidad;
-        this.tipoDelIVA = tipoDelIVA;
-        this.proveedor = proveedor;
+        this.responsabilidadIVA = responsabilidadIVA;
+        this.cuitProveedor = cuitProveedor;
     }
 
     public int getProductID() {
@@ -49,19 +52,21 @@ public class ProductoOServicio {
         this.precioUnidad = precioUnidad;
     }
 
-    public Float getTipoDelIVA() {
-        return tipoDelIVA;
+    public ResponsabilidadIVA getResponsabilidadIVA() {
+        return responsabilidadIVA;
     }
 
-    public void setTipoDelIVA(Float tipoDelIVA) {
-        this.tipoDelIVA = tipoDelIVA;
+    public void setResponsabilidadIVA(ResponsabilidadIVA responsabilidadIVA) {
+        this.responsabilidadIVA = responsabilidadIVA;
     }
 
-    public Proveedor getProveedor() {
-        return proveedor;
+    public String getCuitProveedor() {
+        return cuitProveedor;
     }
 
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
+    public void setCuitProveedor(String cuitProveedor) {
+        this.cuitProveedor = cuitProveedor;
     }
 }
+
+

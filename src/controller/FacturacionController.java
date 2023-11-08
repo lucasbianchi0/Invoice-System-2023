@@ -122,4 +122,41 @@ public class FacturacionController {
             System.out.println("No hay órdenes de pago disponibles.");
         }
     }
+    public void crearOrdenesDeCompra(){
+//       LISTA
+        ArrayList<ProductoOServicio> productos = new ArrayList<>();
+//        INSTANCIO PRODUCTOS
+        ProductoOServicio producto1=new ProductoOServicio(1,"remera", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
+        ProductoOServicio producto2=new ProductoOServicio(2,"remeron", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit" );
+
+        productos.add(producto1);
+        productos.add(producto2);
+
+
+        OrdenDeCompra odc1 =new OrdenDeCompra(1,productos ,"accedra",3.14f, new Date());
+        OrdenDeCompra odc2 =new OrdenDeCompra(1,productos ,"JUANITA",3.14f, new Date());
+        ordenesDeCompra.add(odc1);
+        ordenesDeCompra.add(odc2);
+    }
+
+    public void obtenerOrdenesDeCompra(){
+        for ( OrdenDeCompra x : ordenesDeCompra){
+            System.out.println("------");
+            System.out.println(x.getRazonSocial());
+            System.out.println(x.getFecha());
+            System.out.println(x.getProductoOServicio());
+        }
+    }
+
+    public void obtenerOrdenDeCompra(String razonSocial){
+        for ( OrdenDeCompra x : ordenesDeCompra){
+            if(x.getRazonSocial().equals(razonSocial)){
+                System.out.println("------");
+                System.out.println("encontre este");
+                System.out.println(x.getRazonSocial());
+            }
+
+        }
+    }
+
 }
