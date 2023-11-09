@@ -15,6 +15,12 @@ public class Cheque extends FormaDePago {
 
     }
 
+    @Override
+    public String toString() {
+        return "Cheque [fechaEmision=" + fechaEmision + ", fechaVencimiento=" + fechaVencimiento + ", firma=" + firma + "]";
+    }
+
+
     public Date getFechaEmision() {
         return fechaEmision;
     }

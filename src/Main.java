@@ -44,6 +44,9 @@ public class Main {
         //    LOGICA OBTENER ORDENES DE PAGO
         controlador.getOrdenesDePago();
 
+        //    LOGICA OBTENER RECIBOS DE PAGO
+        controlador.getRecibosDePago();
+
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();
 //        controlador.obtenerOrdenDeCompra("JUANITA");

@@ -22,4 +22,8 @@ public class Factura extends Documento {
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicios = productoOServicios;
     }
+
+
+
+
 }

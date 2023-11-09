@@ -6,5 +6,11 @@ public class Efectivo extends FormaDePago {
         super(importe);
     }
 
+    @Override
+    public String toString() {
+        return "Efectivo";
+    }
+
+
 
 }
