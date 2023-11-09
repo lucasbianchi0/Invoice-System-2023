@@ -35,6 +35,7 @@ public class OrdenDePago {
         return formaDePago;
     }
 
+
     public void setFormaDePago(FormaDePago formaDePago) {
         this.formaDePago = formaDePago;
     }

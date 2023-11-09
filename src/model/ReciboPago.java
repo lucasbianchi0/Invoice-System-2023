@@ -35,6 +35,7 @@ public class ReciboPago {
         this.fechaEmision = fechaEmision;
     }
 
+
     public FormaDePago getFormaDePago() {
         return formaDePago;
     }

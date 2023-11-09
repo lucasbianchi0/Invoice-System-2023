@@ -38,13 +38,14 @@ public class Main {
         controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
 
 
-
-
         //    LOGICA OBTENER ORDENES DE PAGO
         controlador.getOrdenesDePago();
 
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();
         controlador.obtenerOrdenDeCompra("JUANITA");
+
+        // LOGICA OBTENER ORDENES DE PAGO
+        controlador.getRecibosDePago();
     }
 }

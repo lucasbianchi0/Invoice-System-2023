@@ -12,6 +12,7 @@ public class FacturacionController {
     private static FacturacionController instancia;
     private ArrayList<OrdenDeCompra> ordenesDeCompra;
     private ArrayList<OrdenDePago> ordenesDePago;
+    private ArrayList<ReciboPago> recibosDePago;
     private ArrayList<Factura> facturas;
     ArrayList<Factura> totalFacturasPorDiaYProveedor = new ArrayList<>();
 
@@ -19,6 +20,7 @@ public class FacturacionController {
         ordenesDeCompra = new ArrayList<>();
         ordenesDePago = new ArrayList<>();
         facturas = new ArrayList<>();
+        recibosDePago = new ArrayList<>();
         try {
 //                                                               SE AGREGAN FACTURAS
             Factura factura1 = new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123");
@@ -64,6 +66,15 @@ public class FacturacionController {
             ordenesDePago.add(orden1);
             ordenesDePago.add(orden2);
             ordenesDePago.add(orden3);
+//                                                              SE AGREGAN RECIBO DE PAGO
+
+            ReciboPago recibo1 = new ReciboPago(1, new Date(), efectivo1, "2039644562", factura1, "1");
+            ReciboPago recibo2 = new ReciboPago(2, new Date(), cheque1, "9876543210", factura2, "2");
+            ReciboPago recibo3 = new ReciboPago(3, new Date(), cheque2, "5555555555", factura3, "3");
+
+            recibosDePago.add(recibo1);
+            recibosDePago.add(recibo2);
+            recibosDePago.add(recibo3);
 
 //                                                              SE AGREGAN ORDEN DE COMPRA
 
@@ -84,7 +95,6 @@ public class FacturacionController {
             e.printStackTrace();
         }
 
-
     }
 
     public static FacturacionController
@@ -94,8 +104,6 @@ public class FacturacionController {
         }
         return instancia;
     }
-
-
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -130,7 +138,6 @@ public class FacturacionController {
             e.printStackTrace();
         }
     }
-
 
 
 //    public ArrayList<Factura> facturaPorFechaYProveedor(Date fecha, int cuitProveedor) {
@@ -168,6 +175,34 @@ public class FacturacionController {
             System.out.println("No hay órdenes de pago disponibles.");
         }
     }
+
+    public void getRecibosDePago() {
+        if (recibosDePago.size() > 0) {
+            for (ReciboPago recibo : recibosDePago) {
+                System.out.println("Número de Recibo: " + recibo.getNumeroRecibo());
+                /*
+                System.out.println("Documentos Asociados: ");
+                for (Documento documento : recibo.getFactura().getDocumentosAsociados()) {
+                    System.out.print(documento.getNumero() + " ");
+                }
+                 */
+                System.out.println("Fecha de Emisión" + recibo.getFechaEmision());
+                System.out.println("Forma de Pago: " + recibo.getFormaDePago());
+                System.out.println("CUIT proveedor: " + recibo.getCuitProveedor());
+                System.out.println("Órden de pago asociada: " + recibo.getOrdenDePagoID());
+                System.out.println("Factura asociada: " + recibo.getFactura());
+
+
+                System.out.println("\n---\n");
+            }
+        } else {
+            System.out.println("No hay recibos de pago disponibles.");
+        }
+    }
+
+
+
+
 
 
     public void obtenerOrdenesDeCompra(){

@@ -19,6 +19,13 @@ public class Factura extends Documento {
         this.ordenDeCompraID = ordenDeCompraID;
     }
 
+    @Override
+    public String toString() {
+        return "Factura [cuitProveedor=" + getCuitProveedor() + ", numero=" + getNumero() + ", fecha=" + getFecha() +
+                ", responsabilidadIVA=" + responsabilidadIVA + ", razonSocial=" + razonSocial + ", ordenDeCompraID=" + ordenDeCompraID + "]";
+    }
+
+
 
 
 
