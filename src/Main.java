@@ -46,13 +46,17 @@ public class Main {
 
         //    LOGICA OBTENER RECIBOS DE PAGO
         controlador.getRecibosDePago();
-        controlador.calcularDeudaPorProveedor("98-51765432-1");
+
 
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();
 //        controlador.obtenerOrdenDeCompra("JUANITA");
 
         controlador.getCompulsaPreciosPorProducto("Producto 1");
+
+        double deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor " + deuda);
     }
 
 }

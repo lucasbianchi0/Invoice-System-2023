@@ -244,11 +244,14 @@ public class FacturacionController {
             Factura factura = recibo.getFactura();
             if (factura != null && factura.getCuitProveedor().equals(cuitProveedor)) {
                 // Calcular la deuda restando el monto pagado
-                deudaTotal -= recibo.getFactura().getMonto();
+                deudaTotal -= factura.getMonto();
             }
         }
+
         return deudaTotal;
     }
+
+
 
 
 
