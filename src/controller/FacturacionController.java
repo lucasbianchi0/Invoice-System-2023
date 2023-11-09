@@ -37,6 +37,8 @@ public class FacturacionController {
             productosFactura2.add(producto3);
             productosFactura2.add(producto4);
             productosFactura2.add(producto5);
+            ProductoOServicio producto9 = new ProductoOServicio(1, "Producto 1", "Unidades", 9.0f, ResponsabilidadIVA.MONOTRIBUTO, "123456789", TipoRubro.MEDICINA_PREPAGA);
+            productos.add(producto9);
 
             productos.add(producto1);
             productos.add(producto2);
@@ -99,12 +101,13 @@ public class FacturacionController {
             ProductoOServicio producto6=new ProductoOServicio(1,"remera", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit", TipoRubro.MEDICINA_PREPAGA );
             ProductoOServicio producto7=new ProductoOServicio(2,"remeron", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit",TipoRubro.PRODUCTOS_DE_REVENTA );
 
-            productos.add(producto6);
-            productos.add(producto7);
+            productosOdc.add(producto6);
+            productosOdc.add(producto7);
 
 
             OrdenDeCompra odc1 =new OrdenDeCompra(1,productosOdc ,"accedra",3.14f, new Date());
             OrdenDeCompra odc2 =new OrdenDeCompra(1,productosOdc ,"JUANITA",3.14f, new Date());
+
             ordenesDeCompra.add(odc1);
             ordenesDeCompra.add(odc2);
         } catch (ParseException e) {
@@ -215,9 +218,27 @@ public class FacturacionController {
 
         }
     }
+//LOGICA DE COMPULSA DE PRECIOS
 
-//    public void compulsaPreciosPorProducto(int productoId){
-//        for()
-//    }
+    public void getCompulsaPreciosPorProducto(String nombre){
+//        VER COMO SERIA LOGICA RUBRO
+        ArrayList<ProductoOServicio> productosFiltrados = new ArrayList<>();
+        for(ProductoOServicio product : productos){
+//            System.out.println("muestro cada producto");
+//            System.out.println(product.getNombre());
+            if(product.getNombre().equals(nombre)){
 
+                System.out.println("muestro cada producto que coincide");
+                System.out.println("--------");
+                System.out.println(product.getNombre());
+                System.out.println(product.getPrecioUnidad());
+                System.out.println(product.getCuitProveedor());
+
+            productosFiltrados.add(product);
+            }
+        }
+//        return productosFiltrados
+    }
 }
+
+

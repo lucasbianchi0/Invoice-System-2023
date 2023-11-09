@@ -47,5 +47,8 @@ public class Main {
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();
 //        controlador.obtenerOrdenDeCompra("JUANITA");
+
+        controlador.getCompulsaPreciosPorProducto("Producto 1");
     }
+
 }

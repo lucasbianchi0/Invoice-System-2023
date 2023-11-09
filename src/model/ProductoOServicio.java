@@ -19,6 +19,7 @@ public class ProductoOServicio {
         this.responsabilidadIVA = responsabilidadIVA;
         this.cuitProveedor = cuitProveedor;
         this.tipoRubro = tipoRubro;
+
     }
 
     public int getProductID() {
