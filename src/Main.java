@@ -56,7 +56,15 @@ public class Main {
 
         double deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
         System.out.println("---------------------");
-        System.out.println("Deuda por Proveedor " + deuda);
+        System.out.println("Deuda por Proveedor con CUIT: 12-34567844-9 " +  "$" + deuda);
+
+        double deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda1);
+
+        double deuda2 = controlador.calcularDeudaPorProveedor("20-39644562-0");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda2);
     }
 
 }
