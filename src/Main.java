@@ -34,7 +34,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        int cuitProveedor = 123456789;
+        String cuitProveedor = "12-34567844-9";
 //        ArrayList<Factura> facturasFiltradas = controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
         controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
 
@@ -46,6 +46,7 @@ public class Main {
 
         //    LOGICA OBTENER RECIBOS DE PAGO
         controlador.getRecibosDePago();
+        controlador.calcularDeudaPorProveedor("98-51765432-1");
 
 //        TRAER ORDENES DE COMPRA
         controlador.obtenerOrdenesDeCompra();

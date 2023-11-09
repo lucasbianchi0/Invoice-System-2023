@@ -10,6 +10,7 @@ public class ReciboPago {
     private Factura factura;
     private String ordenDePagoID;
 
+
     public ReciboPago(int numeroRecibo, Date fechaEmision, FormaDePago formaDePago, String cuitProveedor, Factura factura, String ordenDePagoID) {
         this.numeroRecibo = numeroRecibo;
         this.fechaEmision = fechaEmision;

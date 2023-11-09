@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class NotaDeDebito extends Documento {
 
-    public NotaDeDebito(int cuitProveedor, int numero, Date fecha) {
+    public NotaDeDebito(String cuitProveedor, int numero, Date fecha) {
         super(cuitProveedor,  numero, fecha);
     }
 }
