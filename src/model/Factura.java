@@ -11,16 +11,25 @@ public class Factura extends Documento {
     private ResponsabilidadIVA responsabilidadIVA;
 
     private String razonSocial;
-    private int ordenDeCompraID;
+    private String ordenDeCompraID;
 
     private ArrayList<ProductoOServicio> productoOServicios;
+    private double monto;
 
-    public Factura(int cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, int ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
+
+    public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios, double monto) {
+
         super(cuitProveedor, numero, fecha);
         this.responsabilidadIVA = responsabilidadIVA;
         this.razonSocial = razonSocial;
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicios = productoOServicios;
+        this.monto = monto;
+
+    }
+
+    public double getMonto() {
+        return monto;
     }
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
@@ -39,11 +48,11 @@ public class Factura extends Documento {
         this.razonSocial = razonSocial;
     }
 
-    public int getOrdenDeCompraID() {
+    public String getOrdenDeCompraID() {
         return ordenDeCompraID;
     }
 
-    public void setOrdenDeCompraID(int ordenDeCompraID) {
+    public void setOrdenDeCompraID(String ordenDeCompraID) {
         this.ordenDeCompraID = ordenDeCompraID;
     }
 

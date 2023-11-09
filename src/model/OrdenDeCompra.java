@@ -6,7 +6,7 @@ import java.util.List;
 
 public class OrdenDeCompra {
 
-    private int ordenDeCompraID;
+    private String ordenDeCompraID;
 //    private Empresa empresa;
     private ArrayList<ProductoOServicio> productoOServicio;
     private String razonSocial;
@@ -15,7 +15,7 @@ public class OrdenDeCompra {
 //    private int cantidad;
 
 
-    public OrdenDeCompra(int ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicio, String razonSocial, Float precioAcordado, Date fecha) {
+    public OrdenDeCompra(String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicio, String razonSocial, Float precioAcordado, Date fecha) {
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicio = productoOServicio;
         this.razonSocial = razonSocial;
@@ -23,11 +23,11 @@ public class OrdenDeCompra {
         this.fecha = fecha;
     }
 
-    public int getOrdenDeCompraID() {
+    public String getOrdenDeCompraID() {
         return ordenDeCompraID;
     }
 
-    public void setOrdenDeCompraID(int ordenDeCompraID) {
+    public void setOrdenDeCompraID(String ordenDeCompraID) {
         this.ordenDeCompraID = ordenDeCompraID;
     }
 

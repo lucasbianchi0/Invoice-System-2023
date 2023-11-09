@@ -4,24 +4,24 @@ import java.util.Collection;
 import java.util.Date;
 
 public abstract class Documento {
-    private int cuitProveedor;
+    private String cuitProveedor;
 //    private Collection<ProductoOServicio> productoOServicio;
     private int numero;
     private Date fecha;
 
 //    Collection<ProductoOServicio> productoOServicio,
-    public Documento(int cuitProveedor,  int numero, Date fecha) {
+    public Documento(String cuitProveedor,  int numero, Date fecha) {
         this.cuitProveedor = cuitProveedor;
 //        this.productoOServicio = productoOServicio;
         this.numero = numero;
         this.fecha = fecha;
     }
 
-    public int getCuitProveedor() {
+    public String getCuitProveedor() {
         return cuitProveedor;
     }
 
-    public void setCuitProveedor(int cuitProveedor) {
+    public void setCuitProveedor(String cuitProveedor) {
         this.cuitProveedor = cuitProveedor;
     }
 
