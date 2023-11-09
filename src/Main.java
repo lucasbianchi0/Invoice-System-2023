@@ -45,7 +45,7 @@ public class Main {
         controlador.obtenerOrdenesDeCompra();
         controlador.obtenerOrdenDeCompra("JUANITA");
 
-        // LOGICA OBTENER ORDENES DE PAGO
+        // LOGICA OBTENER RECIBO DE PAGO
         controlador.getRecibosDePago();
     }
 }
