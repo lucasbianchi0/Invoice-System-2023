@@ -15,6 +15,7 @@ public class FacturacionController {
     private ArrayList<Factura> facturas;
     private ArrayList<ProductoOServicio> productos;
     ArrayList<Factura> totalFacturasPorDiaYProveedor = new ArrayList<>();
+    private ArrayList<Factura> facturasASupervisar = new ArrayList<>();
 
     private FacturacionController() {
         ordenesDeCompra = new ArrayList<>();
@@ -50,19 +51,19 @@ public class FacturacionController {
 
 //                                                               SE AGREGAN FACTURAS
 
-            Factura factura1 = new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1);
+            Factura factura1 = new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", 5, productosFactura1);
             facturas.add(factura1);
 
-            Factura factura2 = new Factura(987654321, 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2);
+            Factura factura2 = new Factura(987654321, 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", 1,productosFactura2);
             facturas.add(factura2);
 
-            Factura factura3 = new Factura(111111111, 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1);
+            Factura factura3 = new Factura(111111111, 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", 2,productosFactura1);
             facturas.add(factura3);
 
-            Factura factura4 = new Factura(222222222, 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1);
+            Factura factura4 = new Factura(222222222, 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", 3,productosFactura1);
             facturas.add(factura4);
 
-            Factura factura5 = new Factura(333333333, 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2);
+            Factura factura5 = new Factura(333333333, 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", 4, productosFactura2);
             facturas.add(factura5);
 
 //                                                              SE AGREGAN ORDEN DE PAGO
@@ -77,7 +78,7 @@ public class FacturacionController {
 
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
-            documentosOrden2.add(new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1)); // Ejemplo de Factura
+            documentosOrden2.add(new Factura(123456789, 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", 5,productosFactura1)); // Ejemplo de Factura
 
             // Crear la primera OrdenDePago con cheques como forma de pago
             OrdenDePago orden1 = new OrdenDePago(documentosOrden1, 3000.00, cheque1, 200.00);
@@ -106,7 +107,7 @@ public class FacturacionController {
 
 
             OrdenDeCompra odc1 =new OrdenDeCompra(1,productosOdc ,"accedra",3.14f, new Date());
-            OrdenDeCompra odc2 =new OrdenDeCompra(1,productosOdc ,"JUANITA",3.14f, new Date());
+            OrdenDeCompra odc2 =new OrdenDeCompra(2,productosOdc ,"JUANITA",3.14f, new Date());
 
             ordenesDeCompra.add(odc1);
             ordenesDeCompra.add(odc2);
@@ -227,18 +228,50 @@ public class FacturacionController {
 //            System.out.println("muestro cada producto");
 //            System.out.println(product.getNombre());
             if(product.getNombre().equals(nombre)){
-
                 System.out.println("muestro cada producto que coincide");
                 System.out.println("--------");
                 System.out.println(product.getNombre());
                 System.out.println(product.getPrecioUnidad());
                 System.out.println(product.getCuitProveedor());
-
-            productosFiltrados.add(product);
+                productosFiltrados.add(product);
             }
         }
 //        return productosFiltrados
     }
+    public void recepcionDeFacturas(ArrayList<Factura> facturasRecibidas) {
+
+        int conuterAG=0;
+        int counterS =0;
+        for (Factura facturaRecibida : facturasRecibidas) {
+            boolean coincidenciaEncontrada = false; // Paso 1
+            System.out.println("------------");
+            System.out.println("El orden de compra ID de la factura recibida es: " + facturaRecibida.getOrdenDeCompraID());
+
+            for (OrdenDeCompra ordenDeCompra : ordenesDeCompra) {
+
+                int odcIdOrdenDeCompraExistente = ordenDeCompra.getOrdenDeCompraID();
+                if (facturaRecibida.getOrdenDeCompraID() == odcIdOrdenDeCompraExistente) {
+                    System.out.println("coincide con una orden de compra");
+
+                    System.out.println(facturaRecibida.getProductoOServicios());
+                    facturas.add(facturaRecibida);
+                    conuterAG +=1;
+                    coincidenciaEncontrada = true; // Paso 2
+                }
+            }
+
+            if (!coincidenciaEncontrada) {
+                facturasASupervisar.add(facturaRecibida);
+                counterS +=1;
+                System.out.println("se factura a la lista de supervisar");
+            }
+        }
+
+        System.out.println("facturas a supervisar " + facturasASupervisar);
+        System.out.println("facturas agregadas "+conuterAG);
+        System.out.println("facturas a supervisar  "+counterS);
+    }
+
 }
 
 
