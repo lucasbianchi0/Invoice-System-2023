@@ -3,8 +3,12 @@ package model;
 import java.util.Date;
 import java.util.List;
 
+/* TODO: revisen bien las entidades, porque proveedor deberia (creo) conocer que
+* facturas tiene, junto con sus documentos y ordenes de pago, no tiene sentido
+* que tenga que ir a buscarlas a algun lugar afuera si son suyas.
+*/
 public class Proveedor {
-    private int CUIT;
+    private String CUIT;
     private String razonSocial;
     private String nombre;
     private String direccion;
@@ -16,7 +20,7 @@ public class Proveedor {
 //    private ProductoOServicio productoOServicio;
 //    private List<Impuestos> impuestos;
 //    SAQUE Rubro rubro, y SAQUE List<Impuestos> impuestos  Y SAQUE ProductoOServicio productoOServicio,
-    public Proveedor(int CUIT, String razonSocial, String nombre, String direccion, String telefono, String correoElectronico, Date inicioActividades, CertificadoDeNoRetencion certificadoDeNoRetencion ) {
+    public Proveedor(String CUIT, String razonSocial, String nombre, String direccion, String telefono, String correoElectronico, Date inicioActividades, CertificadoDeNoRetencion certificadoDeNoRetencion ) {
         this.CUIT = CUIT;
         this.razonSocial = razonSocial;
         this.nombre = nombre;
@@ -30,11 +34,11 @@ public class Proveedor {
 //        this.impuestos = impuestos;
     }
 
-    public int getCUIT() {
+    public String getCUIT() {
         return CUIT;
     }
 
-    public void setCUIT(int CUIT) {
+    public void setCUIT(String CUIT) {
         this.CUIT = CUIT;
     }
 
