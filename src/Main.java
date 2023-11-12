@@ -1,8 +1,14 @@
 import controller.FacturacionController;
 import controller.ProveedorController;
 import model.*;
+import view.PanelPrincipal;
+import view.documentos.MenuDocumentos;
+import view.productos.MenuProductos;
+import view.proveedores.MenuProveedores;
 //import view.FacturasGUI;
 
+import javax.swing.*;
+import java.awt.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,6 +22,38 @@ public class Main {
 //        FacturacionController controlador = new FacturacionController();
         FacturacionController controlador = FacturacionController.getInstancia();
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
+
+
+        // ABRO DISEÑO
+        JFrame frame = new JFrame("Tu Aplicación");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+// Crear un JPanel principal con CardLayout
+        JPanel panelPrincipal = new JPanel(new CardLayout());
+        frame.add(panelPrincipal);
+
+// Crear el menú de proveedores
+        MenuProveedores menuProveedores = new MenuProveedores(panelPrincipal);
+        JMenuBar menuBar = new JMenuBar();
+        menuBar.add(menuProveedores.getMenu());
+
+// Crear el menú de documentos
+        MenuDocumentos menuDocumentos = new MenuDocumentos(panelPrincipal);
+        menuBar.add(menuDocumentos.getMenu());
+
+        MenuProductos menuProductos = new MenuProductos(panelPrincipal);
+        menuBar.add(menuProductos.getMenu());
+
+        frame.setJMenuBar(menuBar);
+
+// Mostrar el JFrame
+        frame.setVisible(true);
+
+//        CIERRO DISENO
+
+
+
 //        new FacturasGUI();
 
 

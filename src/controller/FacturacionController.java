@@ -133,14 +133,22 @@ public class FacturacionController {
 
     }
 
-    public static FacturacionController
-    getInstancia() {
+    public static FacturacionController getInstancia() {
         if (instancia == null) {
             instancia = new FacturacionController();
         }
         return instancia;
     }
 
+    public ArrayList<Factura> obtenerFacturas() {
+        // Devolver directamente la lista de facturas
+        return facturas;
+    }
+
+    public ArrayList<ProductoOServicio> obtenerProductosOServicios() {
+        // Devolver directamente la lista de facturas
+        return productos;
+    }
 
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

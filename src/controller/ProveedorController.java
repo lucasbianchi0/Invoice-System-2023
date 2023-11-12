@@ -52,6 +52,11 @@ public class ProveedorController {
         }
     }
 
+    public ArrayList<Proveedor> obtenerProveedores() {
+        // Devolver la lista de proveedores
+        return proveedores;
+    }
+
     public void facturaPorFechaYProveedor(){
 
     }
