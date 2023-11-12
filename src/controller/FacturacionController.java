@@ -150,6 +150,11 @@ public class FacturacionController {
         return productos;
     }
 
+    public ArrayList<OrdenDePago> obtenerOrdenesDePago() {
+        // Devolver directamente la lista de facturas
+        return ordenesDePago;
+    }
+
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 

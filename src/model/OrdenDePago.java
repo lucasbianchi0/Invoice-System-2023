@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public class OrdenDePago {
+//    aca hay que agregar un id
     private ArrayList<Documento> documentosAsociados;
     private double totalACancelar;
     private FormaDePago formaDePago;

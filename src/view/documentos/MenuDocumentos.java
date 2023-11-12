@@ -16,6 +16,9 @@ public class MenuDocumentos {
         SubMenuDocumentos subMenuDocumentos = new SubMenuDocumentos(panelPrincipal);
         menu.add(subMenuDocumentos.getSubMenu());
 
+        SubMenuOrdenesDePago subMenuOrdenesDePago = new SubMenuOrdenesDePago(panelPrincipal);
+        menu.add(subMenuOrdenesDePago.getSubMenu());
+
         // Puedes agregar más submenús relacionados con documentos si es necesario
     }
 

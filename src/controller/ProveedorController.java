@@ -2,6 +2,8 @@ package controller;
 
 
 import model.CertificadoDeNoRetencion;
+import model.Factura;
+import model.OrdenDePago;
 import model.Proveedor;
 
 import java.util.*;
@@ -49,7 +51,21 @@ public class ProveedorController {
         return proveedores;
     }
 
-    public void facturaPorFechaYProveedor(){
+    public void getCuentaCorrienteProveedores(){
+        ArrayList<Factura> documentosPagos = new ArrayList<>();
+        ArrayList<Factura> documentosImpagos = new ArrayList<>();
 
+
+//        for(Proveedor proveedor: proveedores){
+//            for(Factura factura: FacturacionController.getInstancia().obtenerFacturas()){
+//                System.out.println("sape");
+//                System.out.println(factura.getCuitProveedor());
+//                for(OrdenDePago ordenDePago: FacturacionController.getInstancia().obtenerOrdenesDePago())
+//                    for(documento: fcaturacionController.)
+//                    if(factura.getNumero().equal(ordenDePago.))
+//                System.out.println("esta pago?");
+//            }
+//
+//        }
     }
 }

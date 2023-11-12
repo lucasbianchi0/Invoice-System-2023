@@ -58,8 +58,6 @@ public class Main {
 //        var controlador = FacturacionController.getInstancia();
 //        var proveedorControlador = ProveedorController.getInstancia();
 
-//        new FacturasGUI();
-
 
 ////        SE OBTIENE FACTURAS - PROVEEDORES CREADOS - PRODUCTOS
         controlador.getFacturas();
@@ -140,6 +138,12 @@ public class Main {
         cuentaCorrienteProveedor.setOrdenDePago(null); // TODO:
 
         System.out.println("Cuenta corriente del proveedor: " + cuentaCorrienteProveedor);
+
+//        LOGICA CC PROVEEDORES
+
+        proveedorControlador.getCuentaCorrienteProveedores();
+
+
     }
 
 }
