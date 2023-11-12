@@ -2,13 +2,20 @@ package model;
 
 import java.util.List;
 
+/**
+ * Con estas 2 anotaciones que puse se ahorran escribir todos
+ * los contructores, getters y setters, esto lo hace solo.
+ * **/
 public class CuentaCorrienteProveedor {
     private int numeroCuenta;
     private Proveedor proveedor;
-    private List<Factura> facturas;
+    private List<Factura> facturas; // FIXME: Vean esto porque tienen redundancia de datos en factura, porque abajo tienen documentos, y los documentos van a tener las facturas tmb por la herencia.
     private List<Documento> documentos;
     private List<OrdenDePago> ordenDePago;
     private List<ReciboPago> reciboPago;
+
+    public CuentaCorrienteProveedor() {
+    }
 
     public CuentaCorrienteProveedor(int numeroCuenta, Proveedor proveedor, List<Factura> facturas, List<Documento> documentos, List<OrdenDePago> ordenDePago, List<ReciboPago> reciboPago) {
         this.numeroCuenta = numeroCuenta;

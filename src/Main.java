@@ -13,12 +13,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        var sdf = new SimpleDateFormat("dd/MM/yyyy");
 //        FacturacionController controlador = new FacturacionController();
         FacturacionController controlador = FacturacionController.getInstancia();
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
@@ -53,6 +54,9 @@ public class Main {
 //        CIERRO DISENO
 
 
+
+//        var controlador = FacturacionController.getInstancia();
+//        var proveedorControlador = ProveedorController.getInstancia();
 
 //        new FacturasGUI();
 
@@ -94,33 +98,48 @@ public class Main {
 
         controlador.getCompulsaPreciosPorProducto("Producto 1");
 
-
-        ArrayList<Factura> facturasAEnviar = new ArrayList<>();
-        ArrayList<ProductoOServicio> productosDeFactura = new ArrayList<>();
-
-        ProductoOServicio producto1 = new ProductoOServicio(1, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "123456789", TipoRubro.MEDICINA_PREPAGA);
-        ProductoOServicio producto2 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "987654321",TipoRubro.PRODUCTOS_DE_REVENTA);
+        var productosDeFactura = new ArrayList<ProductoOServicio>();
+        var producto1 = new ProductoOServicio(1, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "123456789", TipoRubro.MEDICINA_PREPAGA);
+        var producto2 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "987654321",TipoRubro.PRODUCTOS_DE_REVENTA);
         productosDeFactura.add(producto2);
         productosDeFactura.add(producto1);
 
-        Factura factura10 = new Factura("12-34567844-9", 1, fecha, ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "1", productosDeFactura,2000);
-        Factura factura11 = new Factura("12-34567844-9", 2, fecha, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "2",productosDeFactura,3000);
+        var facturasAEnviar = new ArrayList<Factura>();
+        var factura10 = new Factura("12-34567844-9", 1, fecha, ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "1", productosDeFactura,2000);
+        var factura11 = new Factura("12-34567844-9", 2, fecha, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "2",productosDeFactura,3000);
         facturasAEnviar.add(factura10);
         facturasAEnviar.add((factura11));
+
         controlador.recepcionDeFacturas(facturasAEnviar);
 
-        double deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
+        var deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
         System.out.println("---------------------");
         System.out.println("Deuda por Proveedor con CUIT: 12-34567844-9 " +  "$" + deuda);
 
-        double deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
+        var deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
         System.out.println("---------------------");
         System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda1);
 
-        double deuda2 = controlador.calcularDeudaPorProveedor("20-39644562-0");
+        var deuda2 = controlador.calcularDeudaPorProveedor("20-39644562-0");
         System.out.println("---------------------");
         System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda2);
 
+        var proveedores = proveedorControlador.getProveedores();
+        var proveedor = proveedores.get(cuitProveedor);
+
+        // Filtra las facturas en base al cuit del proveedor
+        var facturasByProveedor = facturasAEnviar.stream()
+                .filter(factura -> factura.getCuitProveedor().equals(proveedor.getCUIT()))
+                .toList();
+
+        var cuentaCorrienteProveedor = new CuentaCorrienteProveedor();
+        cuentaCorrienteProveedor.setNumeroCuenta(1);
+        cuentaCorrienteProveedor.setProveedor(proveedor);
+        cuentaCorrienteProveedor.setDocumentos(null); // TODO:
+        cuentaCorrienteProveedor.setFacturas(facturasByProveedor);
+        cuentaCorrienteProveedor.setOrdenDePago(null); // TODO:
+
+        System.out.println("Cuenta corriente del proveedor: " + cuentaCorrienteProveedor);
     }
 
 }
