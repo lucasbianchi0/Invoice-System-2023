@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class FacturacionController {
@@ -86,14 +87,14 @@ public class FacturacionController {
 
 
             // Crear la primera OrdenDePago con cheques como forma de pago
-            OrdenDePago orden1 = new OrdenDePago(documentosOrden1, 3000.00, cheque1, 200.00);
+            OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, 3000.00, cheque1, 200.00);
 
             // Crear la segunda OrdenDePago con cheques como forma de pago
-            OrdenDePago orden2 = new OrdenDePago(documentosOrden2, 2000.00, cheque2, 150.00);
+            OrdenDePago orden2 = new OrdenDePago("2",documentosOrden2, 2000.00, cheque2, 150.00);
 
             // Crear la tercera OrdenDePago con efectivo como forma de pago
             Efectivo efectivo1 = new Efectivo(5000);
-            OrdenDePago orden3 = new OrdenDePago(documentosOrden2, 5000.00, efectivo1, 300.00);
+            OrdenDePago orden3 = new OrdenDePago("3",documentosOrden2, 5000.00, efectivo1, 300.00);
 
 
             ordenesDePago.add(orden1);
@@ -206,7 +207,7 @@ public class FacturacionController {
 
     //    LOGICA OBTENER RECIBOS DE PAGO
 
-    public void getRecibosDePago() {
+    public List<ReciboPago> getRecibosDePago() {
         if (!recibosDePago.isEmpty()) {
             for (ReciboPago recibo : recibosDePago) {
                 System.out.println("Número de Recibo: " + recibo.getNumeroRecibo());
@@ -220,6 +221,7 @@ public class FacturacionController {
         } else {
             System.out.println("No hay recibos de pago disponibles.");
         }
+        return recibosDePago;
     }
 
 
@@ -380,6 +382,10 @@ public class FacturacionController {
         System.out.println("facturas a supervisar  "+counterS);
     }
 
+    public List<ReciboPago> getRecibosDePago(String cuitProveedor) {
+        return recibosDePago.stream().filter(reciboPago -> reciboPago.getCuitProveedor().equals(cuitProveedor))
+                .toList();
+    }
 }
 
 

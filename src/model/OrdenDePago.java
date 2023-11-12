@@ -3,13 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class OrdenDePago {
-//    aca hay que agregar un id
+
+    private String ID;
     private ArrayList<Documento> documentosAsociados;
     private double totalACancelar;
     private FormaDePago formaDePago;
     private double totalRetenciones;
 
-    public OrdenDePago(ArrayList<Documento> documentosAsociados, double totalACancelar, FormaDePago formaDePago, double totalRetenciones) {
+    public OrdenDePago(String ID, ArrayList<Documento> documentosAsociados, double totalACancelar, FormaDePago formaDePago, double totalRetenciones) {
+        this.ID = ID;
         this.documentosAsociados = documentosAsociados;
         this.totalACancelar = totalACancelar;
         this.formaDePago = formaDePago;
@@ -46,5 +48,12 @@ public class OrdenDePago {
 
     public void setTotalRetenciones(double totalRetenciones) {
         this.totalRetenciones = totalRetenciones;
+    }
+
+    public String getID() {
+        return ID;
+    }
+    public void setID(String ID) {
+        this.ID = ID;
     }
 }

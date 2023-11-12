@@ -1,7 +1,7 @@
 import controller.FacturacionController;
 import controller.ProveedorController;
+import dto.CuentaCorrienteProveedorResponseDTO;
 import model.*;
-import view.PanelPrincipal;
 import view.documentos.MenuDocumentos;
 import view.productos.MenuProductos;
 import view.proveedores.MenuProveedores;
@@ -9,11 +9,13 @@ import view.proveedores.MenuProveedores;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -130,20 +132,52 @@ public class Main {
                 .filter(factura -> factura.getCuitProveedor().equals(proveedor.getCUIT()))
                 .toList();
 
-        var cuentaCorrienteProveedor = new CuentaCorrienteProveedor();
-        cuentaCorrienteProveedor.setNumeroCuenta(1);
-        cuentaCorrienteProveedor.setProveedor(proveedor);
-        cuentaCorrienteProveedor.setDocumentos(null); // TODO:
-        cuentaCorrienteProveedor.setFacturas(facturasByProveedor);
-        cuentaCorrienteProveedor.setOrdenDePago(null); // TODO:
+        var documentos = new ArrayList<Documento>();
+        var ordenesDePago=new ArrayList<OrdenDePago>();
+        // Busca los recibos por proveedor
+        var recibosDePago=controlador.getRecibosDePago(cuitProveedor);
+        // Extrae los IDS de las órdenes de pago en base a los recibos de pago (todos los que estén acá son órdenes ya pagas)
+        var ordenesDePagoIDS=recibosDePago.stream().map(ReciboPago::getOrdenDePagoID).toList();
 
-        System.out.println("Cuenta corriente del proveedor: " + cuentaCorrienteProveedor);
+        var documentosPagos=new ArrayList<Documento>();
+        var documentosImpagos=new ArrayList<Documento>();
+        /*
+        *Itera sobre las órdenes de pago y persiste los siguientes datos:
+        * -Documentos pagos
+        * -Documentos impagos
+        * -Documentos recibidos (documentos)
+         */
+        controlador.obtenerOrdenesDePago().forEach(
+                ordenDePago ->{
+                    AtomicReference<Boolean> ownedByProveedor= new AtomicReference<>(false);
+                    ordenDePago.getDocumentosAsociados().forEach(
+                            documento -> {
+                                if (documento.getCuitProveedor().equals(cuitProveedor)){
+                                    documentos.add(documento);
+                                    ownedByProveedor.set(true);
+                                    if (ordenesDePagoIDS.contains(ordenDePago.getID())){
+                                        documentosPagos.add(documento);
+                                    }else {
+                                        documentosImpagos.add(documento);
+                                    }
+                                }
+                            }
+                    );
+                    if (ownedByProveedor.get()){
+                        ordenesDePago.add(ordenDePago);
+                    }
+                }
+        );
 
 //        LOGICA CC PROVEEDORES
 
         proveedorControlador.getCuentaCorrienteProveedores();
-
-
+        var cuentaCorrienteDTO=new CuentaCorrienteProveedorResponseDTO();
+        cuentaCorrienteDTO.setDeuda(new BigDecimal(10));
+        cuentaCorrienteDTO.setDocumentosImpagos(documentosImpagos);
+        cuentaCorrienteDTO.setDocumentosRecibidos(documentos);
+        cuentaCorrienteDTO.setPagosRealizados(documentosPagos);
+        System.out.println(cuentaCorrienteDTO.toString());
     }
 
 }
