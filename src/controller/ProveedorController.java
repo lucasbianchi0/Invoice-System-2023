@@ -36,9 +36,22 @@ public class ProveedorController {
 
     public static ProveedorController getInstancia() {
         if (instancia == null) {
-            instancia = new ProveedorController();
+            synchronized (ProveedorController.class) {
+                if (instancia == null) {
+                    instancia = new ProveedorController();
+                }
+            }
         }
         return instancia;
+    }
+
+    public Proveedor buscarProveedor(String cuitProveedor) {
+        for (Proveedor proveedor : proveedores) {
+            if (proveedor.getCUIT().equals(cuitProveedor)) {
+                return proveedor;
+            }
+        }
+        return null; // Si no se encuentra el proveedor
     }
 
     public Map<String, Proveedor> getProveedores() {
@@ -68,4 +81,5 @@ public class ProveedorController {
 //
 //        }
     }
+
 }

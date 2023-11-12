@@ -295,25 +295,57 @@ public class FacturacionController {
 
         }
     }
-//LOGICA DE COMPULSA DE PRECIOS
+//LOGICA DE COMPULSA DE PRECIOS CON DTO
 
-    public void getCompulsaPreciosPorProducto(String nombre){
-//        VER COMO SERIA LOGICA RUBRO
-        ArrayList<ProductoOServicio> productosFiltrados = new ArrayList<>();
-        for(ProductoOServicio product : productos){
-//            System.out.println("muestro cada producto");
-//            System.out.println(product.getNombre());
-            if(product.getNombre().equals(nombre)){
-                System.out.println("muestro cada producto que coincide");
-                System.out.println("--------");
-                System.out.println(product.getNombre());
-                System.out.println(product.getPrecioUnidad());
-                System.out.println(product.getCuitProveedor());
-                productosFiltrados.add(product);
+
+    public ArrayList<ProductoFechaProveedorDTO> getCompulsaPreciosPorProducto(String nombre) {
+        ArrayList<ProductoFechaProveedorDTO> productosFiltrados = new ArrayList<>();
+
+        for (ProductoOServicio producto : productos) {
+            if (producto.getNombre().equals(nombre)) {
+                // Buscar el proveedor asociado al producto
+                Proveedor proveedorAsociado = ProveedorController.getInstancia().buscarProveedor(producto.getCuitProveedor());
+
+                if (proveedorAsociado != null) {
+                    // Crear un DTO con la información requerida
+                    ProductoFechaProveedorDTO productoDTO = new ProductoFechaProveedorDTO(proveedorAsociado.getNombre(), producto.getPrecioUnidad());
+                    productosFiltrados.add(productoDTO);
+                }
             }
         }
-//        return productosFiltrados
+
+        for (ProductoFechaProveedorDTO productodto :productosFiltrados){
+            System.out.println("dto");
+            System.out.println(productodto.getNombreProveedor());
+            System.out.println(productodto.getPrecio());
+
+        }
+
+
+        return productosFiltrados;
     }
+
+
+//    public void getCompulsaPreciosPorProducto(String nombre){
+////        VER COMO SERIA LOGICA RUBRO
+//        ArrayList<ProductoOServicio> productosFiltrados = new ArrayList<>();
+//        for(ProductoOServicio product : productos){
+////            System.out.println("muestro cada producto");
+////            System.out.println(product.getNombre());
+//            for (Proveedor proveedor: ProveedorController.getInstancia().obtenerProveedores()){
+//
+//            }
+//            if(product.getNombre().equals(nombre)){
+//                System.out.println("muestro cada producto que coincide");
+//                System.out.println("--------");
+//                System.out.println(product.getNombre());
+//                System.out.println(product.getPrecioUnidad());
+//                System.out.println(product.getCuitProveedor());
+//                productosFiltrados.add(product);
+//            }
+//        }
+////        return productosFiltrados
+//    }
     public void recepcionDeFacturas(ArrayList<Factura> facturasRecibidas) {
 
         int conuterAG=0;
