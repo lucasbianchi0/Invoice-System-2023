@@ -166,6 +166,11 @@ public class FacturacionController {
                 System.out.println("---------");
                 System.out.println("factura:");
                 System.out.println(factura.getNumero());
+                System.out.println(factura.getMonto());
+                System.out.println(factura.getImpuestoGanancias());
+                System.out.println(factura.getImpuestoIIBB());
+                System.out.println(factura.getPrecioFinal());
+
             }
         } else {
             System.out.println("La lista de facturas está vacía.");

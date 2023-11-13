@@ -15,11 +15,13 @@ public class ProductoOServicio {
         this.productID = productID;
         this.nombre = nombre;
         this.unidades = unidades;
-        this.precioUnidad = precioUnidad;
         this.responsabilidadIVA = responsabilidadIVA;
         this.cuitProveedor = cuitProveedor;
         this.tipoRubro = tipoRubro;
-
+        calcularImpuestoIVA(precioUnidad);
+    }
+    public void calcularImpuestoIVA(Float precioUnidad) {
+        this.precioUnidad = (precioUnidad != null) ? precioUnidad + (precioUnidad * 0.21f) : null;
     }
 
     public int getProductID() {
@@ -50,8 +52,8 @@ public class ProductoOServicio {
         return precioUnidad;
     }
 
-    public void setPrecioUnidad(Float precioUnidad) {
-        this.precioUnidad = precioUnidad;
+    public void setPrecioUnidad(Float precioUnidadConIVA) {
+        this.precioUnidad = precioUnidadConIVA;
     }
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
