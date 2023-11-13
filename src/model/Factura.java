@@ -1,5 +1,7 @@
 package model;
 
+import controller.ProveedorController;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -30,10 +32,9 @@ public class Factura extends Documento {
         this.monto = monto;
 
         calcularPrecioParcial();
-        calcularImpuestoIIBB();
-        calcularImpuestoGanancias();
+        calcularImpuestoIIBB(cuitProveedor);
+        calcularImpuestoGanancias(cuitProveedor);
         calcularPrecioFinal();
-
     }
 
     public void calcularPrecioParcial() {
@@ -45,13 +46,43 @@ public class Factura extends Documento {
     }
 
 
-    public void calcularImpuestoIIBB() {
-        this.impuestoIIBB = this.monto * 0.10;
+
+    public void calcularImpuestoIIBB(String cuitProveedor) {
+        String IIBB = "IIBB";
+        System.out.println("this cuit: " + cuitProveedor);
+
+        Proveedor proveedor = ProveedorController.getInstancia().buscarProveedor(cuitProveedor);
+
+        // Calcular impuesto IIBB solo si el proveedor existe y tiene un certificado de no retención válido para IIBB
+        if (proveedor != null && (proveedor.getCertificadoDeNoRetencion() == null || (proveedor.getCertificadoDeNoRetencion().getImpuesto() != null && IIBB.equals(proveedor.getCertificadoDeNoRetencion().getImpuesto().getTipoImpuesto())))) {
+            System.out.println("existe proveedor y certificado válido");
+            IIBB impuestoIIBB = new IIBB(IIBB);
+            this.impuestoIIBB = impuestoIIBB.calcularImpuestoIIBB(this.monto);
+        } else {
+            // Si el certificado o el impuesto en el certificado es null, asigna 0.0
+            System.out.println("Proveedor no encontrado o certificado de no retención no válido para IIBB");
+            this.impuestoIIBB = 0.0;  // Asigna 0.0 si no se cumple la condición
+        }
     }
 
-    public void calcularImpuestoGanancias() {
-        this.impuestoGanancias = this.monto * 0.05;
+    public void calcularImpuestoGanancias(String cuitProveedor) {
+        String ganancias = "GANANCIAS";
+        System.out.println("this cuit: " + cuitProveedor);
+
+        Proveedor proveedor = ProveedorController.getInstancia().buscarProveedor(cuitProveedor);
+
+        // Calcular impuesto IIBB solo si el proveedor existe y tiene un certificado de no retención válido para IIBB
+        if (proveedor != null && (proveedor.getCertificadoDeNoRetencion() == null || (proveedor.getCertificadoDeNoRetencion().getImpuesto() != null && ganancias.equals(proveedor.getCertificadoDeNoRetencion().getImpuesto().getTipoImpuesto())))) {
+            System.out.println("existe proveedor y certificado válido");
+            Ganancias impuestoGanancia = new Ganancias(ganancias);
+            this.impuestoGanancias = impuestoGanancia.calcularImpuestoGanancias(this.monto);
+        } else {
+            // Si el certificado o el impuesto en el certificado es null, asigna 0.0
+            System.out.println("Proveedor no encontrado o certificado de no retención no válido para IIBB");
+            this.impuestoGanancias = 0.0;  // Asigna 0.0 si no se cumple la condición
+        }
     }
+
 
     public void calcularPrecioFinal() {
         this.precioFinal = this.monto + this.impuestoIIBB + this.impuestoGanancias;

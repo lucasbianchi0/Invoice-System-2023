@@ -1,7 +1,6 @@
 package model;
 
 import java.util.Date;
-import java.util.List;
 
 /* TODO: revisen bien las entidades, porque proveedor deberia (creo) conocer que
 * facturas tiene, junto con sus documentos y ordenes de pago, no tiene sentido
