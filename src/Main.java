@@ -62,8 +62,8 @@ public class Main {
 
 
 ////        SE OBTIENE FACTURAS - PROVEEDORES CREADOS - PRODUCTOS
-        controlador.getFacturas();
         proveedorControlador.getProveedores();
+        controlador.getFacturas();
         controlador.getProductos();
 
 

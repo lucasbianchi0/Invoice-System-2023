@@ -1,10 +1,7 @@
 package controller;
 
 
-import model.CertificadoDeNoRetencion;
-import model.Factura;
-import model.OrdenDePago;
-import model.Proveedor;
+import model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,23 +11,29 @@ public class ProveedorController {
     private static ProveedorController instancia;
     private ProveedorController (){
         proveedores = new ArrayList<>();
+        IVA impuesto123 = new IVA("IVA");
+        Ganancias impuesto234 = new Ganancias("GANANCIAS");
+        IIBB impuesto345 = new IIBB("IIBB");
 
-        CertificadoDeNoRetencion certificado1 = new CertificadoDeNoRetencion(new Date(), true);
-        CertificadoDeNoRetencion certificado2 = new CertificadoDeNoRetencion(new Date(), false);
-        CertificadoDeNoRetencion certificado3 = new CertificadoDeNoRetencion(new Date(), true);
+
+        CertificadoDeNoRetencion certificado1 = new CertificadoDeNoRetencion(impuesto123, new Date());
+        CertificadoDeNoRetencion certificado2 = new CertificadoDeNoRetencion(impuesto234, new Date());
+        CertificadoDeNoRetencion certificado3 = new CertificadoDeNoRetencion(impuesto345, new Date());
+        CertificadoDeNoRetencion certificado4 = new CertificadoDeNoRetencion(null, null);
+
 
         Proveedor proveedor1 = new Proveedor("12-34567844-9", "Proveedor A", "Empresa A", "Dirección A", "123456789", "correoA@example.com", new Date(), certificado1);
         proveedores.add(proveedor1);
-        Proveedor proveedor2 = new Proveedor("98-765432-1", "Proveedor B", "Empresa B", "Dirección B", "987654321", "correoB@example.com", new Date(), certificado2);
+        Proveedor proveedor2 = new Proveedor("22-78222222-2", "Proveedor B", "Empresa B", "Dirección B", "987654321", "correoB@example.com", new Date(),certificado4 );
         proveedores.add(proveedor2);
 
-        Proveedor proveedor3 = new Proveedor("11-111111-1", "Proveedor C", "Empresa C", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
+        Proveedor proveedor3 = new Proveedor("33-33613333-3", "Proveedor C", "Empresa C", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
         proveedores.add(proveedor3);
 
-        Proveedor proveedor4 = new Proveedor("22-222222-2", "Proveedor C", "Empresa D", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
+        Proveedor proveedor4 = new Proveedor("98-51765432-1", "Proveedor C", "Empresa D", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
         proveedores.add(proveedor4);
 
-        Proveedor proveedor5 = new Proveedor("33-333333-3", "Proveedor C", "Empresa E", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
+        Proveedor proveedor5 = new Proveedor("11-64111111-1", "Proveedor C", "Empresa E", "Dirección C", "111111111", "correoC@example.com", new Date(), certificado3);
         proveedores.add(proveedor5);
     }
 
@@ -48,6 +51,7 @@ public class ProveedorController {
     public Proveedor buscarProveedor(String cuitProveedor) {
         for (Proveedor proveedor : proveedores) {
             if (proveedor.getCUIT().equals(cuitProveedor)) {
+                System.out.println("el proveedor es "+proveedor.getNombre());
                 return proveedor;
             }
         }
@@ -55,9 +59,13 @@ public class ProveedorController {
     }
 
     public Map<String, Proveedor> getProveedores() {
+        int totalProveedores = proveedores.size();
+        System.out.println("Total de proveedores: " + totalProveedores);
+
         return proveedores.stream()
                 .collect(Collectors.toMap(Proveedor::getCUIT, proveedor -> proveedor));
     }
+
 
     public ArrayList<Proveedor> obtenerProveedores() {
         // Devolver la lista de proveedores

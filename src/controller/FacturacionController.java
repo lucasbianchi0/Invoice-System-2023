@@ -164,11 +164,17 @@ public class FacturacionController {
 
 
     public void getFacturas (){
+        System.out.println("cantidad de facturas: "+ facturas.size());
         if (!facturas.isEmpty()) {
             for (Factura factura : facturas) {
                 System.out.println("---------");
                 System.out.println("factura:");
-                System.out.println(factura.getNumero());
+                System.out.println(factura.getCuitProveedor());
+                System.out.println(factura.getMonto());
+                System.out.println(factura.getImpuestoGanancias());
+                System.out.println(factura.getImpuestoIIBB());
+                System.out.println(factura.getPrecioFinal());
+
             }
         } else {
             System.out.println("La lista de facturas está vacía.");
@@ -328,34 +334,11 @@ public class FacturacionController {
             System.out.println("dto");
             System.out.println(productodto.getNombreProveedor());
             System.out.println(productodto.getPrecio());
-
         }
-
-
         return productosFiltrados;
     }
 
 
-//    public void getCompulsaPreciosPorProducto(String nombre){
-////        VER COMO SERIA LOGICA RUBRO
-//        ArrayList<ProductoOServicio> productosFiltrados = new ArrayList<>();
-//        for(ProductoOServicio product : productos){
-////            System.out.println("muestro cada producto");
-////            System.out.println(product.getNombre());
-//            for (Proveedor proveedor: ProveedorController.getInstancia().obtenerProveedores()){
-//
-//            }
-//            if(product.getNombre().equals(nombre)){
-//                System.out.println("muestro cada producto que coincide");
-//                System.out.println("--------");
-//                System.out.println(product.getNombre());
-//                System.out.println(product.getPrecioUnidad());
-//                System.out.println(product.getCuitProveedor());
-//                productosFiltrados.add(product);
-//            }
-//        }
-////        return productosFiltrados
-//    }
     public void recepcionDeFacturas(ArrayList<Factura> facturasRecibidas) {
 
         int conuterAG=0;
