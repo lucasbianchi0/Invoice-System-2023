@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Collections;
 
 public class Factura extends Documento {
 
@@ -16,20 +17,24 @@ public class Factura extends Documento {
     private String ordenDeCompraID;
 
     private ArrayList<ProductoOServicio> productoOServicios;
+
+
+
     private double monto;
     private double impuestoIIBB;
     private double impuestoGanancias;
     private double precioFinal;
 
 
+
     public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios, double monto) {
 
-        super(cuitProveedor, numero, fecha);
+        super(cuitProveedor, numero, fecha, monto);
         this.responsabilidadIVA = responsabilidadIVA;
         this.razonSocial = razonSocial;
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicios = productoOServicios;
-        this.monto = monto;
+        //this.monto = monto;
 
         calcularPrecioParcial();
         calcularImpuestoIIBB(cuitProveedor);
@@ -87,11 +92,15 @@ public class Factura extends Documento {
     public void calcularPrecioFinal() {
         this.precioFinal = this.monto + this.impuestoIIBB + this.impuestoGanancias;
     }
-
+    @Override
+    public List<TipoDocumento> getTiposDocumento() {
+        return Collections.singletonList(TipoDocumento.FACTURA);
+    }
+/*
     public double getMonto() {
         return monto;
     }
-
+*/
     public ResponsabilidadIVA getResponsabilidadIVA() {
         return responsabilidadIVA;
     }

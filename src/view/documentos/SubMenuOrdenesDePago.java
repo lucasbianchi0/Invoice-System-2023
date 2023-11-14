@@ -48,7 +48,7 @@ public class SubMenuOrdenesDePago {
 // Llenar la tabla con los datos de las ordenDePagos
         for (OrdenDePago ordenDePago : ordenesDePago) {
             Object[] fila = {
-                    ordenDePago.getTotalACancelar(),
+                    //ordenDePago.getTotalACancelar(),
                     ordenDePago.getTotalRetenciones(),
 
             };

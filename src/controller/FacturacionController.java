@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 
+
 public class FacturacionController {
     private static FacturacionController instancia;
     private final ArrayList<OrdenDeCompra> ordenesDeCompra;
@@ -77,8 +78,9 @@ public class FacturacionController {
 
             // Crear lista de documentos asociados a la primera OrdenDePago
             ArrayList<Documento> documentosOrden1 = new ArrayList<>();
-            documentosOrden1.add(new NotaDeDebito("12-34567844-9", 1, new Date())); // Ejemplo de NotaDebito
-            documentosOrden1.add(new NotaDeCredito("98-51765432-1", 2, new Date())); // Ejemplo de NotaCredito
+            documentosOrden1.add(new NotaDeDebito("12-34567844-9", 1, new Date(), 5000)); // Ejemplo de NotaDebito
+            documentosOrden1.add(new NotaDeCredito("12-34567844-9", 2, new Date(),3000)); // Ejemplo de NotaCredito
+
 
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
@@ -87,14 +89,14 @@ public class FacturacionController {
 
 
             // Crear la primera OrdenDePago con cheques como forma de pago
-            OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, 3000.00, cheque1, 200.00);
+            OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, cheque1, 200.00);
 
             // Crear la segunda OrdenDePago con cheques como forma de pago
-            OrdenDePago orden2 = new OrdenDePago("2",documentosOrden2, 2000.00, cheque2, 150.00);
+            OrdenDePago orden2 = new OrdenDePago("2",documentosOrden2, cheque2, 150.00);
 
             // Crear la tercera OrdenDePago con efectivo como forma de pago
             Efectivo efectivo1 = new Efectivo(5000);
-            OrdenDePago orden3 = new OrdenDePago("3",documentosOrden2, 5000.00, efectivo1, 300.00);
+            OrdenDePago orden3 = new OrdenDePago("3",documentosOrden2, efectivo1, 300.00);
 
 
             ordenesDePago.add(orden1);
@@ -102,10 +104,11 @@ public class FacturacionController {
             ordenesDePago.add(orden3);
 
 
+
 //                                                              SE AGREGA RECIBOS DE PAGO
-            ReciboPago recibo1 = new ReciboPago(1, new Date(), efectivo1, "12-34567844-9", factura1, "1");
-            ReciboPago recibo2 = new ReciboPago(2, new Date(), cheque1, "98-51765432-1", factura2, "2");
-            ReciboPago recibo3 = new ReciboPago(3, new Date(), cheque2, "33-33613333-3", factura3, "3");
+            ReciboPago recibo1 = new ReciboPago(1, new Date(), cheque1, "12-34567844-9", "1", orden1.getDocumentosAsociados());
+            ReciboPago recibo2 = new ReciboPago(2, new Date(), cheque2, "98-51765432-1", "2", orden2.getDocumentosAsociados());
+            ReciboPago recibo3 = new ReciboPago(3, new Date(), efectivo1, "33-33613333-3", "3", orden3.getDocumentosAsociados());
 
             recibosDePago.add(recibo1);
             recibosDePago.add(recibo2);
@@ -213,68 +216,73 @@ public class FacturacionController {
 
     //    LOGICA OBTENER RECIBOS DE PAGO
 
-    public List<ReciboPago> getRecibosDePago() {
-        if (!recibosDePago.isEmpty()) {
-            for (ReciboPago recibo : recibosDePago) {
-                System.out.println("Número de Recibo: " + recibo.getNumeroRecibo());
-                System.out.println("Fecha de Emisión: " + recibo.getFechaEmision());
-                System.out.println("Forma de Pago: " + recibo.getFormaDePago());
-                System.out.println("CUIT proveedor: " + recibo.getCuitProveedor());
-                System.out.println("Número de órden de pago asociada: " + recibo.getOrdenDePagoID());
-                System.out.println("Numero de factura asociada: " + recibo.getFactura().getNumero());
-                System.out.println("\n---\n");
-            }
-        } else {
-            System.out.println("No hay recibos de pago disponibles.");
+    public void imprimirRecibos() {
+        for (ReciboPago recibo : recibosDePago) {
+            recibo.imprimirRecibo();
+
+            // Calcular y mostrar el monto total de la orden de pago asociada a cada recibo
+            double montoTotalOrden = recibo.calcularMontoTotalDocumentosAsociados();
+            System.out.println("Monto total de la orden de pago asociada: " + montoTotalOrden);
+            System.out.println("\n---\n");
         }
-        return recibosDePago;
     }
 
 
     //    LOGICA OBTENER ORDENES DE PAGO
-
-    public void getOrdenesDePago() {
+    public void getOrdenesDePagoPorProveedor(String cuitProveedor) {
         if (!ordenesDePago.isEmpty()) {
             for (OrdenDePago orden : ordenesDePago) {
-                System.out.print("Documentos Asociados: ");
+                boolean perteneceProveedor = false;
                 for (Documento documento : orden.getDocumentosAsociados()) {
-                    System.out.print(documento.getNumero() + " ");
+                    if (documento.getCuitProveedor().equals(cuitProveedor)) {
+                        perteneceProveedor = true;
+                        break;
+                    }
                 }
-                System.out.println("\nTotal a Cancelar: " + orden.getTotalACancelar());
-                System.out.println("Forma de Pago: " + orden.getFormaDePago());
-                System.out.println("Total de Retenciones: " + orden.getTotalRetenciones());
-                System.out.println("\n---\n");
+
+                if (perteneceProveedor) {
+                    System.out.print("Documentos Asociados: ");
+                    List<String> tiposDocumentosConNumero = orden.getTiposDocumentosConNumero();
+                    System.out.println(String.join(", ", tiposDocumentosConNumero));
+
+                    double montoTotalDocumentos = orden.calcularMontoTotalDocumentosAsociados();
+                    System.out.println("Monto total de documentos asociados a la orden de pago: " + montoTotalDocumentos);
+                    System.out.println("Forma de Pago: " + orden.getFormaDePago());
+                    System.out.println("Total de Retenciones: " + orden.getTotalRetenciones());
+                    System.out.println("\n---\n");
+                }
             }
         } else {
             System.out.println("No hay órdenes de pago disponibles.");
         }
     }
+    //    LOGICA CALCULAR DEUDA POR PROVEEDOR
 
     public double calcularDeudaPorProveedor(String cuitProveedor) {
         double deudaTotal = 0.0;
 
+        // Calcular deuda de órdenes de pago
         for (OrdenDePago orden : ordenesDePago) {
-            for (Documento documento : orden.getDocumentosAsociados()) {
-                if (documento instanceof Factura) {
-                    Factura factura = (Factura) documento;
-                    if (factura.getCuitProveedor().equals(cuitProveedor)) {
-                        // Calcular la deuda restando el monto total a cancelar
-                        deudaTotal += orden.getTotalACancelar();
-                    }
-                }
+            // Verificar si la orden de pago tiene un recibo asociado
+            ReciboPago reciboAsociado = orden.getReciboAsociado();
+            if (reciboAsociado == null) {
+                // Si no hay recibo asociado, agregar el monto total de documentos
+                deudaTotal += orden.calcularMontoTotalDocumentosAsociados();
             }
         }
 
+        // Calcular deuda de recibos de pago
         for (ReciboPago recibo : recibosDePago) {
-            Factura factura = recibo.getFactura();
-            if (factura != null && factura.getCuitProveedor().equals(cuitProveedor)) {
-                // Calcular la deuda restando el monto pagado
-                deudaTotal -= factura.getMonto();
+            if (recibo.getCuitProveedor().equals(cuitProveedor)) {
+                // Restar el monto del recibo a la deuda total
+                deudaTotal -= recibo.calcularMontoTotalDocumentosAsociados();
             }
         }
 
         return deudaTotal;
     }
+
+
 
 
 

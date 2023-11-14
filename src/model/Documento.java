@@ -2,19 +2,24 @@ package model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+
 
 public abstract class Documento {
     private String cuitProveedor;
 //    private Collection<ProductoOServicio> productoOServicio;
     private int numero;
     private Date fecha;
+    private double monto;
+    public abstract List<TipoDocumento> getTiposDocumento();
 
 //    Collection<ProductoOServicio> productoOServicio,
-    public Documento(String cuitProveedor,  int numero, Date fecha) {
+    public Documento(String cuitProveedor,  int numero, Date fecha, double monto) {
         this.cuitProveedor = cuitProveedor;
 //        this.productoOServicio = productoOServicio;
         this.numero = numero;
         this.fecha = fecha;
+        this.monto = monto;
     }
 
     public String getCuitProveedor() {
@@ -47,5 +52,13 @@ public abstract class Documento {
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 }
