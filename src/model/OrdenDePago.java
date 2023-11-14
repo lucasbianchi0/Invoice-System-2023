@@ -1,20 +1,22 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class OrdenDePago {
 
     private String ID;
     private ArrayList<Documento> documentosAsociados;
-    private double totalACancelar;
     private FormaDePago formaDePago;
     private double totalRetenciones;
+    private ReciboPago reciboAsociado;
 
-    public OrdenDePago(String ID, ArrayList<Documento> documentosAsociados, double totalACancelar, FormaDePago formaDePago, double totalRetenciones) {
+    public OrdenDePago(String ID, ArrayList<Documento> documentosAsociados, FormaDePago formaDePago, double totalRetenciones) {
         this.ID = ID;
         this.documentosAsociados = documentosAsociados;
-        this.totalACancelar = totalACancelar;
         this.formaDePago = formaDePago;
+        calcularMontoTotalDocumentosAsociados();
         this.totalRetenciones = totalRetenciones;
     }
 
@@ -24,14 +26,6 @@ public class OrdenDePago {
 
     public void setDocumentosAsociados(ArrayList<Documento> documentosAsociados) {
         this.documentosAsociados = documentosAsociados;
-    }
-
-    public double getTotalACancelar() {
-        return totalACancelar;
-    }
-
-    public void setTotalACancelar(double totalACancelar) {
-        this.totalACancelar = totalACancelar;
     }
 
     public FormaDePago getFormaDePago() {
@@ -55,5 +49,44 @@ public class OrdenDePago {
     }
     public void setID(String ID) {
         this.ID = ID;
+    }
+
+    public ReciboPago getReciboAsociado() {
+        return reciboAsociado;
+    }
+    public void setReciboAsociado(ReciboPago reciboAsociado) {
+        this.reciboAsociado = reciboAsociado;
+    }
+
+    public List<String> getTiposDocumentosConNumero() {
+        List<String> tiposDocumentosConNumero = new ArrayList<>();
+        for (Documento documento : documentosAsociados) {
+            tiposDocumentosConNumero.add(documento.getTiposDocumento() + " " + documento.getNumero());
+        }
+        return tiposDocumentosConNumero;
+    }
+
+
+    public double calcularMontoTotalDocumentosAsociados() {
+        double montoTotal = 0.0;
+
+        for (Documento documento : documentosAsociados) {
+            double montoDocumento = documento.getMonto();
+
+            if (documento instanceof NotaDeCredito) {
+                // Restar el monto en caso de una Nota de Crédito
+                montoTotal -= montoDocumento;
+            } else {
+                // Sumar el monto en otros casos (Factura, Nota de Débito, etc.)
+                montoTotal += montoDocumento;
+            }
+        }
+
+        // Restar el monto de la forma de pago si es Cheque o Efectivo
+        if (formaDePago != null) {
+            montoTotal -= formaDePago.getImporte();
+        }
+
+        return montoTotal;
     }
 }
