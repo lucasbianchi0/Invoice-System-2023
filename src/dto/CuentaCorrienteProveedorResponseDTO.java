@@ -9,17 +9,14 @@ import java.util.List;
 public class CuentaCorrienteProveedorResponseDTO {
     private BigDecimal deuda;
     private List<Documento>documentosRecibidos;
-    private List<Documento>documentosImpagos;
-    private List<Documento>pagosRealizados;
+    private List<DocumentResponseDTO>documentosImpagos;
+    private List<DocumentResponseDTO>pagosRealizados;
 
-    public CuentaCorrienteProveedorResponseDTO(BigDecimal deuda, List<Documento> documentosRecibidos, List<Documento> documentosImpagos, List<Documento> pagosRealizados) {
+    public CuentaCorrienteProveedorResponseDTO(BigDecimal deuda, List<Documento> documentosRecibidos, List<DocumentResponseDTO> documentosImpagos, List<DocumentResponseDTO> pagosRealizados) {
         this.deuda = deuda;
         this.documentosRecibidos = documentosRecibidos;
         this.documentosImpagos = documentosImpagos;
         this.pagosRealizados = pagosRealizados;
-    }
-
-    public CuentaCorrienteProveedorResponseDTO() {
     }
 
     public BigDecimal getDeuda() {
@@ -38,20 +35,23 @@ public class CuentaCorrienteProveedorResponseDTO {
         this.documentosRecibidos = documentosRecibidos;
     }
 
-    public List<Documento> getDocumentosImpagos() {
+    public List<DocumentResponseDTO> getDocumentosImpagos() {
         return documentosImpagos;
     }
 
-    public void setDocumentosImpagos(List<Documento> documentosImpagos) {
+    public void setDocumentosImpagos(List<DocumentResponseDTO> documentosImpagos) {
         this.documentosImpagos = documentosImpagos;
     }
 
-    public List<Documento> getPagosRealizados() {
+    public List<DocumentResponseDTO> getPagosRealizados() {
         return pagosRealizados;
     }
 
-    public void setPagosRealizados(List<Documento> pagosRealizados) {
+    public void setPagosRealizados(List<DocumentResponseDTO> pagosRealizados) {
         this.pagosRealizados = pagosRealizados;
+    }
+
+    public CuentaCorrienteProveedorResponseDTO() {
     }
 
     @Override

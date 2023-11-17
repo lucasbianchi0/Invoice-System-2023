@@ -1,12 +1,11 @@
 import controller.FacturacionController;
 import controller.ProveedorController;
 import dto.CuentaCorrienteProveedorResponseDTO;
+import mapper.DocumentMapper;
 import model.*;
 import view.documentos.MenuDocumentos;
 import view.productos.MenuProductos;
 import view.proveedores.MenuProveedores;
-//import view.FacturasGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
@@ -14,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -83,8 +81,6 @@ public class Main {
         controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
 
 
-
-
         //    LOGICA OBTENER ORDENES DE PAGO
         controlador.getOrdenesDePagoPorProveedor("12-34567844-9");
 
@@ -108,8 +104,8 @@ public class Main {
         productosDeFactura.add(producto1);
 
         var facturasAEnviar = new ArrayList<Factura>();
-        var factura10 = new Factura("12-34567844-9", 1, fecha, ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "1", productosDeFactura,2000);
-        var factura11 = new Factura("12-34567844-9", 2, fecha, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "2",productosDeFactura,3000);
+        var factura10 = new Factura("12-34567844-9", fecha, ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "1", productosDeFactura,2000);
+        var factura11 = new Factura("12-34567844-9", fecha, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "2",productosDeFactura,3000);
         facturasAEnviar.add(factura10);
         facturasAEnviar.add((factura11));
 
@@ -174,13 +170,12 @@ public class Main {
         );
 
 //        LOGICA CC PROVEEDORES
-
         proveedorControlador.getCuentaCorrienteProveedores();
         var cuentaCorrienteDTO=new CuentaCorrienteProveedorResponseDTO();
-        cuentaCorrienteDTO.setDeuda(new BigDecimal(10));
-        cuentaCorrienteDTO.setDocumentosImpagos(documentosImpagos);
+        cuentaCorrienteDTO.setDeuda(BigDecimal.valueOf(controlador.calcularDeudaPorProveedor(cuitProveedor)));
+        cuentaCorrienteDTO.setDocumentosImpagos(DocumentMapper.toResponseDTOS(documentosImpagos,DocumentoEstado.IMPAGO));
         cuentaCorrienteDTO.setDocumentosRecibidos(documentos);
-        cuentaCorrienteDTO.setPagosRealizados(documentosPagos);
+        cuentaCorrienteDTO.setPagosRealizados(DocumentMapper.toResponseDTOS(documentosPagos,DocumentoEstado.PAGO));
         System.out.println(cuentaCorrienteDTO.toString());
     }
 

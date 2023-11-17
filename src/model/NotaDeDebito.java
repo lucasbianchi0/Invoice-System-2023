@@ -8,8 +8,8 @@ import java.util.Collections;
 
 public class NotaDeDebito extends Documento {
 
-    public NotaDeDebito(String cuitProveedor, int numero, Date fecha, double monto) {
-        super(cuitProveedor,  numero, fecha, monto);
+    public NotaDeDebito(String cuitProveedor, Date fecha, double monto) {
+        super(cuitProveedor, fecha, monto);
     }
 
     @Override

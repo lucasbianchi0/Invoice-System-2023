@@ -56,7 +56,7 @@ public class ReciboPago {
         System.out.println("Número de órden de pago asociada: " + ordenDePagoID);
         System.out.println("Documentos Asociados:");
         for (Documento documento : documentosAsociados) {
-            System.out.println("Tipo de Documento: " + documento.getTiposDocumento() + ", Número: " + documento.getNumero());
+            System.out.println("Tipo de Documento: " + documento.getTiposDocumento() + ", Número: " + documento.getID());
         }
         System.out.println("Forma de Pago: " + formaDePago);
 

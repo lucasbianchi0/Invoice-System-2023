@@ -27,9 +27,9 @@ public class Factura extends Documento {
 
 
 
-    public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios, double monto) {
+    public Factura(String cuitProveedor, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios, double monto) {
 
-        super(cuitProveedor, numero, fecha, monto);
+        super(cuitProveedor, fecha, monto);
         this.responsabilidadIVA = responsabilidadIVA;
         this.razonSocial = razonSocial;
         this.ordenDeCompraID = ordenDeCompraID;

@@ -56,19 +56,19 @@ public class FacturacionController {
 //                                                               SE AGREGAN FACTURAS
 
 
-            Factura factura1 = new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1, 4000);
+            Factura factura1 = new Factura("12-34567844-9", sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1, 4000);
             facturas.add(factura1);
 
-            Factura factura2 = new Factura("98-51765432-1", 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2, 3500);
+            Factura factura2 = new Factura("98-51765432-1", sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2, 3500);
             facturas.add(factura2);
 
-            Factura factura3 = new Factura("11-64111111-1", 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1, 7000);
+            Factura factura3 = new Factura("11-64111111-1", sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1, 7000);
             facturas.add(factura3);
 
-            Factura factura4 = new Factura("22-78222222-2", 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1, 8500);
+            Factura factura4 = new Factura("22-78222222-2", sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1, 8500);
             facturas.add(factura4);
 
-            Factura factura5 = new Factura("33-33613333-3", 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2, 15200);
+            Factura factura5 = new Factura("33-33613333-3", sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2, 15200);
             facturas.add(factura5);
 
 //                                                              SE AGREGAN ORDEN DE PAGO
@@ -78,14 +78,14 @@ public class FacturacionController {
 
             // Crear lista de documentos asociados a la primera OrdenDePago
             ArrayList<Documento> documentosOrden1 = new ArrayList<>();
-            documentosOrden1.add(new NotaDeDebito("12-34567844-9", 1, new Date(), 5000)); // Ejemplo de NotaDebito
-            documentosOrden1.add(new NotaDeCredito("12-34567844-9", 2, new Date(),3000)); // Ejemplo de NotaCredito
+            documentosOrden1.add(new NotaDeDebito("12-34567844-9", new Date(), 5000)); // Ejemplo de NotaDebito
+            documentosOrden1.add(new NotaDeCredito("12-34567844-9", new Date(),3000)); // Ejemplo de NotaCredito
 
 
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
 
-            documentosOrden2.add(new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+            documentosOrden2.add(new Factura("12-34567844-9", sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
 
 
             // Crear la primera OrdenDePago con cheques como forma de pago
