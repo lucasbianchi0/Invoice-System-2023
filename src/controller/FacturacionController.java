@@ -85,7 +85,16 @@ public class FacturacionController {
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
 
+
+            documentosOrden2.add(new Factura("98-51765432-1", 6, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+
+            // Crear lista de documentos asociados a la tercera OrdenDePago
+            ArrayList<Documento> documentosOrden3 = new ArrayList<>();
+
+            documentosOrden3.add(new Factura("33-33613333-3", 7, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa B", "BB123",productosFactura1, 15700)); // Ejemplo de Factura
+
             documentosOrden2.add(new Factura("12-34567844-9", sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+
 
 
             // Crear la primera OrdenDePago con cheques como forma de pago
@@ -96,7 +105,7 @@ public class FacturacionController {
 
             // Crear la tercera OrdenDePago con efectivo como forma de pago
             Efectivo efectivo1 = new Efectivo(5000);
-            OrdenDePago orden3 = new OrdenDePago("3",documentosOrden2, efectivo1, 300.00);
+            OrdenDePago orden3 = new OrdenDePago("3",documentosOrden3, efectivo1, 300.00);
 
 
             ordenesDePago.add(orden1);
@@ -261,26 +270,43 @@ public class FacturacionController {
     public double calcularDeudaPorProveedor(String cuitProveedor) {
         double deudaTotal = 0.0;
 
-        // Calcular deuda de órdenes de pago
         for (OrdenDePago orden : ordenesDePago) {
-            // Verificar si la orden de pago tiene un recibo asociado
-            ReciboPago reciboAsociado = orden.getReciboAsociado();
-            if (reciboAsociado == null) {
-                // Si no hay recibo asociado, agregar el monto total de documentos
-                deudaTotal += orden.calcularMontoTotalDocumentosAsociados();
-            }
-        }
+            boolean tieneReciboAsociado = false;
 
-        // Calcular deuda de recibos de pago
-        for (ReciboPago recibo : recibosDePago) {
-            if (recibo.getCuitProveedor().equals(cuitProveedor)) {
-                // Restar el monto del recibo a la deuda total
-                deudaTotal -= recibo.calcularMontoTotalDocumentosAsociados();
+            for (ReciboPago recibo : recibosDePago) {
+                for (Documento documentoRecibo : recibo.getDocumentosAsociados()) {
+                    for (Documento documentoOrden : orden.getDocumentosAsociados()) {
+                        if (documentoRecibo.equals(documentoOrden)) {
+                            tieneReciboAsociado = true;
+                            break;
+                        }
+                    }
+                    if (tieneReciboAsociado) {
+                        break;
+                    }
+                }
+                if (tieneReciboAsociado) {
+                    break;
+                }
+            }
+
+            if (tieneReciboAsociado) {
+                // Si tiene recibo asociado, la deuda es 0
+                deudaTotal += 0;
+            } else {
+                // No tiene recibo asociado, calculamos la deuda
+                double montoOrden = orden.calcularMontoTotalDocumentosAsociados();
+                deudaTotal += montoOrden;
             }
         }
 
         return deudaTotal;
     }
+
+
+
+
+
 
 
 

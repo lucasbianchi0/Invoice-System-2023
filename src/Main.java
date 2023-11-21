@@ -83,6 +83,8 @@ public class Main {
 
         //    LOGICA OBTENER ORDENES DE PAGO
         controlador.getOrdenesDePagoPorProveedor("12-34567844-9");
+        controlador.getOrdenesDePagoPorProveedor("98-51765432-1");
+        controlador.getOrdenesDePagoPorProveedor("33-33613333-3");
 
         System.out.println("Prueba");
 
