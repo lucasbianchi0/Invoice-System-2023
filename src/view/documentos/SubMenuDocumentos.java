@@ -52,7 +52,7 @@ public class SubMenuDocumentos {
 // Llenar la tabla con los datos de las facturas
         for (Factura factura : facturas) {
             Object[] fila = {
-                    factura.getNumero(),
+                    factura.getID(),
                     factura.getFecha(),
                     factura.getResponsabilidadIVA(),
                     factura.getRazonSocial(),

@@ -61,7 +61,7 @@ public class OrdenDePago {
     public List<String> getTiposDocumentosConNumero() {
         List<String> tiposDocumentosConNumero = new ArrayList<>();
         for (Documento documento : documentosAsociados) {
-            tiposDocumentosConNumero.add(documento.getTiposDocumento() + " " + documento.getNumero());
+            tiposDocumentosConNumero.add(documento.getTiposDocumento() + " " + documento.getID());
         }
         return tiposDocumentosConNumero;
     }
