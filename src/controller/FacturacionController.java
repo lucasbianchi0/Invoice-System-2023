@@ -86,16 +86,18 @@ public class FacturacionController {
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
 
 
-            documentosOrden2.add(new Factura("98-51765432-1", 6, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+            documentosOrden2.add(new Factura("98-51765432-1", sdf.parse("06/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
 
             // Crear lista de documentos asociados a la tercera OrdenDePago
             ArrayList<Documento> documentosOrden3 = new ArrayList<>();
 
-            documentosOrden3.add(new Factura("33-33613333-3", 7, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa B", "BB123",productosFactura1, 15700)); // Ejemplo de Factura
+            documentosOrden3.add(new Factura("33-33613333-3",sdf.parse("07/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa B", "BB123",productosFactura1, 15700)); // Ejemplo de Factura
 
-            documentosOrden2.add(new Factura("12-34567844-9", sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+            // Crear lista de documentos asociados a la cuarta OrdenDePago
+            ArrayList<Documento> documentosOrden4 = new ArrayList<>();
 
-
+            documentosOrden4.add(new Factura("22-78222222-2",sdf.parse("08/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "BB123",productosFactura1, 12000)); // Ejemplo de Factura
+            documentosOrden4.add(new NotaDeCredito("22-78222222-2", new Date(),3000)); // Ejemplo de NotaCredito
 
             // Crear la primera OrdenDePago con cheques como forma de pago
             OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, cheque1, 200.00);
@@ -107,10 +109,14 @@ public class FacturacionController {
             Efectivo efectivo1 = new Efectivo(5000);
             OrdenDePago orden3 = new OrdenDePago("3",documentosOrden3, efectivo1, 300.00);
 
+            // Crear la cuarta OrdenDePago con efectivo como forma de pago
+            OrdenDePago orden4 = new OrdenDePago("4",documentosOrden4, efectivo1, 500.00);
+
 
             ordenesDePago.add(orden1);
             ordenesDePago.add(orden2);
             ordenesDePago.add(orden3);
+            ordenesDePago.add(orden4);
 
 
 
@@ -122,6 +128,7 @@ public class FacturacionController {
             recibosDePago.add(recibo1);
             recibosDePago.add(recibo2);
             recibosDePago.add(recibo3);
+
 
 //                                                              SE AGREGAN ORDEN DE COMPRA
 

@@ -85,6 +85,7 @@ public class Main {
         controlador.getOrdenesDePagoPorProveedor("12-34567844-9");
         controlador.getOrdenesDePagoPorProveedor("98-51765432-1");
         controlador.getOrdenesDePagoPorProveedor("33-33613333-3");
+        controlador.getOrdenesDePagoPorProveedor("22-78222222-2");
 
         System.out.println("Prueba");
 
@@ -125,6 +126,10 @@ public class Main {
         var deuda2 = controlador.calcularDeudaPorProveedor("33-33613333-3");
         System.out.println("---------------------");
         System.out.println("Deuda por Proveedor con CUIT: 33-33613333-3 " + "$" +deuda2);
+
+        var deuda3 = controlador.calcularDeudaPorProveedor("22-78222222-2");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 22-78222222-2 " + "$" +deuda3);
 
         var proveedores = proveedorControlador.getProveedores();
         var proveedor = proveedores.get(cuitProveedor);
