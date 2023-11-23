@@ -85,4 +85,16 @@ public class ReciboPago {
 
         return montoTotal;
     }
+
+    public boolean cubreOrdenDePago(OrdenDePago orden) {
+        for (Documento documentoRecibo : documentosAsociados) {
+            for (Documento documentoOrden : orden.getDocumentosAsociados()) {
+                if (documentoRecibo.equals(documentoOrden)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }

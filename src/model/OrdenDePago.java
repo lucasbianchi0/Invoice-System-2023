@@ -89,4 +89,14 @@ public class OrdenDePago {
 
         return montoTotal;
     }
+
+    public boolean tieneDocumentoConProveedor(String cuitProveedor) {
+        for (Documento documento : documentosAsociados) {
+            if (documento.getCuitProveedor().equals(cuitProveedor)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

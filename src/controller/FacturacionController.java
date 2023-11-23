@@ -281,27 +281,14 @@ public class FacturacionController {
             boolean tieneReciboAsociado = false;
 
             for (ReciboPago recibo : recibosDePago) {
-                for (Documento documentoRecibo : recibo.getDocumentosAsociados()) {
-                    for (Documento documentoOrden : orden.getDocumentosAsociados()) {
-                        if (documentoRecibo.equals(documentoOrden)) {
-                            tieneReciboAsociado = true;
-                            break;
-                        }
-                    }
-                    if (tieneReciboAsociado) {
-                        break;
-                    }
-                }
-                if (tieneReciboAsociado) {
+                if (recibo.cubreOrdenDePago(orden)) {
+                    tieneReciboAsociado = true;
                     break;
                 }
             }
 
-            if (tieneReciboAsociado) {
-                // Si tiene recibo asociado, la deuda es 0
-                deudaTotal += 0;
-            } else {
-                // No tiene recibo asociado, calculamos la deuda
+            if (!tieneReciboAsociado && orden.tieneDocumentoConProveedor(cuitProveedor)) {
+                // No tiene recibo asociado y al menos un documento tiene el proveedor, calculamos la deuda
                 double montoOrden = orden.calcularMontoTotalDocumentosAsociados();
                 deudaTotal += montoOrden;
             }
@@ -309,6 +296,7 @@ public class FacturacionController {
 
         return deudaTotal;
     }
+
 
 
 
