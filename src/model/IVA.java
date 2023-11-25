@@ -1,5 +1,7 @@
 package model;
 
+import controller.ProveedorController;
+
 import java.util.Date;
 
 public class IVA extends Impuestos {
@@ -7,21 +9,25 @@ public class IVA extends Impuestos {
         super(tipoImpuesto);
     }
 
-    public Float calcularImpuestoIVA(Float precio) {
-        return precio * 0.21f;
+
+    public Float calcularImpuestoIVA(String cuitProveedor, Float monto, String tipoImpuesto) {
+        Proveedor proveedor = ProveedorController.getInstancia().buscarProveedor(cuitProveedor);
+
+        // Calcular impuesto IIBB solo si el proveedor existe y tiene un certificado de no retención válido para IIBB
+        if (proveedor != null && proveedor.getCertificados() != null) {
+            for (CertificadoDeNoRetencion certificado : proveedor.getCertificados()) {
+                if (certificado.getImpuesto() != null && tipoImpuesto.equals(certificado.getImpuesto().getTipoImpuesto())) {
+                    System.out.println("Existe proveedor y certificado válido");
+                    return 0f;
+                }
+            }
+        }
+
+        // Si no se cumple ninguna condición, asigna el monto directo
+        System.out.println("Proveedor no encontrado o certificado de no retención no válido para IIBB");
+        return monto * 0.21f;
     }
 
 
 
-    //    public IVA(Date periodoFacturacion, int total, Date fechaPresentacion, int numeroRegistro) {
-//        super(periodoFacturacion, total, fechaPresentacion, numeroRegistro);
-//    }
-
-//    public Float calcularImpuestoIVA(Float precioUnidad) {
-//        if (precioUnidad != null) {
-//            return precioUnidad + (precioUnidad * 0.21f);
-//        } else {
-//            return null;
-//        }
-//    }
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /* TODO: revisen bien las entidades, porque proveedor deberia (creo) conocer que
@@ -15,11 +16,9 @@ public class Proveedor {
     private String correoElectronico;
     private Date inicioActividades;
 //    private Rubro rubro;
-    private CertificadoDeNoRetencion certificadoDeNoRetencion;
-//    private ProductoOServicio productoOServicio;
-//    private List<Impuestos> impuestos;
-//    SAQUE Rubro rubro, y SAQUE List<Impuestos> impuestos  Y SAQUE ProductoOServicio productoOServicio,
-    public Proveedor(String CUIT, String razonSocial, String nombre, String direccion, String telefono, String correoElectronico, Date inicioActividades, CertificadoDeNoRetencion certificadoDeNoRetencion ) {
+    private ArrayList<CertificadoDeNoRetencion> certificados = new ArrayList<>();
+
+    public Proveedor(String CUIT, String razonSocial, String nombre, String direccion, String telefono, String correoElectronico, Date inicioActividades, ArrayList<CertificadoDeNoRetencion> certificados) {
         this.CUIT = CUIT;
         this.razonSocial = razonSocial;
         this.nombre = nombre;
@@ -27,10 +26,7 @@ public class Proveedor {
         this.telefono = telefono;
         this.correoElectronico = correoElectronico;
         this.inicioActividades = inicioActividades;
-//        this.rubro = rubro;
-        this.certificadoDeNoRetencion = certificadoDeNoRetencion;
-//        this.productoOServicio = productoOServicio;
-//        this.impuestos = impuestos;
+        this.certificados = certificados;
     }
 
     public String getCUIT() {
@@ -89,35 +85,11 @@ public class Proveedor {
         this.inicioActividades = inicioActividades;
     }
 
-//    public Rubro getRubro() {
-//        return rubro;
-//    }
-//
-//    public void setRubro(Rubro rubro) {
-//        this.rubro = rubro;
-//    }
-
-    public CertificadoDeNoRetencion getCertificadoDeNoRetencion() {
-        return certificadoDeNoRetencion;
+    public ArrayList<CertificadoDeNoRetencion> getCertificados() {
+        return certificados;
     }
 
-    public void setCertificadoDeNoRetencion(CertificadoDeNoRetencion certificadoDeNoRetencion) {
-        this.certificadoDeNoRetencion = certificadoDeNoRetencion;
+    public void setCertificados(ArrayList<CertificadoDeNoRetencion> certificados) {
+        this.certificados = certificados;
     }
-
-//    public ProductoOServicio getProductoOServicio() {
-//        return productoOServicio;
-//    }
-//
-//    public void setProductoOServicio(ProductoOServicio productoOServicio) {
-//        this.productoOServicio = productoOServicio;
-//    }
-
-//    public List<Impuestos> getImpuestos() {
-//        return impuestos;
-//    }
-//
-//    public void setImpuestos(List<Impuestos> impuestos) {
-//        this.impuestos = impuestos;
-//    }
 }

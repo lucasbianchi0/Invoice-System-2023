@@ -32,20 +32,20 @@ public class FacturacionController {
             ArrayList<ProductoOServicio> productosFactura2 = new ArrayList<>();
 
             ProductoOServicio producto1 = new ProductoOServicio(1, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "12-34567844-9", TipoRubro.MEDICINA_PREPAGA);
-            ProductoOServicio producto2 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "98-51765432-1",TipoRubro.PRODUCTOS_DE_REVENTA);
-            ProductoOServicio producto3 = new ProductoOServicio(3, "Producto 3", "Unidades", 20.0f, ResponsabilidadIVA.MONOTRIBUTO, "11-64111111-1",TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
-            ProductoOServicio producto4 = new ProductoOServicio(4, "Producto 4", "Unidades", 25.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "22-78222222-2",TipoRubro.PAPELERIA_E_IMPRESIONES);
-            ProductoOServicio producto5 = new ProductoOServicio(5, "Producto 5", "Unidades", 30.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "33-33613333-3",TipoRubro.VIATICOS_Y_MOVILIDAD);
+            ProductoOServicio producto89 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "22-78222222-2",TipoRubro.PRODUCTOS_DE_REVENTA);
+            ProductoOServicio producto3 = new ProductoOServicio(3, "Producto 3", "Unidades", 20.0f, ResponsabilidadIVA.MONOTRIBUTO, "33-33613333-3",TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+            ProductoOServicio producto4 = new ProductoOServicio(4, "Producto 4", "Unidades", 25.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "98-51765432-1",TipoRubro.PAPELERIA_E_IMPRESIONES);
+            ProductoOServicio producto5 = new ProductoOServicio(5, "Producto 5", "Unidades", 30.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "11-64111111-1",TipoRubro.VIATICOS_Y_MOVILIDAD);
             productosFactura1.add(producto1);
-            productosFactura1.add(producto2);
+            productosFactura1.add(producto89);
             productosFactura2.add(producto3);
             productosFactura2.add(producto4);
             productosFactura2.add(producto5);
-            ProductoOServicio producto9 = new ProductoOServicio(1, "Producto 1", "Unidades", 9.0f, ResponsabilidadIVA.MONOTRIBUTO, "12-34516748-9", TipoRubro.MEDICINA_PREPAGA);
-            productos.add(producto9);
+//            ProductoOServicio producto9 = new ProductoOServicio(1, "Producto 1", "Unidades", 9.0f, ResponsabilidadIVA.MONOTRIBUTO, "12-34516748-9", TipoRubro.MEDICINA_PREPAGA);
+//            productos.add(producto9);
 
             productos.add(producto1);
-            productos.add(producto2);
+            productos.add(producto89);
             productos.add(producto3);
             productos.add(producto4);
             productos.add(producto5);
@@ -55,19 +55,19 @@ public class FacturacionController {
 //                                                               SE AGREGAN FACTURAS
 
 
-            Factura factura1 = new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1, 4000);
+            Factura factura1 = new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1);
             facturas.add(factura1);
 
-            Factura factura2 = new Factura("98-51765432-1", 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2, 3500);
+            Factura factura2 = new Factura("98-51765432-1", 2, sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2);
             facturas.add(factura2);
 
-            Factura factura3 = new Factura("11-64111111-1", 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1, 7000);
+            Factura factura3 = new Factura("11-64111111-1", 3, sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1);
             facturas.add(factura3);
 
-            Factura factura4 = new Factura("22-78222222-2", 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1, 8500);
+            Factura factura4 = new Factura("22-78222222-2", 4, sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1);
             facturas.add(factura4);
 
-            Factura factura5 = new Factura("33-33613333-3", 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2, 15200);
+            Factura factura5 = new Factura("33-33613333-3", 5, sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2);
             facturas.add(factura5);
 
 //                                                              SE AGREGAN ORDEN DE PAGO
@@ -83,7 +83,7 @@ public class FacturacionController {
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
 
-            documentosOrden2.add(new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1, 8700)); // Ejemplo de Factura
+            documentosOrden2.add(new Factura("12-34567844-9", 1, sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "OC123",productosFactura1)); // Ejemplo de Factura
 
 
             // Crear la primera OrdenDePago con cheques como forma de pago
@@ -166,11 +166,11 @@ public class FacturacionController {
             for (Factura factura : facturas) {
                 System.out.println("---------");
                 System.out.println("factura:");
-                System.out.println(factura.getCuitProveedor());
-                System.out.println(factura.getMonto());
-                System.out.println(factura.getImpuestoGanancias());
-                System.out.println(factura.getImpuestoIIBB());
-                System.out.println(factura.getPrecioFinal());
+                System.out.println("CUIT PROVEEDOR: "+factura.getCuitProveedor());
+                System.out.println("PRECIO PARCIAL: "+factura.getPrecioParcial());
+                System.out.println("GANANCIAS "+factura.getImpuestoGanancias());
+                System.out.println("IIBB "+factura.getImpuestoIIBB());
+                System.out.println("PRECIO FINAL "+ factura.getPrecioFinal());
 
             }
         } else {
@@ -184,7 +184,9 @@ public class FacturacionController {
             for (ProductoOServicio productoOServicio : productos) {
                 System.out.println("---------");
                 System.out.println("producto :");
-                System.out.println(productoOServicio.getNombre());
+                System.out.println("nombre "+productoOServicio.getNombre());
+                System.out.println("precio unidad "+productoOServicio.getPrecioUnidad());
+                System.out.println("precio con iva: "+productoOServicio.getPrecioConIVA());
             }
         } else {
             System.out.println("La lista de facturas está vacía.");
@@ -269,7 +271,7 @@ public class FacturacionController {
             Factura factura = recibo.getFactura();
             if (factura != null && factura.getCuitProveedor().equals(cuitProveedor)) {
                 // Calcular la deuda restando el monto pagado
-                deudaTotal -= factura.getMonto();
+                deudaTotal -= factura.getPrecioFinal();
             }
         }
 

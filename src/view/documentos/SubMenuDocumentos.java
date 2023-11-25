@@ -47,7 +47,7 @@ public class SubMenuDocumentos {
         modeloTabla.addColumn("Responsabilidad IVA");
         modeloTabla.addColumn("Razón Social");
         modeloTabla.addColumn("Orden de Compra ID");
-        modeloTabla.addColumn("Monto");
+        modeloTabla.addColumn("Precio final");
 
 // Llenar la tabla con los datos de las facturas
         for (Factura factura : facturas) {
@@ -57,7 +57,7 @@ public class SubMenuDocumentos {
                     factura.getResponsabilidadIVA(),
                     factura.getRazonSocial(),
                     factura.getOrdenDeCompraID(),
-                    factura.getMonto()
+                    factura.getPrecioFinal()
             };
             modeloTabla.addRow(fila);
         }

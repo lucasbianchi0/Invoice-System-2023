@@ -16,20 +16,20 @@ public class Factura extends Documento {
     private String ordenDeCompraID;
 
     private ArrayList<ProductoOServicio> productoOServicios;
-    private double monto;
-    private double impuestoIIBB;
-    private double impuestoGanancias;
-    private double precioFinal;
+    private Float precioParcial;
+    private Float impuestoIIBB;
+    private Float impuestoGanancias;
+    private Float precioFinal;
 
 
-    public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios, double monto) {
+    public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
 
         super(cuitProveedor, numero, fecha);
         this.responsabilidadIVA = responsabilidadIVA;
         this.razonSocial = razonSocial;
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicios = productoOServicios;
-        this.monto = monto;
+//        this.precioParcial = monto;
 
         calcularPrecioParcial();
         calcularImpuestoIIBB(cuitProveedor);
@@ -38,59 +38,38 @@ public class Factura extends Documento {
     }
 
     public void calcularPrecioParcial() {
-        double total = 0;
+        Float total = 0f;
         for (ProductoOServicio producto : productoOServicios) {
-            total += producto.getPrecioUnidad();
+            System.out.println(productoOServicios);
+            total += producto.getPrecioConIVA();
+            System.out.println("----------");
+            System.out.println("CALCULAR PRECIO PARCIAL CON IVA ");
+            System.out.println(producto.getPrecioUnidad());
+            System.out.println(producto.getCuitProveedor());
         }
-        this.monto = total;
+        setPrecioParcial(total);
     }
 
 
 
     public void calcularImpuestoIIBB(String cuitProveedor) {
         String IIBB = "IIBB";
-        System.out.println("this cuit: " + cuitProveedor);
-
-        Proveedor proveedor = ProveedorController.getInstancia().buscarProveedor(cuitProveedor);
-
-        // Calcular impuesto IIBB solo si el proveedor existe y tiene un certificado de no retención válido para IIBB
-        if (proveedor != null && (proveedor.getCertificadoDeNoRetencion() == null || (proveedor.getCertificadoDeNoRetencion().getImpuesto() != null && IIBB.equals(proveedor.getCertificadoDeNoRetencion().getImpuesto().getTipoImpuesto())))) {
-            System.out.println("existe proveedor y certificado válido");
-            IIBB impuestoIIBB = new IIBB(IIBB);
-            this.impuestoIIBB = impuestoIIBB.calcularImpuestoIIBB(this.monto);
-        } else {
-            // Si el certificado o el impuesto en el certificado es null, asigna 0.0
-            System.out.println("Proveedor no encontrado o certificado de no retención no válido para IIBB");
-            this.impuestoIIBB = 0.0;  // Asigna 0.0 si no se cumple la condición
-        }
+        IIBB impuestoIIBB = new IIBB(IIBB);
+        this.impuestoIIBB = impuestoIIBB.calcularImpuestoIIBB(cuitProveedor, this.precioParcial, IIBB);
     }
 
     public void calcularImpuestoGanancias(String cuitProveedor) {
         String ganancias = "GANANCIAS";
-        System.out.println("this cuit: " + cuitProveedor);
-
-        Proveedor proveedor = ProveedorController.getInstancia().buscarProveedor(cuitProveedor);
-
-        // Calcular impuesto IIBB solo si el proveedor existe y tiene un certificado de no retención válido para IIBB
-        if (proveedor != null && (proveedor.getCertificadoDeNoRetencion() == null || (proveedor.getCertificadoDeNoRetencion().getImpuesto() != null && ganancias.equals(proveedor.getCertificadoDeNoRetencion().getImpuesto().getTipoImpuesto())))) {
-            System.out.println("existe proveedor y certificado válido");
-            Ganancias impuestoGanancia = new Ganancias(ganancias);
-            this.impuestoGanancias = impuestoGanancia.calcularImpuestoGanancias(this.monto);
-        } else {
-            // Si el certificado o el impuesto en el certificado es null, asigna 0.0
-            System.out.println("Proveedor no encontrado o certificado de no retención no válido para IIBB");
-            this.impuestoGanancias = 0.0;  // Asigna 0.0 si no se cumple la condición
-        }
+        Ganancias impuestoGanancia = new Ganancias(ganancias);
+        this.impuestoGanancias = impuestoGanancia.calcularImpuestoGanancias(cuitProveedor,this.precioParcial, ganancias);
     }
 
 
     public void calcularPrecioFinal() {
-        this.precioFinal = this.monto + this.impuestoIIBB + this.impuestoGanancias;
+        this.precioFinal = this.precioParcial + this.impuestoIIBB + this.impuestoGanancias;
     }
 
-    public double getMonto() {
-        return monto;
-    }
+
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
         return responsabilidadIVA;
@@ -124,32 +103,35 @@ public class Factura extends Documento {
         this.productoOServicios = productoOServicios;
     }
 
-    public void setMonto(double monto) {
-        this.monto = monto;
+    public Float getPrecioParcial() {
+        return precioParcial;
     }
 
+    public void setPrecioParcial(Float precioParcial) {
+        this.precioParcial = precioParcial;
+    }
 
-    public double getImpuestoIIBB() {
+    public Float getImpuestoIIBB() {
         return impuestoIIBB;
     }
 
-    public void setImpuestoIIBB(double impuestoIIBB) {
+    public void setImpuestoIIBB(Float impuestoIIBB) {
         this.impuestoIIBB = impuestoIIBB;
     }
 
-    public double getImpuestoGanancias() {
+    public Float getImpuestoGanancias() {
         return impuestoGanancias;
     }
 
-    public void setImpuestoGanancias(double impuestoGanancias) {
+    public void setImpuestoGanancias(Float impuestoGanancias) {
         this.impuestoGanancias = impuestoGanancias;
     }
 
-    public double getPrecioFinal() {
+    public Float getPrecioFinal() {
         return precioFinal;
     }
 
-    public void setPrecioFinal(double precioFinal) {
+    public void setPrecioFinal(Float precioFinal) {
         this.precioFinal = precioFinal;
     }
 }

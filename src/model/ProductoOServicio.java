@@ -1,10 +1,15 @@
 package model;
 
+import controller.ProveedorController;
+
+import java.util.ArrayList;
+
 public class ProductoOServicio {
     private int productID;
     private String nombre;
     private String unidades;
     private Float precioUnidad;
+    private Float precioConIVA;
     private ResponsabilidadIVA responsabilidadIVA;
 
     private String cuitProveedor;
@@ -18,11 +23,18 @@ public class ProductoOServicio {
         this.responsabilidadIVA = responsabilidadIVA;
         this.cuitProveedor = cuitProveedor;
         this.tipoRubro = tipoRubro;
-        calcularImpuestoIVA(precioUnidad);
+        this.precioUnidad = precioUnidad;
+        calcularImpuestoIVA(cuitProveedor, precioUnidad);
     }
-    public void calcularImpuestoIVA(Float precioUnidad) {
-        this.precioUnidad = (precioUnidad != null) ? precioUnidad + (precioUnidad * 0.21f) : null;
+
+    public void calcularImpuestoIVA(String cuitProveedor, Float precio) {
+        String IVA = "IVA";
+        System.out.println("this cuit: " + cuitProveedor);
+        IVA impuestoIVA = new IVA(IVA);
+        this.precioConIVA  =precio + impuestoIVA.calcularImpuestoIVA(cuitProveedor, precio, IVA);
+
     }
+
 
     public int getProductID() {
         return productID;
@@ -48,12 +60,13 @@ public class ProductoOServicio {
         this.unidades = unidades;
     }
 
+
     public Float getPrecioUnidad() {
         return precioUnidad;
     }
 
-    public void setPrecioUnidad(Float precioUnidadConIVA) {
-        this.precioUnidad = precioUnidadConIVA;
+    public void setPrecioUnidad(Float precioUnidad) {
+        this.precioUnidad = precioUnidad;
     }
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
@@ -78,6 +91,14 @@ public class ProductoOServicio {
 
     public void setTipoRubro(TipoRubro tipoRubro) {
         this.tipoRubro = tipoRubro;
+    }
+
+    public Float getPrecioConIVA() {
+        return precioConIVA;
+    }
+
+    public void setPrecioConIVA(Float precioConIVA) {
+        this.precioConIVA = precioConIVA;
     }
 }
 
