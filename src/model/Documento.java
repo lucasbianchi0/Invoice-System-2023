@@ -2,19 +2,32 @@ package model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
 
 public abstract class Documento {
+    private String ID= UUID.randomUUID().toString();
+
+    public String getID() {
+        return ID;
+    }
+
     private String cuitProveedor;
 //    private Collection<ProductoOServicio> productoOServicio;
-    private int numero;
     private Date fecha;
 
+
+    private double monto;
+    public abstract List<TipoDocumento> getTiposDocumento();
+
+
 //    Collection<ProductoOServicio> productoOServicio,
-    public Documento(String cuitProveedor,  int numero, Date fecha) {
+    public Documento(String cuitProveedor, Date fecha, double monto) {
         this.cuitProveedor = cuitProveedor;
 //        this.productoOServicio = productoOServicio;
-        this.numero = numero;
         this.fecha = fecha;
+        this.monto = monto;
     }
 
     public String getCuitProveedor() {
@@ -33,19 +46,19 @@ public abstract class Documento {
 //        this.productoOServicio = productoOServicio;
 //    }
 
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
-    }
-
     public Date getFecha() {
         return fecha;
     }
 
     public void setFecha(Date fecha) {
         this.fecha = fecha;
+    }
+
+    public double getMonto() {
+        return monto;
+    }
+
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 }

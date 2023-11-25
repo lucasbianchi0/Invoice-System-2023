@@ -18,6 +18,9 @@ public class ProveedorController {
 
 
 
+//        LOGICA IMPUESTOS
+//                <TEST IMPUESTO DESDE
+
         CertificadoDeNoRetencion certificado1 = new CertificadoDeNoRetencion(impuestoIVA, new Date());
         CertificadoDeNoRetencion certificado2 = new CertificadoDeNoRetencion(impuestoGANANCIAS, new Date());
         CertificadoDeNoRetencion certificado3 = new CertificadoDeNoRetencion(impuestoIIBB, new Date());
@@ -27,7 +30,7 @@ public class ProveedorController {
         ArrayList<CertificadoDeNoRetencion> certificados1 = new ArrayList<>();
 //        (paso la prueba)
 
-//        ArrayList<CertificadoDeNoRetencion> certificados1 = new ArrayList<>();
+
 
 
 //        SOLO IVA -> SE COBRA TODO MENOS IVA
@@ -44,19 +47,12 @@ public class ProveedorController {
 //        certificados1.add(certificado3);
 
 //        LOS TRES ->  NO SE COBRA NINGUN IMPUESTO
-                certificados1.add(certificado1);
-                certificados1.add(certificado2);
-                certificados1.add(certificado3);
+//                certificados1.add(certificado1);
+//                certificados1.add(certificado2);
+//                certificados1.add(certificado3);
 
-
-
-//        certificados1.add(certificado1);
-//        certificados1.add(certificado2);
-//        certificados1.add(certificado3);
-//        ArrayList<CertificadoDeNoRetencion> certificados2 = new ArrayList<>();
-//        certificados2.add(certificado1);
-////        certificados2.add(certificado2);
-//        certificados2.add(certificado3);
+//                HASTA ACA>
+//        CIERRE LOGICA IMPUESTOS
 
 
         Proveedor proveedor1 = new Proveedor("12-34567844-9", "Proveedor A", "Empresa A", "Dirección A", "123456789", "correoA@example.com", new Date(),certificados1);

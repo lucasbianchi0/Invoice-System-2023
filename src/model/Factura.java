@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Collections;
 
 public class Factura extends Documento {
 
@@ -14,31 +15,44 @@ public class Factura extends Documento {
 
     private String razonSocial;
     private String ordenDeCompraID;
-
     private ArrayList<ProductoOServicio> productoOServicios;
-    private Float precioParcial;
-    private Float impuestoIIBB;
-    private Float impuestoGanancias;
-    private Float precioFinal;
 
+    private double precioParcial;
+    private double impuestoIIBB;
+    private double impuestoGanancias;
+//    private Float precioFinal;
 
-    public Factura(String cuitProveedor, int numero, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
-
-        super(cuitProveedor, numero, fecha);
+    public Factura(String cuitProveedor, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
+        super(cuitProveedor, fecha, 0.0);
         this.responsabilidadIVA = responsabilidadIVA;
         this.razonSocial = razonSocial;
         this.ordenDeCompraID = ordenDeCompraID;
         this.productoOServicios = productoOServicios;
-//        this.precioParcial = monto;
 
         calcularPrecioParcial();
         calcularImpuestoIIBB(cuitProveedor);
         calcularImpuestoGanancias(cuitProveedor);
         calcularPrecioFinal();
+
     }
 
+
+//    public Factura(String cuitProveedor, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
+//        super(cuitProveedor, fecha);
+//        this.responsabilidadIVA = responsabilidadIVA;
+//        this.razonSocial = razonSocial;
+//        this.ordenDeCompraID = ordenDeCompraID;
+//        this.productoOServicios = productoOServicios;
+//
+//        calcularPrecioParcial();
+//        calcularImpuestoIIBB(cuitProveedor);
+//        calcularImpuestoGanancias(cuitProveedor);
+//        calcularPrecioFinal();
+//    }
+
     public void calcularPrecioParcial() {
-        Float total = 0f;
+        double total = 0.0;  // Cambié Float a double
+
         for (ProductoOServicio producto : productoOServicios) {
             System.out.println(productoOServicios);
             total += producto.getPrecioConIVA();
@@ -47,8 +61,10 @@ public class Factura extends Documento {
             System.out.println(producto.getPrecioUnidad());
             System.out.println(producto.getCuitProveedor());
         }
+
         setPrecioParcial(total);
     }
+
 
 
 
@@ -66,9 +82,13 @@ public class Factura extends Documento {
 
 
     public void calcularPrecioFinal() {
-        this.precioFinal = this.precioParcial + this.impuestoIIBB + this.impuestoGanancias;
+        setMonto(this.precioParcial + this.impuestoIIBB + this.impuestoGanancias);
     }
 
+    @Override
+    public List<TipoDocumento> getTiposDocumento() {
+        return Collections.singletonList(TipoDocumento.FACTURA);
+    }
 
 
     public ResponsabilidadIVA getResponsabilidadIVA() {
@@ -103,35 +123,37 @@ public class Factura extends Documento {
         this.productoOServicios = productoOServicios;
     }
 
-    public Float getPrecioParcial() {
+    public double getPrecioParcial() {
         return precioParcial;
     }
 
-    public void setPrecioParcial(Float precioParcial) {
+    public void setPrecioParcial(double precioParcial) {
         this.precioParcial = precioParcial;
     }
 
-    public Float getImpuestoIIBB() {
+    public double getImpuestoIIBB() {
         return impuestoIIBB;
     }
 
-    public void setImpuestoIIBB(Float impuestoIIBB) {
+    public void setImpuestoIIBB(double impuestoIIBB) {
         this.impuestoIIBB = impuestoIIBB;
     }
 
-    public Float getImpuestoGanancias() {
+    public double getImpuestoGanancias() {
         return impuestoGanancias;
     }
 
-    public void setImpuestoGanancias(Float impuestoGanancias) {
+    public void setImpuestoGanancias(double impuestoGanancias) {
         this.impuestoGanancias = impuestoGanancias;
     }
 
-    public Float getPrecioFinal() {
-        return precioFinal;
-    }
+//    public double getPrecioFinal() {
+//        return precioFinal;
+//    }
+//
+//    public void setPrecioFinal(double precioFinal) {
+//        this.precioFinal = precioFinal;
+//    }
 
-    public void setPrecioFinal(Float precioFinal) {
-        this.precioFinal = precioFinal;
-    }
+
 }
