@@ -281,38 +281,29 @@ public class FacturacionController {
     }
     //    LOGICA CALCULAR DEUDA POR PROVEEDOR
 
-//    ACA ESTA EL GET FACTURA ???
-//
-//            public double calcularDeudaPorProveedor(String cuitProveedor) {
-//                double deudaTotal = 0.0;
-//
-//                for (OrdenDePago orden : ordenesDePago) {
-//                    boolean tieneReciboAsociado = false;
-//
-//                    for (ReciboPago recibo : recibosDePago) {
-//                        if (recibo.cubreOrdenDePago(orden)) {
-//                            tieneReciboAsociado = true;
-//                            break;
-//                        }
-//                    }
-//
-//                    for (ReciboPago recibo : recibosDePago) {
-//                        Factura factura = recibo.getFactura();
-//                        if (factura != null && factura.getCuitProveedor().equals(cuitProveedor)) {
-//                            // Calcular la deuda restando el monto pagado
-//                            deudaTotal -= factura.getPrecioFinal();
-//                        }
-//                    }
-//
-//                    if (!tieneReciboAsociado && orden.tieneDocumentoConProveedor(cuitProveedor)) {
-//                        // No tiene recibo asociado y al menos un documento tiene el proveedor, calculamos la deuda
-//                        double montoOrden = orden.calcularMontoTotalDocumentosAsociados();
-//                        deudaTotal += montoOrden;
-//                    }
-//                }
-//
-//                return deudaTotal;
-//            }
+    public double calcularDeudaPorProveedor(String cuitProveedor) {
+        double deudaTotal = 0.0;
+
+        for (OrdenDePago orden : ordenesDePago) {
+            boolean tieneReciboAsociado = false;
+
+            for (ReciboPago recibo : recibosDePago) {
+                if (recibo.cubreOrdenDePago(orden)) {
+                    tieneReciboAsociado = true;
+                    break;
+                }
+            }
+
+            if (!tieneReciboAsociado && orden.tieneDocumentoConProveedor(cuitProveedor)) {
+                // No tiene recibo asociado y al menos un documento tiene el proveedor, calculamos la deuda
+                double montoOrden = orden.calcularMontoTotalDocumentosAsociados();
+                deudaTotal += montoOrden;
+            }
+        }
+
+        return deudaTotal;
+    }
+
 
 
 

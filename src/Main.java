@@ -116,21 +116,21 @@ public class Main {
         controlador.recepcionDeFacturas(facturasAEnviar);
 
 //      LLAMADO CALCULO DEUDA DE PROVEEDOR
-//        var deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
-//        System.out.println("---------------------");
-//        System.out.println("Deuda por Proveedor con CUIT: 12-34567844-9 " +  "$" + deuda);
-//
-//        var deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
-//        System.out.println("---------------------");
-//        System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda1);
-//
-//        var deuda2 = controlador.calcularDeudaPorProveedor("33-33613333-3");
-//        System.out.println("---------------------");
-//        System.out.println("Deuda por Proveedor con CUIT: 33-33613333-3 " + "$" +deuda2);
-//
-//        var deuda3 = controlador.calcularDeudaPorProveedor("22-78222222-2");
-//        System.out.println("---------------------");
-//        System.out.println("Deuda por Proveedor con CUIT: 22-78222222-2 " + "$" + deuda3);
+        var deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 12-34567844-9 " +  "$" + deuda);
+
+        var deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda1);
+
+        var deuda2 = controlador.calcularDeudaPorProveedor("33-33613333-3");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 33-33613333-3 " + "$" +deuda2);
+
+        var deuda3 = controlador.calcularDeudaPorProveedor("22-78222222-2");
+        System.out.println("---------------------");
+        System.out.println("Deuda por Proveedor con CUIT: 22-78222222-2 " + "$" + deuda3);
 
         var proveedores = proveedorControlador.getProveedores();
         var proveedor = proveedores.get(cuitProveedor);
