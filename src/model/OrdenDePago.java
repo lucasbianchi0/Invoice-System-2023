@@ -71,7 +71,14 @@ public class OrdenDePago {
         double montoTotal = 0.0;
 
         for (Documento documento : documentosAsociados) {
-            double montoDocumento = documento.getMonto();
+            double montoDocumento = 0.0;
+
+            if (documento instanceof Factura) {
+                Factura factura = (Factura) documento;
+                montoDocumento = factura.getMonto();
+            } else {
+                montoDocumento = documento.getMonto();
+            }
 
             if (documento instanceof NotaDeCredito) {
                 // Restar el monto en caso de una Nota de Crédito
@@ -90,6 +97,7 @@ public class OrdenDePago {
         return montoTotal;
     }
 
+
     public boolean tieneDocumentoConProveedor(String cuitProveedor) {
         for (Documento documento : documentosAsociados) {
             if (documento.getCuitProveedor().equals(cuitProveedor)) {
@@ -97,6 +105,14 @@ public class OrdenDePago {
             }
         }
         return false;
+    }
+
+    public String getCuitRelacionado() {
+        // Solamente se puede tener un CUIT por orden de pago. Lo mismo en Documentos. Si mezclamos estamos complicados
+        if (!documentosAsociados.isEmpty()) {
+            return documentosAsociados.get(0).getCuitProveedor();
+        }
+        return null;
     }
 
 }

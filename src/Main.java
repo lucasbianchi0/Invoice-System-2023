@@ -88,10 +88,8 @@ public class Main {
         controlador.getOrdenesDePagoPorProveedor("33-33613333-3");
         controlador.getOrdenesDePagoPorProveedor("22-78222222-2");
 
-        System.out.println("Prueba");
 
         //    LOGICA OBTENER RECIBOS DE PAGO
-        controlador.getRecibosDePago("12-34567844-9");
         controlador.imprimirRecibos();
 
 

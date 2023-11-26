@@ -62,32 +62,32 @@ public class FacturacionController {
             Factura factura2 = new Factura("98-51765432-1",  sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2);
             facturas.add(factura2);
 
-            Factura factura3 = new Factura("11-64111111-1",  sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1);
+            Factura factura3 = new Factura("33-33613333-3",  sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1);
             facturas.add(factura3);
 
             Factura factura4 = new Factura("22-78222222-2",  sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1);
             facturas.add(factura4);
 
-            Factura factura5 = new Factura("33-33613333-3",  sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2);
+            Factura factura5 = new Factura("11-64111111-1",  sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2);
 
             facturas.add(factura5);
 
 //                                                              SE AGREGAN ORDEN DE PAGO
 
-            Cheque cheque1 = new Cheque(1000, new Date(), new Date(), "Firma1");
-            Cheque cheque2 = new Cheque(2000, new Date(), new Date(), "Firma2");
+            Cheque cheque1 = new Cheque(70, new Date(), new Date(), "Firma1");
+            Cheque cheque2 = new Cheque(100, new Date(), new Date(), "Firma2");
 
             // Crear lista de documentos asociados a la primera OrdenDePago
             ArrayList<Documento> documentosOrden1 = new ArrayList<>();
-            documentosOrden1.add(new NotaDeDebito("12-34567844-9", new Date(), 5000)); // Ejemplo de NotaDebito
-            documentosOrden1.add(new NotaDeCredito("12-34567844-9", new Date(),3000)); // Ejemplo de NotaCredito
+            documentosOrden1.add(new NotaDeDebito("12-34567844-9", new Date(), 50)); // Ejemplo de NotaDebito
+            documentosOrden1.add(new NotaDeCredito("12-34567844-9", new Date(),30)); // Ejemplo de NotaCredito
 
 
             // Crear lista de documentos asociados a la segunda OrdenDePago
             ArrayList<Documento> documentosOrden2 = new ArrayList<>();
 
 
-            documentosOrden2.add(factura1); // Ejemplo de Factura
+            //documentosOrden2.add(factura1); // Ejemplo de Factura
 
 
             documentosOrden2.add(factura2); // Ejemplo de Factura
@@ -101,7 +101,7 @@ public class FacturacionController {
             ArrayList<Documento> documentosOrden4 = new ArrayList<>();
 
             documentosOrden4.add(factura4); // Ejemplo de Factura
-            documentosOrden4.add(new NotaDeCredito("22-78222222-2", new Date(),3000)); // Ejemplo de NotaCredito
+            documentosOrden4.add(new NotaDeCredito("22-78222222-2", new Date(),30)); // Ejemplo de NotaCredito
 
             // Crear la primera OrdenDePago con cheques como forma de pago
             OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, cheque1, 200.00);
@@ -110,7 +110,7 @@ public class FacturacionController {
             OrdenDePago orden2 = new OrdenDePago("2",documentosOrden2, cheque2, 150.00);
 
             // Crear la tercera OrdenDePago con efectivo como forma de pago
-            Efectivo efectivo1 = new Efectivo(5000);
+            Efectivo efectivo1 = new Efectivo(50);
             OrdenDePago orden3 = new OrdenDePago("3",documentosOrden3, efectivo1, 300.00);
 
             // Crear la cuarta OrdenDePago con efectivo como forma de pago
@@ -251,7 +251,6 @@ public class FacturacionController {
     }
 
 
-    //    LOGICA OBTENER ORDENES DE PAGO
     public void getOrdenesDePagoPorProveedor(String cuitProveedor) {
         if (!ordenesDePago.isEmpty()) {
             for (OrdenDePago orden : ordenesDePago) {
@@ -264,6 +263,8 @@ public class FacturacionController {
                 }
 
                 if (perteneceProveedor) {
+                    System.out.println("CUIT relacionado: " + orden.getCuitRelacionado());
+
                     System.out.print("Documentos Asociados: ");
                     List<String> tiposDocumentosConNumero = orden.getTiposDocumentosConNumero();
                     System.out.println(String.join(", ", tiposDocumentosConNumero));
@@ -279,6 +280,7 @@ public class FacturacionController {
             System.out.println("No hay órdenes de pago disponibles.");
         }
     }
+
     //    LOGICA CALCULAR DEUDA POR PROVEEDOR
 
     public double calcularDeudaPorProveedor(String cuitProveedor) {
