@@ -77,7 +77,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        String cuitProveedor = "12-34567844-9";
+        String cuitProveedor = "22-78222222-2";
 //        ArrayList<Factura> facturasFiltradas = controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
         controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
 
@@ -176,14 +176,14 @@ public class Main {
         );
 
 ////        LOGICA CC PROVEEDORES
-//        proveedorControlador.getCuentaCorrienteProveedores();
-//        var cuentaCorrienteDTO=new CuentaCorrienteProveedorResponseDTO();
-//        cuentaCorrienteDTO.setDeuda(BigDecimal.valueOf(controlador.calcularDeudaPorProveedor(cuitProveedor)));
-//        cuentaCorrienteDTO.setDocumentosImpagos(DocumentMapper.toResponseDTOS(documentosImpagos,DocumentoEstado.IMPAGO));
-//        cuentaCorrienteDTO.setDocumentosRecibidos(documentos);
-//        cuentaCorrienteDTO.setPagosRealizados(DocumentMapper.toResponseDTOS(documentosPagos,DocumentoEstado.PAGO));
-//        System.out.println(cuentaCorrienteDTO.toString());
-//
+        proveedorControlador.getCuentaCorrienteProveedores();
+        var cuentaCorrienteDTO=new CuentaCorrienteProveedorResponseDTO();
+        cuentaCorrienteDTO.setDeuda(BigDecimal.valueOf(controlador.calcularDeudaPorProveedor(cuitProveedor)));
+        cuentaCorrienteDTO.setDocumentosImpagos(DocumentMapper.toResponseDTOS(documentosImpagos,DocumentoEstado.IMPAGO));
+        cuentaCorrienteDTO.setDocumentosRecibidos(documentos);
+        cuentaCorrienteDTO.setPagosRealizados(DocumentMapper.toResponseDTOS(documentosPagos,DocumentoEstado.PAGO));
+        System.out.println(cuentaCorrienteDTO.toString());
+
     }
 
 }
