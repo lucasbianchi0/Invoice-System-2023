@@ -13,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
@@ -23,6 +24,15 @@ public class Main {
 //        FacturacionController controlador = new FacturacionController();
         FacturacionController controlador = FacturacionController.getInstancia();
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
+        Scanner scanner = new Scanner(System.in);
+
+        String numeroOrden = obtenerNumeroOrdenDelUsuario(scanner);
+        ArrayList<Documento> documentos1 = obtenerDocumentosDelUsuario(scanner);
+        FormaDePago formaDePago = obtenerFormaDePagoDelUsuario(scanner);
+        double monto = obtenerMontoDelUsuario(scanner);
+
+        // Llamar al método del controlador para agregar la Orden de Pago
+        controlador.agregarOrdenDePago(numeroOrden, documentos1, formaDePago, monto);
 
 
         // ABRO DISEÑO
@@ -184,6 +194,193 @@ public class Main {
         cuentaCorrienteDTO.setPagosRealizados(DocumentMapper.toResponseDTOS(documentosPagos,DocumentoEstado.PAGO));
         System.out.println(cuentaCorrienteDTO.toString());
 
+    }
+
+    ///////////////////////////////////////
+    private static String obtenerNumeroOrdenDelUsuario(Scanner scanner) {
+        System.out.print("Ingrese el número de la orden de pago: ");
+        return scanner.nextLine();
+    }
+
+    private static ArrayList<Documento> obtenerDocumentosDelUsuario(Scanner scanner) {
+        ArrayList<Documento> documentos = new ArrayList<>();
+
+        System.out.print("¿Cuántos documentos desea ingresar?: ");
+        int cantidadDocumentos = Integer.parseInt(scanner.nextLine());
+
+        for (int i = 0; i < cantidadDocumentos; i++) {
+            System.out.println("Ingresando datos para el documento " + (i + 1));
+
+            System.out.print("Ingrese el tipo de documento (Factura, NotaDeDebito, NotaDeCredito, etc.): ");
+            String tipoDocumento = scanner.nextLine();
+
+            // Implementa la lógica para cada tipo de documento según tus necesidades
+            Documento documento = obtenerDocumentoSegunTipo(tipoDocumento, scanner);
+
+            documentos.add(documento);
+        }
+
+        return documentos;
+    }
+
+    private static Documento obtenerDocumentoSegunTipo(String tipoDocumento, Scanner scanner) {
+        switch (tipoDocumento.toUpperCase()) {
+            case "FACTURA":
+                // Lógica para obtener datos de una factura
+                return obtenerDatosFactura(scanner);
+
+            case "NOTADEDÉBITO":
+                // Lógica para obtener datos de una nota de débito
+                return obtenerDatosNotaDeDebito(scanner);
+
+            case "NOTADECREDITO":
+                // Lógica para obtener datos de una nota de crédito
+                return obtenerDatosNotaDeCredito(scanner);
+
+            // Puedes agregar más casos según los tipos de documentos que manejes
+
+            default:
+                System.out.println("Tipo de documento no reconocido. Se creará un documento genérico.");
+                return null; // Devuelve null o lanza una excepción según tus necesidades
+        }
+    }
+
+    private static Factura obtenerDatosFactura(Scanner scanner) {
+        System.out.println("Ingresando datos para la Factura:");
+
+        System.out.print("Ingrese el CUIT del proveedor: ");
+        String cuitProveedor = scanner.nextLine();
+
+        Date fechaEmision = null;
+        try {
+            System.out.print("Ingrese la fecha de emisión de la factura (formato dd/MM/yyyy): ");
+            fechaEmision = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+        } catch (ParseException e) {
+            System.out.println("Error al parsear la fecha: " + e.getMessage());
+            return null;
+        }
+
+        System.out.print("Ingrese la responsabilidad IVA (MONOTRIBUTO o RESPONSABLE_INSCRIPTO): ");
+        ResponsabilidadIVA responsabilidadIVA = ResponsabilidadIVA.valueOf(scanner.nextLine().toUpperCase());
+
+        System.out.print("Ingrese la razón social: ");
+        String razonSocial = scanner.nextLine();
+
+        System.out.print("Ingrese el número de orden de compra (opcional, presiona Enter si no hay): ");
+        String ordenDeCompraID = scanner.nextLine();
+
+        // Lógica para obtener datos adicionales si es necesario
+
+        // Lógica para obtener los productos asociados a la factura
+        ArrayList<ProductoOServicio> productosFactura = obtenerProductosOServiciosDelUsuario(scanner);
+
+        return new Factura(cuitProveedor, fechaEmision, responsabilidadIVA, razonSocial, ordenDeCompraID, productosFactura);
+    }
+
+    private static NotaDeDebito obtenerDatosNotaDeDebito(Scanner scanner) {
+        System.out.println("Ingresando datos para la Nota de Débito:");
+
+        System.out.print("Ingrese el CUIT del proveedor: ");
+        String cuitProveedor = scanner.nextLine();
+
+        Date fechaEmision = null;
+        try {
+            System.out.print("Ingrese la fecha de emisión de la nota de débito (formato dd/MM/yyyy): ");
+            fechaEmision = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+        } catch (ParseException e) {
+            System.out.println("Error al parsear la fecha: " + e.getMessage());
+            return null;
+        }
+
+        System.out.print("Ingrese el monto de la nota de débito: ");
+        double monto = Double.parseDouble(scanner.nextLine());
+
+        // Lógica para obtener datos adicionales si es necesario
+
+        return new NotaDeDebito(cuitProveedor, fechaEmision, monto);
+    }
+
+    private static NotaDeCredito obtenerDatosNotaDeCredito(Scanner scanner) {
+        System.out.println("Ingresando datos para la Nota de Crédito:");
+
+        System.out.print("Ingrese el CUIT del proveedor: ");
+        String cuitProveedor = scanner.nextLine();
+
+        Date fechaEmision = null;
+        try {
+            System.out.print("Ingrese la fecha de emisión de la nota de crédito (formato dd/MM/yyyy): ");
+            fechaEmision = new SimpleDateFormat("dd/MM/yyyy").parse(scanner.nextLine());
+        } catch (ParseException e) {
+            System.out.println("Error al parsear la fecha: " + e.getMessage());
+            return null;
+        }
+
+        System.out.print("Ingrese el monto de la nota de crédito: ");
+        double monto = Double.parseDouble(scanner.nextLine());
+
+        // Lógica para obtener datos adicionales si es necesario
+
+        return new NotaDeCredito(cuitProveedor, fechaEmision, monto);
+    }
+
+
+
+    private static ArrayList<ProductoOServicio> obtenerProductosOServiciosDelUsuario(Scanner scanner) {
+        // Implementa la lógica para obtener la lista de productos o servicios según tus necesidades
+        // Puedes pedir al usuario que ingrese datos para cada producto en el bucle
+        return new ArrayList<>();  // Devuelve una lista vacía por ahora
+    }
+
+
+    private static FormaDePago obtenerFormaDePagoDelUsuario(Scanner scanner) {
+        System.out.print("Ingrese la forma de pago (Efectivo, Cheque, etc.): ");
+        String formaDePago = scanner.nextLine();
+
+        switch (formaDePago.toUpperCase()) {
+            case "EFECTIVO":
+                System.out.print("Ingrese el importe en efectivo: ");
+                int importeEfectivo = Integer.parseInt(scanner.nextLine());
+                return new Efectivo(importeEfectivo);
+
+            case "CHEQUE":
+                System.out.print("Ingrese el importe del cheque: ");
+                int importeCheque = Integer.parseInt(scanner.nextLine());
+
+                // Obtener información adicional para un cheque
+                System.out.print("Ingrese la fecha de emisión del cheque (formato dd/MM/yyyy): ");
+                Date fechaEmision = obtenerFechaDelUsuario(scanner);
+
+                System.out.print("Ingrese la fecha de vencimiento del cheque (formato dd/MM/yyyy): ");
+                Date fechaVencimiento = obtenerFechaDelUsuario(scanner);
+
+                System.out.print("Ingrese la firma del cheque: ");
+                String firma = scanner.nextLine();
+
+                return new Cheque(importeCheque, fechaEmision, fechaVencimiento, firma);
+
+            default:
+                System.out.println("Forma de pago no reconocida. Se utilizará Efectivo por defecto.");
+                System.out.print("Ingrese el importe en efectivo: ");
+                int importeDefault = Integer.parseInt(scanner.nextLine());
+                return new Efectivo(importeDefault);
+        }
+    }
+
+    private static Date obtenerFechaDelUsuario(Scanner scanner) {
+        while (true) {
+            try {
+                String fechaString = scanner.nextLine();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                return dateFormat.parse(fechaString);
+            } catch (ParseException e) {
+                System.out.println("Formato de fecha incorrecto. Ingrese la fecha nuevamente (formato dd/MM/yyyy): ");
+            }
+        }
+    }
+
+    private static double obtenerMontoDelUsuario(Scanner scanner) {
+        System.out.print("Ingrese el monto de la orden de pago: ");
+        return scanner.nextDouble();
     }
 
 }

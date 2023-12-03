@@ -307,6 +307,12 @@ public class FacturacionController {
     }
 
 
+    public void agregarOrdenDePago(String numeroOrden, ArrayList<Documento> documentos, FormaDePago formaDePago, double monto) {
+        OrdenDePago nuevaOrden = new OrdenDePago(numeroOrden, documentos, formaDePago, monto);
+        ordenesDePago.add(nuevaOrden);
+    }
+
+
 
 
 
