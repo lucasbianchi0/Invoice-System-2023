@@ -393,6 +393,29 @@ private static ArrayList<ProductoOServicio> productos;
         return deudaProveedor;
     }
 
+    public static double calcularDeuda(String cuitProveedor) {
+        double deudaTotal = 0.0;
+
+        for (OrdenDePago orden : ordenesDePago) {
+            boolean tieneReciboAsociado = false;
+
+            for (ReciboPago recibo : recibosDePago) {
+                if (recibo.cubreOrdenDePago(orden)) {
+                    tieneReciboAsociado = true;
+                    break;
+                }
+            }
+
+            if (!tieneReciboAsociado && orden.tieneDocumentoConProveedor(cuitProveedor)) {
+                // No tiene recibo asociado y al menos un documento tiene el proveedor, calculamos la deuda
+                double montoOrden = orden.calcularMontoTotalDocumentosAsociados();
+                deudaTotal += montoOrden;
+            }
+        }
+
+        return deudaTotal;
+    }
+
 
     public void agregarOrdenDePago(String numeroOrden, ArrayList<Documento> documentos, FormaDePago formaDePago, double monto) {
         OrdenDePago nuevaOrden = new OrdenDePago(numeroOrden, documentos, formaDePago, monto);

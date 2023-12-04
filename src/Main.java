@@ -4,9 +4,7 @@ import dto.CuentaCorrienteProveedorResponseDTO;
 import mapper.DocumentMapper;
 import model.*;
 import view.MainFrame;
-import view.documentos.MenuDocumentos;
-import view.productos.MenuProductos;
-import view.proveedores.MenuProveedores;
+
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
@@ -27,42 +25,16 @@ public class Main {
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
         Scanner scanner = new Scanner(System.in);
 
-        String numeroOrden = obtenerNumeroOrdenDelUsuario(scanner);
-        ArrayList<Documento> documentos1 = obtenerDocumentosDelUsuario(scanner);
-        FormaDePago formaDePago = obtenerFormaDePagoDelUsuario(scanner);
-        double monto = obtenerMontoDelUsuario(scanner);
+//        String numeroOrden = obtenerNumeroOrdenDelUsuario(scanner);
+//        ArrayList<Documento> documentos1 = obtenerDocumentosDelUsuario(scanner);
+//        FormaDePago formaDePago = obtenerFormaDePagoDelUsuario(scanner);
+//        double monto = obtenerMontoDelUsuario(scanner);
 
         // Llamar al método del controlador para agregar la Orden de Pago
-        controlador.agregarOrdenDePago(numeroOrden, documentos1, formaDePago, monto);
+//        controlador.agregarOrdenDePago(numeroOrden, documentos1, formaDePago, monto);
 
 
-//        // ABRO DISEÑO
-//        JFrame frame = new JFrame("Sistema proveedores");
-//        frame.setSize(800, 600);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//
-//// Crear un JPanel principal con CardLayout
-//        JPanel panelPrincipal = new JPanel(new CardLayout());
-//        frame.add(panelPrincipal);
-//
-//// Crear el menú de proveedores
-//        MenuProveedores menuProveedores = new MenuProveedores(panelPrincipal);
-//        JMenuBar menuBar = new JMenuBar();
-//        menuBar.add(menuProveedores.getMenu());
-//
-//// Crear el menú de documentos
-//        MenuDocumentos menuDocumentos = new MenuDocumentos(panelPrincipal);
-//        menuBar.add(menuDocumentos.getMenu());
-//
-//        MenuProductos menuProductos = new MenuProductos(panelPrincipal);
-//        menuBar.add(menuProductos.getMenu());
-//
-//        frame.setJMenuBar(menuBar);
-//
-//// Mostrar el JFrame
-//        frame.setVisible(true);
-//
-////        CIERRO DISENO
+
         MainFrame frame = new MainFrame();
 
 
@@ -189,7 +161,7 @@ public class Main {
 ////        LOGICA CC PROVEEDORES
         proveedorControlador.getCuentaCorrienteProveedores();
         var cuentaCorrienteDTO=new CuentaCorrienteProveedorResponseDTO();
-        cuentaCorrienteDTO.setDeuda(BigDecimal.valueOf(controlador.calcularDeudaPorProveedor(cuitProveedor)));
+        cuentaCorrienteDTO.setDeuda(BigDecimal.valueOf(controlador.calcularDeuda(cuitProveedor)));
         cuentaCorrienteDTO.setDocumentosImpagos(DocumentMapper.toResponseDTOS(documentosImpagos,DocumentoEstado.IMPAGO));
         cuentaCorrienteDTO.setDocumentosRecibidos(documentos);
         cuentaCorrienteDTO.setPagosRealizados(DocumentMapper.toResponseDTOS(documentosPagos,DocumentoEstado.PAGO));
