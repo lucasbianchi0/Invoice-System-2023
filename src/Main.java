@@ -3,6 +3,7 @@ import controller.ProveedorController;
 import dto.CuentaCorrienteProveedorResponseDTO;
 import mapper.DocumentMapper;
 import model.*;
+import view.MainFrame;
 import view.documentos.MenuDocumentos;
 import view.productos.MenuProductos;
 import view.proveedores.MenuProveedores;
@@ -25,34 +26,34 @@ public class Main {
         ProveedorController proveedorControlador = ProveedorController.getInstancia();
 
 
-        // ABRO DISEÑO
-        JFrame frame = new JFrame("Tu Aplicación");
-        frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-// Crear un JPanel principal con CardLayout
-        JPanel panelPrincipal = new JPanel(new CardLayout());
-        frame.add(panelPrincipal);
-
-// Crear el menú de proveedores
-        MenuProveedores menuProveedores = new MenuProveedores(panelPrincipal);
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(menuProveedores.getMenu());
-
-// Crear el menú de documentos
-        MenuDocumentos menuDocumentos = new MenuDocumentos(panelPrincipal);
-        menuBar.add(menuDocumentos.getMenu());
-
-        MenuProductos menuProductos = new MenuProductos(panelPrincipal);
-        menuBar.add(menuProductos.getMenu());
-
-        frame.setJMenuBar(menuBar);
-
-// Mostrar el JFrame
-        frame.setVisible(true);
-
-//        CIERRO DISENO
-
+//        // ABRO DISEÑO
+//        JFrame frame = new JFrame("Sistema proveedores");
+//        frame.setSize(800, 600);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//
+//// Crear un JPanel principal con CardLayout
+//        JPanel panelPrincipal = new JPanel(new CardLayout());
+//        frame.add(panelPrincipal);
+//
+//// Crear el menú de proveedores
+//        MenuProveedores menuProveedores = new MenuProveedores(panelPrincipal);
+//        JMenuBar menuBar = new JMenuBar();
+//        menuBar.add(menuProveedores.getMenu());
+//
+//// Crear el menú de documentos
+//        MenuDocumentos menuDocumentos = new MenuDocumentos(panelPrincipal);
+//        menuBar.add(menuDocumentos.getMenu());
+//
+//        MenuProductos menuProductos = new MenuProductos(panelPrincipal);
+//        menuBar.add(menuProductos.getMenu());
+//
+//        frame.setJMenuBar(menuBar);
+//
+//// Mostrar el JFrame
+//        frame.setVisible(true);
+//
+////        CIERRO DISENO
+        MainFrame frame = new MainFrame();
 
 
 //        var controlador = FacturacionController.getInstancia();

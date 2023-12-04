@@ -17,8 +17,10 @@ public class MenuProveedores {
         menu.add(subMenuProveedores.getSubMenu());
 
         // Submenú Cuenta Corriente
-        SubMenuCuentaCorriente subMenuCuentaCorriente = new SubMenuCuentaCorriente();
+
+        SubMenuCuentaCorriente subMenuCuentaCorriente = new SubMenuCuentaCorriente(panelPrincipal);
         menu.add(subMenuCuentaCorriente.getSubMenu());
+
     }
 
     public JMenu getMenu() {

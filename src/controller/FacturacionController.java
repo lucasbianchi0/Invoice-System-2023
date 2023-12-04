@@ -1,5 +1,6 @@
 package controller;
 
+import dto.DeudaProveedorDTO;
 import model.*;
 
 import java.text.ParseException;
@@ -13,10 +14,16 @@ import java.util.List;
 public class FacturacionController {
     private static FacturacionController instancia;
     private final ArrayList<OrdenDeCompra> ordenesDeCompra;
-    private final ArrayList<OrdenDePago> ordenesDePago;
-    private final ArrayList<ReciboPago> recibosDePago;
-    private final ArrayList<Factura> facturas;
-    private final ArrayList<ProductoOServicio> productos;
+//    private final ArrayList<OrdenDePago> ordenesDePago;
+private static ArrayList<OrdenDePago> ordenesDePago;
+
+    private static ArrayList<ReciboPago> recibosDePago;
+    //    private final ArrayList<ReciboPago> recibosDePago;
+
+    //    private final ArrayList<Factura> facturas;
+    private static ArrayList<Factura> facturas;
+//    private final ArrayList<ProductoOServicio> productos;
+private static ArrayList<ProductoOServicio> productos;
     ArrayList<Factura> totalFacturasPorDiaYProveedor = new ArrayList<>();
     private final ArrayList<Factura> facturasASupervisar = new ArrayList<>();
 
@@ -46,6 +53,8 @@ public class FacturacionController {
 //            productos.add(producto9);
 
             productos.add(producto1);
+            ProductoOServicio producto99 = new ProductoOServicio(99, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "11-64111111-1", TipoRubro.MEDICINA_PREPAGA);
+            productos.add(producto99);
             productos.add(producto89);
             productos.add(producto3);
             productos.add(producto4);
@@ -164,6 +173,36 @@ public class FacturacionController {
         return instancia;
     }
 
+    public static ArrayList<Factura> buscarFactura(String idFactura) {
+        ArrayList<Factura> facturasEncontradas = new ArrayList<>();
+
+        for (Factura factura : facturas) {
+            if (factura.getID().equals(idFactura)) {
+                System.out.println("La factura con ID " + idFactura + " fue encontrada.");
+                facturasEncontradas.add(factura);
+            }
+        }
+
+        return facturasEncontradas;
+    }
+
+    public static ArrayList<ProductoOServicio> buscarProducto(String nombreProducto) {
+        ArrayList<ProductoOServicio> productosEncontrados = new ArrayList<>();
+        for (ProductoOServicio producto : productos) {
+            if (producto.getNombre().equalsIgnoreCase(nombreProducto)) {
+                System.out.println("Factura con producto " + nombreProducto );
+                productosEncontrados.add(producto);
+                // Puedes romper el bucle interno si solo deseas una factura por producto
+                // break;
+            }
+        }
+        return productosEncontrados;
+    }
+
+
+
+
+
     public ArrayList<Factura> obtenerFacturas() {
         // Devolver directamente la lista de facturas
         return facturas;
@@ -191,6 +230,7 @@ public class FacturacionController {
                 System.out.println("---------");
                 System.out.println("factura:");
                 System.out.println("CUIT PROVEEDOR: "+factura.getCuitProveedor());
+                System.out.println("FECHA: "+factura.getFecha());
                 System.out.println("PRECIO PARCIAL: "+factura.getPrecioParcial());
                 System.out.println("GANANCIAS "+factura.getImpuestoGanancias());
                 System.out.println("IIBB "+factura.getImpuestoIIBB());
@@ -203,24 +243,35 @@ public class FacturacionController {
 
     }
 
-    public void getProductos (){
+
+
+
+    public static ArrayList<ProductoOServicio> getProductos() {
+        ArrayList<ProductoOServicio> listaProductos = new ArrayList<>();
+
         if (!productos.isEmpty()) {
             for (ProductoOServicio productoOServicio : productos) {
                 System.out.println("---------");
                 System.out.println("PRODUCTO :");
-                System.out.println("NOMBRE "+productoOServicio.getNombre());
-                System.out.println("PRECIO UNIDAD "+productoOServicio.getPrecioUnidad());
-                System.out.println("PRECIO CON IVA: "+productoOServicio.getPrecioConIVA());
+                System.out.println("NOMBRE " + productoOServicio.getNombre());
+                System.out.println("PRECIO UNIDAD " + productoOServicio.getPrecioUnidad());
+                System.out.println("PRECIO CON IVA: " + productoOServicio.getPrecioConIVA());
+
+                // Agregar el producto a la lista
+                listaProductos.add(productoOServicio);
             }
         } else {
-            System.out.println("La lista de facturas está vacía.");
+            System.out.println("La lista de productos está vacía.");
         }
 
+        // Devolver la lista de productos
+        return listaProductos;
     }
 
 
 
-//    public ArrayList<Factura> facturaPorFechaYProveedor(Date fecha, int cuitProveedor) {
+
+    //    public ArrayList<Factura> facturaPorFechaYProveedor(Date fecha, int cuitProveedor) {
     public void facturaPorFechaYProveedor(Date fecha, String cuitProveedor) {
         ArrayList<Factura> facturasFiltradas = new ArrayList<>();
 
@@ -229,12 +280,45 @@ public class FacturacionController {
                 facturasFiltradas.add(factura);
             }
         }
+        System.out.println("las facturass");
         for (Factura factura : facturasFiltradas) {
             System.out.println("------------");
             System.out.println(factura.getFecha());
             System.out.println(factura.getCuitProveedor()); // Esto imprimirá cada factura en la lista
         }
 //        return facturasFiltradas;
+    }
+
+    public static ArrayList<Factura> buscarFacturaPorFechaYproveedor(String filtroFecha, String filtroCuitProveedor) {
+        ArrayList<Factura> facturasEncontradas = new ArrayList<>();
+
+        // Formato de fecha que esperas recibir
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy"); // Ajusta el formato según tu necesidad
+
+        try {
+            Date fechaFiltro = formatoFecha.parse(filtroFecha);
+
+            for (Factura factura : facturas) {
+                // Comparar fechas utilizando equals
+                if (factura.getFecha().equals(fechaFiltro) && factura.getCuitProveedor().equals(filtroCuitProveedor)) {
+                    facturasEncontradas.add(factura);
+                }
+            }
+            System.out.println("encontre ");
+
+            for (Factura factura : facturasEncontradas) {
+                System.out.println("------------");
+                System.out.println(factura.getFecha());
+                System.out.println(factura.getCuitProveedor()); // Esto imprimirá cada factura en la lista
+            }
+
+            // Resto del código...
+
+        } catch (ParseException e) {
+            e.printStackTrace(); // Manejar la excepción de formato de fecha inválido
+        }
+
+        return facturasEncontradas;
     }
 
     //    LOGICA OBTENER RECIBOS DE PAGO
@@ -283,7 +367,7 @@ public class FacturacionController {
 
     //    LOGICA CALCULAR DEUDA POR PROVEEDOR
 
-    public double calcularDeudaPorProveedor(String cuitProveedor) {
+    public static DeudaProveedorDTO calcularDeudaPorProveedor(String cuitProveedor) {
         double deudaTotal = 0.0;
 
         for (OrdenDePago orden : ordenesDePago) {
@@ -303,7 +387,10 @@ public class FacturacionController {
             }
         }
 
-        return deudaTotal;
+        Proveedor proveedor= ProveedorController.buscarProveedor(cuitProveedor);
+        DeudaProveedorDTO deudaProveedor = new DeudaProveedorDTO(proveedor.getNombre(), deudaTotal);
+
+        return deudaProveedor;
     }
 
 
@@ -338,7 +425,7 @@ public class FacturacionController {
 //LOGICA DE COMPULSA DE PRECIOS CON DTO
 
 
-    public ArrayList<ProductoFechaProveedorDTO> getCompulsaPreciosPorProducto(String nombre) {
+    public static ArrayList<ProductoFechaProveedorDTO> getCompulsaPreciosPorProducto(String nombre) {
         ArrayList<ProductoFechaProveedorDTO> productosFiltrados = new ArrayList<>();
 
         for (ProductoOServicio producto : productos) {
