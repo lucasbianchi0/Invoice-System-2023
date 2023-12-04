@@ -5,6 +5,7 @@ import model.Proveedor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,21 +17,25 @@ public class CuentaCorrienteProveedoresPanel extends JPanel {
     private JTable table;
 
     public CuentaCorrienteProveedoresPanel() {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
         titleLabel = new JLabel("Cuenta corriente de proveedores");
-        titleLabel.setBounds(10, 10, 300, 30);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(titleLabel);
 
-        nameTextField = new JTextField();
-        nameTextField.setBounds(10, 50, 150, 30);
-        add(nameTextField);
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new FlowLayout());
+
+        nameTextField = new JTextField(15);
+        inputPanel.add(nameTextField);
 
         searchButton = new JButton("Buscar");
-        searchButton.setBounds(170, 50, 150, 30);
-        add(searchButton);
+        inputPanel.add(searchButton);
+
+        add(inputPanel);
 
         table = new JTable();
-        table.setBounds(10, 90, 500, 200);
-        add(table);
+        add(new JScrollPane(table));
 
         // Agregar oyentes de eventos
         searchButton.addActionListener(new ActionListener() {

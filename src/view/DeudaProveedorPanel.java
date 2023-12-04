@@ -4,6 +4,7 @@ import controller.FacturacionController;
 import dto.DeudaProveedorDTO;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,26 +18,47 @@ public class DeudaProveedorPanel extends JPanel {
     private JTable table;
 
     public DeudaProveedorPanel() {
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
 
+        // Panel superior con el título
+        JPanel titlePanel = new JPanel();
         titleLabel = new JLabel("Deuda proveedor");
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        add(titleLabel);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 28));
+        titlePanel.add(titleLabel);
+        add(titlePanel, BorderLayout.NORTH);
 
-        JPanel inputPanel = new JPanel(new FlowLayout()); // Nuevo panel para alinear horizontalmente
+        // Panel central con el campo de entrada y el botón de búsqueda
+        JPanel inputPanel = new JPanel(new FlowLayout());
         nameTextField = new JTextField(15);
-        JLabel nameLabel = new JLabel("Nombre del proveedor:");
+        JLabel nameLabel = new JLabel("Cuit del proveedor:");
+        nameLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         inputPanel.add(nameLabel);
         inputPanel.add(nameTextField);
 
         searchButton = new JButton("Buscar");
+        searchButton.setFont(new Font("Arial", Font.BOLD, 16));
         inputPanel.add(searchButton);
+        add(inputPanel, BorderLayout.CENTER);
 
-        add(inputPanel);
-
+        // Panel inferior con la tabla
         table = new JTable();
-        table.setMaximumSize(new Dimension(400, 100));
-        add(new JScrollPane(table));
+        table.setRowHeight(30); // Altura de las filas
+        table.setFont(new Font("Arial", Font.PLAIN, 16));
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK)); // Borde del JScrollPane
+        add(scrollPane, BorderLayout.SOUTH);
+
+        // Establecer colores y diseño de la tabla
+        table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 16));
+        table.getTableHeader().setBackground(new Color(240, 240, 240)); // Color de fondo del encabezado
+        table.getTableHeader().setForeground(Color.BLACK); // Color del texto del encabezado
+        table.setSelectionBackground(new Color(173, 216, 230)); // Color de fondo de la selección
+        table.setSelectionForeground(Color.BLACK); // Color del texto de la selección
+
+        // Centrar el contenido de las celdas
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.setDefaultRenderer(Object.class, centerRenderer);
 
         // Agregar oyentes de eventos
         searchButton.addActionListener(new ActionListener() {
@@ -49,7 +71,7 @@ public class DeudaProveedorPanel extends JPanel {
                     return;
                 }
 
-//                 Obtener el proveedor del controlador
+                // Obtener el proveedor del controlador
                 DeudaProveedorDTO proveedorDeuda = FacturacionController.calcularDeudaPorProveedor(cuitProveedor);
 
                 // Si el proveedor no existe, mostrar un mensaje de error
