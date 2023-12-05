@@ -1,8 +1,10 @@
 import controller.FacturacionController;
 import controller.ProveedorController;
+import controller.UsuarioController;
 import dto.CuentaCorrienteProveedorResponseDTO;
 import mapper.DocumentMapper;
 import model.*;
+import view.LoginView;
 import view.MainFrame;
 
 import javax.swing.*;
@@ -35,7 +37,9 @@ public class Main {
 
 
 
-        MainFrame frame = new MainFrame();
+//        MainFrame frame = new MainFrame();
+        SwingUtilities.invokeLater(MainFrame::new);
+
 
 
 //        var controlador = FacturacionController.getInstancia();
@@ -60,16 +64,16 @@ public class Main {
             e.printStackTrace();
         }
 
-        String cuitProveedor = "22-78222222-2";
+        String cuitProveedor = "30-57145923-4";
 //        ArrayList<Factura> facturasFiltradas = controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
         controlador.facturaPorFechaYProveedor(fecha, cuitProveedor);
 
 
         //    LOGICA OBTENER ORDENES DE PAGO
-        controlador.getOrdenesDePagoPorProveedor("12-34567844-9");
-        controlador.getOrdenesDePagoPorProveedor("98-51765432-1");
-        controlador.getOrdenesDePagoPorProveedor("33-33613333-3");
-        controlador.getOrdenesDePagoPorProveedor("22-78222222-2");
+        controlador.getOrdenesDePagoPorProveedor("30-50003001-6");
+        controlador.getOrdenesDePagoPorProveedor("30-85779909-1");
+        controlador.getOrdenesDePagoPorProveedor("30-71455411-2");
+        controlador.getOrdenesDePagoPorProveedor("30-57145923-4");
 
 
         //    LOGICA OBTENER RECIBOS DE PAGO
@@ -80,38 +84,60 @@ public class Main {
         controlador.obtenerOrdenesDeCompra();
 //        controlador.obtenerOrdenDeCompra("JUANITA");
 
-        controlador.getCompulsaPreciosPorProducto("Producto 1");
+        controlador.getCompulsaPreciosPorProducto("Seguro médico");
 
         var productosDeFactura = new ArrayList<ProductoOServicio>();
-        var producto1 = new ProductoOServicio(1, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "123456789", TipoRubro.MEDICINA_PREPAGA);
-        var producto2 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "987654321",TipoRubro.PRODUCTOS_DE_REVENTA);
-        productosDeFactura.add(producto2);
+        ProductoOServicio producto1 = new ProductoOServicio(1, "Pólizas de seguro médico", 10.0f, "30-50003001-6", TipoRubro.MEDICINA_PREPAGA);
+        ProductoOServicio producto2 = new ProductoOServicio(2, "Planes de cobertura para medicamentos", 15.0f, "30-50003001-6", TipoRubro.MEDICINA_PREPAGA);
+        ProductoOServicio producto3 = new ProductoOServicio(3, "Tarjetas de regalo para viajes en Uber", 20.0f, "30-57145923-4", TipoRubro.VIATICOS_Y_MOVILIDAD);
+        ProductoOServicio producto4 = new ProductoOServicio(4, "Créditos prepagos para utilizar en Uber Eats", 25.0f, "30-57145923-4", TipoRubro.VIATICOS_Y_MOVILIDAD);
+        ProductoOServicio producto5 = new ProductoOServicio(5, "Kits de reparación y mantenimiento de muebles", 30.0f, "(Inventado)", TipoRubro.MANTENIMIENTO_DE_MUEBLES_E_INSTALACIONES);
+        ProductoOServicio producto6 = new ProductoOServicio(6, "Productos de limpieza y cuidado para el hogar", 35.0f, "(Inventado)", TipoRubro.MANTENIMIENTO_DE_MUEBLES_E_INSTALACIONES);
+        ProductoOServicio producto7 = new ProductoOServicio(7, "Papel y material de escritura", 40.0f, "30-85779909-1", TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+        ProductoOServicio producto8 = new ProductoOServicio(8, "Mobiliario de oficina", 45.0f, "30-85779909-1", TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+        ProductoOServicio producto9 = new ProductoOServicio(9, "Impresiones a color y blanco y negro", 50.0f, "(Inventado)", TipoRubro.PAPELERIA_E_IMPRESIONES);
+        ProductoOServicio producto10 = new ProductoOServicio(10, "Artículos de papelería personalizados", 55.0f, "(Inventado)", TipoRubro.PAPELERIA_E_IMPRESIONES);
+        ProductoOServicio producto11 = new ProductoOServicio(11, "Electrónicos de consumo", 60.0f, "30-10479870-5", TipoRubro.PRODUCTOS_DE_REVENTA);
+        ProductoOServicio producto12 = new ProductoOServicio(12, "Productos comestibles y de cuidado personal", 65.0f, "30-10479870-5", TipoRubro.PRODUCTOS_DE_REVENTA);
         productosDeFactura.add(producto1);
+        productosDeFactura.add(producto2);
+        productosDeFactura.add(producto3);
+        productosDeFactura.add(producto4);
+        productosDeFactura.add(producto5);
+        productosDeFactura.add(producto6);
+        productosDeFactura.add(producto7);
+        productosDeFactura.add(producto8);
+        productosDeFactura.add(producto9);
+        productosDeFactura.add(producto10);
+        productosDeFactura.add(producto11);
+        productosDeFactura.add(producto12);
+
+
 
         var facturasAEnviar = new ArrayList<Factura>();
-        var factura10 = new Factura("12-34567844-9", fecha, ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", "Empresa A", productosDeFactura);
-        var factura11 = new Factura("12-34567844-9", fecha, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "Empresa b",productosDeFactura);
+        var factura10 = new Factura("30-50003001-6", fecha,ResponsabilidadIVA.MONOTRIBUTO, "OSDE", null, productosDeFactura);
+        var factura11 = new Factura("30-50003001-6", fecha,ResponsabilidadIVA.MONOTRIBUTO, "Uber", null,productosDeFactura);
         facturasAEnviar.add(factura10);
         facturasAEnviar.add((factura11));
 
         controlador.recepcionDeFacturas(facturasAEnviar);
 
 //      LLAMADO CALCULO DEUDA DE PROVEEDOR
-        var deuda = controlador.calcularDeudaPorProveedor("12-34567844-9");
+        var deuda = controlador.calcularDeudaPorProveedor("30-50003001-6");
         System.out.println("---------------------");
-        System.out.println("Deuda por Proveedor con CUIT: 12-34567844-9 " +  "$" + deuda);
+        System.out.println("Deuda por Proveedor Con CUIT: 30-50003001-6 " +  "$" + deuda);
 
-        var deuda1 = controlador.calcularDeudaPorProveedor("98-51765432-1");
+        var deuda1 = controlador.calcularDeudaPorProveedor("30-85779909-1");
         System.out.println("---------------------");
-        System.out.println("Deuda por Proveedor con CUIT: 98-51765432-1 " + "$" +deuda1);
+        System.out.println("Deuda por Proveedor Con CUIT: 30-85779909-1 " + "$" +deuda1);
 
-        var deuda2 = controlador.calcularDeudaPorProveedor("33-33613333-3");
+        var deuda2 = controlador.calcularDeudaPorProveedor("30-71455411-2");
         System.out.println("---------------------");
-        System.out.println("Deuda por Proveedor con CUIT: 33-33613333-3 " + "$" +deuda2);
+        System.out.println("Deuda por Proveedor Con CUIT: 30-71455411-2 " + "$" +deuda2);
 
-        var deuda3 = controlador.calcularDeudaPorProveedor("22-78222222-2");
+        var deuda3 = controlador.calcularDeudaPorProveedor("30-57145923-4");
         System.out.println("---------------------");
-        System.out.println("Deuda por Proveedor con CUIT: 22-78222222-2 " + "$" + deuda3);
+        System.out.println("Deuda por Proveedor con CUIT: 30-57145923-4 " + "$" + deuda3);
 
         var proveedores = proveedorControlador.getProveedores();
         var proveedor = proveedores.get(cuitProveedor);

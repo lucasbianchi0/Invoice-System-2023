@@ -102,6 +102,7 @@ public class DocumentosPanel extends JPanel {
         modeloTabla.addColumn("Razón Social");
         modeloTabla.addColumn("Orden de Compra ID");
         modeloTabla.addColumn("Precio parcial");
+        modeloTabla.addColumn("Precio imp. IVA");
         modeloTabla.addColumn("Precio imp. ganancias");
         modeloTabla.addColumn("Precio imp. IIBB");
         modeloTabla.addColumn("Precio final");
@@ -115,6 +116,7 @@ public class DocumentosPanel extends JPanel {
                     factura.getRazonSocial(),
                     factura.getOrdenDeCompraID(),
                     factura.getPrecioParcial(),
+                    factura.getImpuestoIVA(),
                     factura.getImpuestoGanancias(),
                     factura.getImpuestoIIBB(),
                     factura.getMonto()

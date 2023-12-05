@@ -18,6 +18,8 @@ public class Factura extends Documento {
     private ArrayList<ProductoOServicio> productoOServicios;
 
     private double precioParcial;
+
+    private double impuestoIVA;
     private double impuestoIIBB;
     private double impuestoGanancias;
 //    private Float precioFinal;
@@ -30,6 +32,7 @@ public class Factura extends Documento {
         this.productoOServicios = productoOServicios;
 
         calcularPrecioParcial();
+        calcularImpuestoIVA(cuitProveedor);
         calcularImpuestoIIBB(cuitProveedor);
         calcularImpuestoGanancias(cuitProveedor);
         calcularPrecioFinal();
@@ -37,25 +40,14 @@ public class Factura extends Documento {
     }
 
 
-//    public Factura(String cuitProveedor, Date fecha, ResponsabilidadIVA responsabilidadIVA, String razonSocial, String ordenDeCompraID, ArrayList<ProductoOServicio> productoOServicios) {
-//        super(cuitProveedor, fecha);
-//        this.responsabilidadIVA = responsabilidadIVA;
-//        this.razonSocial = razonSocial;
-//        this.ordenDeCompraID = ordenDeCompraID;
-//        this.productoOServicios = productoOServicios;
-//
-//        calcularPrecioParcial();
-//        calcularImpuestoIIBB(cuitProveedor);
-//        calcularImpuestoGanancias(cuitProveedor);
-//        calcularPrecioFinal();
-//    }
 
-    public void calcularPrecioParcial() {
+
+        public void calcularPrecioParcial() {
         double total = 0.0;  // Cambié Float a double
 
         for (ProductoOServicio producto : productoOServicios) {
             System.out.println(productoOServicios);
-            total += producto.getPrecioConIVA();
+            total += producto.getPrecioUnidad();
             System.out.println("----------");
             System.out.println("CALCULAR PRECIO PARCIAL CON IVA ");
             System.out.println(producto.getPrecioUnidad());
@@ -65,7 +57,13 @@ public class Factura extends Documento {
         setPrecioParcial(total);
     }
 
+    public void calcularImpuestoIVA(String cuitProveedor ) {
+        String IVA = "IVA";
+        System.out.println("this cuit: " + cuitProveedor);
+        IVA impuestoIVA = new IVA(IVA);
+        this.impuestoIVA  = impuestoIVA.calcularImpuestoIVA(cuitProveedor, this.precioParcial, IVA);
 
+    }
 
 
     public void calcularImpuestoIIBB(String cuitProveedor) {
@@ -82,7 +80,7 @@ public class Factura extends Documento {
 
 
     public void calcularPrecioFinal() {
-        setMonto(this.precioParcial + this.impuestoIIBB + this.impuestoGanancias);
+        setMonto(this.precioParcial + this.impuestoIVA + this.impuestoIIBB + this.impuestoGanancias);
     }
 
     @Override
@@ -156,4 +154,11 @@ public class Factura extends Documento {
 //    }
 
 
+    public double getImpuestoIVA() {
+        return impuestoIVA;
+    }
+
+    public void setImpuestoIVA(double impuestoIVA) {
+        this.impuestoIVA = impuestoIVA;
+    }
 }

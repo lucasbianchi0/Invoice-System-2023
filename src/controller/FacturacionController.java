@@ -38,46 +38,65 @@ private static ArrayList<ProductoOServicio> productos;
             // Crear productos o servicios para cada factura
             ArrayList<ProductoOServicio> productosFactura1 = new ArrayList<>();
             ArrayList<ProductoOServicio> productosFactura2 = new ArrayList<>();
+            ArrayList<ProductoOServicio> productosFactura3 = new ArrayList<>();
+            ArrayList<ProductoOServicio> productosFactura4 = new ArrayList<>();
+            ArrayList<ProductoOServicio> productosFactura5 = new ArrayList<>();
+            ArrayList<ProductoOServicio> productosFactura6 = new ArrayList<>();
 
-            ProductoOServicio producto1 = new ProductoOServicio(1, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "12-34567844-9", TipoRubro.MEDICINA_PREPAGA);
-            ProductoOServicio producto89 = new ProductoOServicio(2, "Producto 2", "Unidades", 15.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "22-78222222-2",TipoRubro.PRODUCTOS_DE_REVENTA);
-            ProductoOServicio producto3 = new ProductoOServicio(3, "Producto 3", "Unidades", 20.0f, ResponsabilidadIVA.MONOTRIBUTO, "33-33613333-3",TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
-            ProductoOServicio producto4 = new ProductoOServicio(4, "Producto 4", "Unidades", 25.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "98-51765432-1",TipoRubro.PAPELERIA_E_IMPRESIONES);
-            ProductoOServicio producto5 = new ProductoOServicio(5, "Producto 5", "Unidades", 30.0f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "11-64111111-1",TipoRubro.VIATICOS_Y_MOVILIDAD);
-            productosFactura1.add(producto1);
-            productosFactura1.add(producto89);
-            productosFactura2.add(producto3);
-            productosFactura2.add(producto4);
-            productosFactura2.add(producto5);
-//            ProductoOServicio producto9 = new ProductoOServicio(1, "Producto 1", "Unidades", 9.0f, ResponsabilidadIVA.MONOTRIBUTO, "12-34516748-9", TipoRubro.MEDICINA_PREPAGA);
-//            productos.add(producto9);
 
+            ProductoOServicio producto1 = new ProductoOServicio(1, "Pólizas de seguro médico", 10.0f, "30-50003001-6", TipoRubro.MEDICINA_PREPAGA);
+            ProductoOServicio producto2 = new ProductoOServicio(2, "Planes de cobertura para medicamentos", 15.0f, "30-50003001-6", TipoRubro.MEDICINA_PREPAGA);
+            ProductoOServicio producto3 = new ProductoOServicio(3, "Tarjetas de regalo para viajes en Uber", 20.0f, "30-57145923-4", TipoRubro.VIATICOS_Y_MOVILIDAD);
+            ProductoOServicio producto4 = new ProductoOServicio(4, "Créditos prepagos para utilizar en Uber Eats", 25.0f, "30-57145923-4", TipoRubro.VIATICOS_Y_MOVILIDAD);
+            ProductoOServicio producto5 = new ProductoOServicio(5, "Kits de reparación y mantenimiento de muebles", 30.0f, "(Inventado)", TipoRubro.MANTENIMIENTO_DE_MUEBLES_E_INSTALACIONES);
+            ProductoOServicio producto6 = new ProductoOServicio(6, "Productos de limpieza y cuidado para el hogar", 35.0f, "(Inventado)", TipoRubro.MANTENIMIENTO_DE_MUEBLES_E_INSTALACIONES);
+            ProductoOServicio producto7 = new ProductoOServicio(7, "Papel y material de escritura", 40.0f, "30-85779909-1", TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+            ProductoOServicio producto8 = new ProductoOServicio(8, "Mobiliario de oficina", 45.0f, "30-85779909-1", TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+            ProductoOServicio producto9 = new ProductoOServicio(9, "Impresiones a color y blanco y negro", 50.0f, "(Inventado)", TipoRubro.PAPELERIA_E_IMPRESIONES);
+            ProductoOServicio producto10 = new ProductoOServicio(10, "Artículos de papelería personalizados", 55.0f, "(Inventado)", TipoRubro.PAPELERIA_E_IMPRESIONES);
+            ProductoOServicio producto11 = new ProductoOServicio(11, "Electrónicos de consumo", 60.0f, "30-10479870-5", TipoRubro.PRODUCTOS_DE_REVENTA);
+            ProductoOServicio producto12 = new ProductoOServicio(12, "Productos comestibles y de cuidado personal", 65.0f, "30-10479870-5", TipoRubro.PRODUCTOS_DE_REVENTA);
             productos.add(producto1);
-            ProductoOServicio producto99 = new ProductoOServicio(99, "Producto 1", "Unidades", 10.0f, ResponsabilidadIVA.MONOTRIBUTO, "11-64111111-1", TipoRubro.MEDICINA_PREPAGA);
-            productos.add(producto99);
-            productos.add(producto89);
+            productos.add(producto2);
             productos.add(producto3);
             productos.add(producto4);
             productos.add(producto5);
-
-
+            productos.add(producto6);
+            productos.add(producto7);
+            productos.add(producto8);
+            productos.add(producto9);
+            productos.add(producto10);
+            productos.add(producto11);
+            productos.add(producto12);
+            productosFactura1.add(producto1);
+            productosFactura1.add(producto3);
+            productosFactura2.add(producto2);
+            productosFactura2.add(producto4);
+            productosFactura3.add(producto6);
+            productosFactura3.add(producto6);
+            productosFactura4.add(producto7);
+            productosFactura4.add(producto8);
+            productosFactura5.add(producto9);
+            productosFactura5.add(producto12);
+            productosFactura6.add(producto10);
+            productosFactura6.add(producto11);
 
 //                                                               SE AGREGAN FACTURAS
 
 
-            Factura factura1 = new Factura("12-34567844-9",  sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa A", null, productosFactura1);
+            Factura factura1 = new Factura("30-50003001-6",  sdf.parse("01/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "OSDE", null, productosFactura1);
             facturas.add(factura1);
 
-            Factura factura2 = new Factura("98-51765432-1",  sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa B", "OC456",productosFactura2);
+            Factura factura2 = new Factura("30-85779909-1",  sdf.parse("02/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Uber", "OC456",productosFactura2);
             facturas.add(factura2);
 
-            Factura factura3 = new Factura("33-33613333-3",  sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "Empresa C", "OC789",productosFactura1);
+            Factura factura3 = new Factura("30-71455411-2",  sdf.parse("03/01/2023"), ResponsabilidadIVA.MONOTRIBUTO, "ISS Facility Services", "OC789",productosFactura1);
             facturas.add(factura3);
 
-            Factura factura4 = new Factura("22-78222222-2",  sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa D", "OC012",productosFactura1);
+            Factura factura4 = new Factura("30-57145923-4",  sdf.parse("04/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Staples", "OC012",productosFactura1);
             facturas.add(factura4);
 
-            Factura factura5 = new Factura("11-64111111-1",  sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "Empresa E", "OC345",productosFactura2);
+            Factura factura5 = new Factura("30-42153789-2",  sdf.parse("05/01/2023"), ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "FedEx Office", "OC345",productosFactura2);
 
             facturas.add(factura5);
 
@@ -88,8 +107,8 @@ private static ArrayList<ProductoOServicio> productos;
 
             // Crear lista de documentos asociados a la primera OrdenDePago
             ArrayList<Documento> documentosOrden1 = new ArrayList<>();
-            documentosOrden1.add(new NotaDeDebito("12-34567844-9", new Date(), 50)); // Ejemplo de NotaDebito
-            documentosOrden1.add(new NotaDeCredito("12-34567844-9", new Date(),30)); // Ejemplo de NotaCredito
+            documentosOrden1.add(new NotaDeDebito("30-50003001-6", new Date(), 50)); // Ejemplo de NotaDebito
+            documentosOrden1.add(new NotaDeCredito("30-50003001-6", new Date(),30)); // Ejemplo de NotaCredito
 
 
             // Crear lista de documentos asociados a la segunda OrdenDePago
@@ -110,7 +129,7 @@ private static ArrayList<ProductoOServicio> productos;
             ArrayList<Documento> documentosOrden4 = new ArrayList<>();
 
             documentosOrden4.add(factura4); // Ejemplo de Factura
-            documentosOrden4.add(new NotaDeCredito("22-78222222-2", new Date(),30)); // Ejemplo de NotaCredito
+            documentosOrden4.add(new NotaDeCredito("30-57145923-4", new Date(),30)); // Ejemplo de NotaCredito
 
             // Crear la primera OrdenDePago con cheques como forma de pago
             OrdenDePago orden1 = new OrdenDePago("1",documentosOrden1, cheque1, 200.00);
@@ -134,9 +153,9 @@ private static ArrayList<ProductoOServicio> productos;
 
 
 //                                                              SE AGREGA RECIBOS DE PAGO
-            ReciboPago recibo1 = new ReciboPago(1, new Date(), cheque1, "12-34567844-9", "1", orden1.getDocumentosAsociados());
-            ReciboPago recibo2 = new ReciboPago(2, new Date(), cheque2, "98-51765432-1", "2", orden2.getDocumentosAsociados());
-            ReciboPago recibo3 = new ReciboPago(3, new Date(), efectivo1, "33-33613333-3", "3", orden3.getDocumentosAsociados());
+            ReciboPago recibo1 = new ReciboPago(1, new Date(), cheque1, "30-50003001-6", "1", orden1.getDocumentosAsociados());
+            ReciboPago recibo2 = new ReciboPago(2, new Date(), cheque2, "30-85779909-1", "2", orden2.getDocumentosAsociados());
+            ReciboPago recibo3 = new ReciboPago(3, new Date(), efectivo1, "30-71455411-2", "3", orden3.getDocumentosAsociados());
 
             recibosDePago.add(recibo1);
             recibosDePago.add(recibo2);
@@ -147,9 +166,8 @@ private static ArrayList<ProductoOServicio> productos;
 
             ArrayList<ProductoOServicio> productosOdc = new ArrayList<>();
 //        INSTANCIO PRODUCTOS
-            ProductoOServicio producto6=new ProductoOServicio(1,"remera", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit", TipoRubro.MEDICINA_PREPAGA );
-            ProductoOServicio producto7=new ProductoOServicio(2,"remeron", "3", 3.14f, ResponsabilidadIVA.RESPONSABLE_INSCRIPTO, "cuit",TipoRubro.PRODUCTOS_DE_REVENTA );
-
+            //ProductoOServicio producto6 = new ProductoOServicio(6,"Productos de limpieza y cuidado para el hogar", 35.0f, "30-85779909-1", TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
+            //ProductoOServicio producto7 = new ProductoOServicio(6,"Papel y material de escritura", 40.0f, "30-85779909-1",TipoRubro.LIBRERIA_Y_OTROS_INSUMOS);
             productosOdc.add(producto6);
             productosOdc.add(producto7);
 
@@ -200,9 +218,6 @@ private static ArrayList<ProductoOServicio> productos;
     }
 
 
-
-
-
     public ArrayList<Factura> obtenerFacturas() {
         // Devolver directamente la lista de facturas
         return facturas;
@@ -217,7 +232,6 @@ private static ArrayList<ProductoOServicio> productos;
         // Devolver directamente la lista de facturas
         return ordenesDePago;
     }
-
 
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -255,7 +269,7 @@ private static ArrayList<ProductoOServicio> productos;
                 System.out.println("PRODUCTO :");
                 System.out.println("NOMBRE " + productoOServicio.getNombre());
                 System.out.println("PRECIO UNIDAD " + productoOServicio.getPrecioUnidad());
-                System.out.println("PRECIO CON IVA: " + productoOServicio.getPrecioConIVA());
+//                System.out.println("PRECIO CON IVA: " + productoOServicio.getPrecioConIVA());
 
                 // Agregar el producto a la lista
                 listaProductos.add(productoOServicio);
@@ -480,43 +494,54 @@ private static ArrayList<ProductoOServicio> productos;
 
 
     public void recepcionDeFacturas(ArrayList<Factura> facturasRecibidas) {
+        int conuterAG = 0;
+        int counterS = 0;
 
-        int conuterAG=0;
-        int counterS =0;
         for (Factura facturaRecibida : facturasRecibidas) {
             boolean coincidenciaEncontrada = false; // Paso 1
             System.out.println("------------");
             System.out.println("El orden de compra ID de la factura recibida es: " + facturaRecibida.getOrdenDeCompraID());
 
-            for (OrdenDeCompra ordenDeCompra : ordenesDeCompra) {
+            // Verificar si getOrdenDeCompraID() es null
+            if (facturaRecibida.getOrdenDeCompraID() == null) {
+                facturasASupervisar.add(facturaRecibida);
+                counterS += 1;
+                System.out.println("se factura a la lista de supervisar (orden de compra ID es null)");
+                continue;  // Ir al siguiente bucle sin procesar el bucle interno
+            }
 
+            for (OrdenDeCompra ordenDeCompra : ordenesDeCompra) {
                 String odcIdOrdenDeCompraExistente = ordenDeCompra.getOrdenDeCompraID();
                 if (facturaRecibida.getOrdenDeCompraID().equals(odcIdOrdenDeCompraExistente)) {
                     System.out.println("coincide con una orden de compra");
-
                     System.out.println(facturaRecibida.getProductoOServicios());
                     facturas.add(facturaRecibida);
-                    conuterAG +=1;
+                    conuterAG += 1;
                     coincidenciaEncontrada = true; // Paso 2
                 }
             }
 
             if (!coincidenciaEncontrada) {
                 facturasASupervisar.add(facturaRecibida);
-                counterS +=1;
+                counterS += 1;
                 System.out.println("se factura a la lista de supervisar");
             }
         }
 
         System.out.println("facturas a supervisar " + facturasASupervisar);
-        System.out.println("facturas agregadas "+conuterAG);
-        System.out.println("facturas a supervisar  "+counterS);
+        System.out.println("facturas agregadas " + conuterAG);
+        System.out.println("facturas a supervisar " + counterS);
     }
 
     public List<ReciboPago> getRecibosDePago(String cuitProveedor) {
         return recibosDePago.stream().filter(reciboPago -> reciboPago.getCuitProveedor().equals(cuitProveedor))
                 .toList();
     }
+
+    public void agregarFactura(Factura factura) {
+        facturas.add(factura);
+    }
+
 }
 
 

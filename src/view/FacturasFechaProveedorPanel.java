@@ -85,6 +85,13 @@ public class FacturasFechaProveedorPanel extends JPanel {
                 // Realizar la búsqueda de facturas
                 ArrayList<Factura> facturas = FacturacionController.buscarFacturaPorFechaYproveedor(filtroFecha, filtroCuitProveedor);
 
+                // Verificar si se encontraron resultados
+                if (facturas.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No se encontraron facturas con los criterios de búsqueda. Mostrando todas las facturas.");
+                    // Obtener todas las facturas
+                    facturas = FacturacionController.getInstancia().obtenerFacturas();
+                }
+
                 // Actualizar la tabla con los resultados
                 actualizarTabla(facturas);
             }
@@ -99,6 +106,7 @@ public class FacturasFechaProveedorPanel extends JPanel {
         // Configurar el modelo de la tabla
         DefaultTableModel modeloTabla = new DefaultTableModel();
         modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Cuit proveedor");
         modeloTabla.addColumn("Fecha");
         modeloTabla.addColumn("Responsabilidad IVA");
         modeloTabla.addColumn("Razón Social");
@@ -109,6 +117,7 @@ public class FacturasFechaProveedorPanel extends JPanel {
         for (Factura factura : facturas) {
             Object[] fila = {
                     factura.getID(),
+                    factura.getCuitProveedor(),
                     factura.getFecha(),
                     factura.getResponsabilidadIVA(),
                     factura.getRazonSocial(),
@@ -121,6 +130,7 @@ public class FacturasFechaProveedorPanel extends JPanel {
         // Establecer el modelo en la tabla
         table.setModel(modeloTabla);
     }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
