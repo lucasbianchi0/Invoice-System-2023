@@ -1,74 +1,74 @@
-<h1> Sistema Proveedores </h1>
+<h1>Invoice System 2023</h1>
 
-Trabajo Práctico realizado en grupo para la Universidad Argentina de la Empresa, utilizando Java 17. En el mismo se utilizó el patrón singleton y MVC. Consigna:
+Project carried out in a group for the Argentine University of Business, using Java 17. The singleton and MVC pattern were used in the project. Assignment:
 
-<h2>Antecedentes</h2>
+<h2>Background</h2>
 
-Job-Soft es una empresa experta en sistemas de facturación. Su sistema Factura 2023 tiene una amplia penetración en el mercado argentino y el grado de satisfacción de sus clientes es alto.
- 
-El sistema se encarga de la administración de productos, clientes, emisión de remitos y facturas electrónica mediante la conexión por webservice con AFIP, cobros, cuenta corriente de clientes y presentación mensual del libro IVA ventas.
- 
-La empresa recibe constantes solicitudes de sus clientes para incorporar un módulo para administrar proveedores. La gerencia decide iniciar el proyecto de desarrollo del mmódulo de proveedores para Factura 2000.
+Job-Soft is a company specializing in billing systems. Its Factura 2023 system has a significant presence in the Argentine market, and its customers are highly satisfied.
 
-<h2>Proveedores</h2>
+The system manages products, clients, issuance of receipts and electronic invoices through web service connection with AFIP, collections, customer accounts, and monthly presentation of the IVA sales book.
 
-Cuando una empresa decide adquirir productos o servicios, la compra es formalizada por una factura donde consta el CUIT de la empresa proveedora, responsabilidad frente al IVA (responsable inscripto o monotributo), razón social, nombre de fantasía, dirección, teléfono, correo electrónico (puede no estar) y número de ingresos brutos e inicio de actividades.
+The company receives constant requests from its customers to incorporate a module to manage suppliers. The management decides to start the development project for the Suppliers module for Factura 2000.
 
-Cuando se recibe la primera factura del proveedor se deben poder cargar toda la información que consta en la cabecera de la factura para no volver a cargar los datos y, a partir de ese momento, identificar al proveedor sólo por su CUIT.
+<h2>Suppliers</h2>
 
-Los proveedores son agrupados por rubros. Cada rubro representa los tipos de productos y servicios que puede proveer el proveedor.
+When a company decides to acquire products or services, the purchase is formalized by an invoice that includes the supplier's CUIT, responsibility for VAT (registered or simplified taxpayer), business name, trade name, address, phone, email (may be absent), and gross income and start of activities numbers.
 
-Algunos ejemplos de rubros:
-• Medicina Prepaga
-• Viáticos y movilidad
-• Mantenimiento de muebles e instalaciones
-• Librería y otros insumos
-• Papelería e impresiones
-• Productos de reventa
+When receiving the first invoice from the supplier, all the information in the header of the invoice must be loaded so as not to re-enter the data, and from that moment on, the supplier is identified only by its CUIT.
 
-Un mismo proveedor puede brindar productos o servicios para uno o más rubros.
+Suppliers are grouped by categories. Each category represents the types of products and services that the supplier can provide.
 
-<h2>Productos y servicios</h2>
+Some examples of categories:
+• Prepaid Medicine
+• Travel and Mobility
+• Furniture and Facilities Maintenance
+• Stationery and Other Supplies
+• Stationery and Printing
+• Resale Products
 
-La empresa adquiere distintos productos o servicios. Cada producto o servicio pertenece a un único rubro.
-Un mismo producto puede adquirirse de más de un proveedor a la vez. 
-Los productos se compran por tipo de unidad (unidad, peso, horas), tienen un precio por unidad (acordado con el proveedor) y el tipo de IVA (2,5%, 5%, 10,5%, 21% o 27%)
+The same supplier can provide products or services for one or more categories.
 
-<h2>Retención de impuestos</h2>
+<h2>Products and Services</h2>
 
-Cada proveedor es susceptible a recibir retenciones de impuestos (IVA, IIBB, Ganancias). Cuando un proveedor no desea que la empresa le retenga un impuesto determinado puede tramitar y luego presentar un certificado de no retención (por ejemplo, de ganancias) a la empresa la cual, por un período de tiempo (determinado por el certificado presentado) no se retendrá el impuesto.
-Al finalizar el tiempo determinado por el certificado, la empresa debe volver a retener el impuesto a menos que el proveedor presente un nuevo certificado.
-La retención de los impuestos se realiza por tipo de impuesto y porcentaje. Cada vez que se le realiza un pago a un proveedor, se le descuenta el % establecido en el impuesto a modo de retención.
-Hay impuestos como el impuesto a la ganancia donde el porcentaje no es fijo y se incluyen mínimos no imponibles (montos por debajo de los cuales no deben hacerse retenciones). Se adjunta resolución de AFIP por montos de retención de impuestos a las ganancias.
+The company acquires various products or services. Each product or service belongs to a unique category.
+The same product can be purchased from more than one supplier at a time.
+Products are purchased by unit type (unit, weight, hours), have a unit price (agreed with the supplier), and the type of VAT (2.5%, 5%, 10.5%, 21%, or 27%).
 
-<h2>Órdenes de compra</h2>
+<h2>Tax Withholding</h2>
 
-Cada compra que se hace a un proveedor se hace mediante la confección de una orden de compra donde constan los productos solicitados y el último precio acordado.
-Las empresas pueden tener por política no deber más de cierta cantidad de dinero a cada proveedor (se establece de manera particular según la importancia de cada uno) y el monto de la orden de compra más el dinero adeudado por facturas impagas no debe superar el importe establecido como tope. Se pueden emitir órdenes de compras donde la deuda supere el tope por proveedor siempre y cuando haya una supervisión de por medio.
+Each supplier is subject to withholding taxes (VAT, IIBB, Profits). When a supplier does not want the company to withhold a certain tax, they can apply for and then submit a non-withholding certificate (for example, for profits) to the company, which, for a period of time (specified by the certificate presented), will not withhold the tax.
+At the end of the time specified by the certificate, the company must resume withholding the tax unless the supplier presents a new certificate.
+Tax withholding is done by tax type and percentage. Each time a payment is made to a supplier, the established percentage of the tax is deducted as a withholding.
+There are taxes like the profit tax where the percentage is not fixed, and minimum non-taxable amounts (amounts below which no withholdings should be made) are included. An AFIP resolution is attached for amounts of profit tax withholding.
 
-<h2>Recepción de facturas</h2>
+<h2>Purchase Orders</h2>
 
-Cuando se reciben facturas emitidas a nombre de la empresa deben estar asociadas a una orden de compra previamente emitida. Al cargar la factura donde constan los productos, precios unitarios e impuestos se deben controlar que los precios facturados coincidan con los emitidos en la orden de compra.
-Se pueden recibir facturas SIN orden de compra y SIN que los precios recibidos coincidan, pero se debe pasar por una supervisión previa para la aceptación de la factura.
-Un proveedor puede emitir facturas, notas de crédito o notas de débito que conforman la cuenta corriente del proveedor.
+Each purchase made to a supplier is made by preparing a purchase order that includes the requested products and the last agreed price.
+Companies may have a policy not to owe more than a certain amount of money to each supplier (established individually according to each one's importance), and the amount of the purchase order plus the money owed for unpaid invoices must not exceed the established limit. Purchase orders where the debt exceeds the limit per supplier can be issued as long as there is supervision involved.
 
-<h2>Emisión de órdenes de pago</h2>
+<h2>Receipt of Invoices</h2>
 
-Cuando se le paga a un proveedor una o más facturas se emite una orden de pago en la que constan los documentos asociados (factura, nota de crédito o nota de débito), total a cancelar, forma de pago -efectivo / cheque(s)-  y total de retenciones.
-A cualquier orden de pago se le pueden asociar cheques propios o de terceros (emitidos por otras empresas) donde consta la fecha de emisión, fecha de vencimiento, firmante e importe.
+When invoices issued to the company are received, they must be associated with a previously issued purchase order. When entering the invoice, which includes the products, unit prices, and taxes, it must be checked that the invoiced prices match those issued in the purchase order.
+Invoices can be received WITHOUT a purchase order and WITHOUT matching prices, but they must undergo prior supervision for the acceptance of the invoice.
+A supplier can issue invoices, credit notes, or debit notes that make up the supplier's account.
 
-<h2>Consultas generales</h2>
+<h2>Issuance of Payment Orders</h2>
 
-• Total de facturas recibidas por día y/o proveedor
-• Cuenta corriente de proveedores donde se debe visualizar: deuda, documentos recibidos, documentos impagos y pagos realizados.
-• Compulsa de precios. Se debe poder elegir un producto de un rubro en particular y visualizar los datos de los proveedores que lo comercializan junto con el último precio acordado.
-• Ordenes de pagos emitidas
-• Total de deuda por proveedor
-• Total de impuestos retenidos
-• Consulta de libro IVA compras donde debe constar:
-• CUIT del proveedor
-• Nombre del proveedor
-• Fecha
-• Tipo de documento (Factura / NC / ND)
-• IVA 2,5%, 5%, 10.5%, 21% y 27%
+When one or more invoices are paid to a supplier, a payment order is issued, which includes the associated documents (invoice, credit note, or debit note), total to be paid, payment method - cash / check(s) - and total withholdings.
+Any payment order can be associated with own or third-party checks (issued by other companies), including the issuance date, due date, signer, and amount.
+
+<h2>General Queries</h2>
+
+• Total invoices received per day and/or supplier
+• Supplier's account where you should visualize: debt, received documents, unpaid documents, and payments made.
+• Price comparison. You should be able to choose a product from a specific category and view the data of the suppliers who market it along with the last agreed price.
+• Issued payment orders
+• Total debt per supplier
+• Total taxes withheld
+• Purchase book query where it must include:
+• Supplier's CUIT
+• Supplier's name
+• Date
+• Document type (Invoice / Credit Note / Debit Note)
+• VAT 2.5%, 5%, 10.5%, 21%, and 27%
 • Total
